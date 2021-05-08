@@ -3,12 +3,12 @@ import { ActionTypes } from "../action-types";
 
 export interface GetUpcomingMoviesAction {
   type: ActionTypes.GET_UPCOMING_MOVIES;
-  payload: any;
+  payload: MovieSearchResult;
 }
 
 export interface GetPopularMoviesAction {
   type: ActionTypes.GET_POPULAR_MOVIES;
-  payload: any;
+  payload: MovieSearchResult;
 }
 
 export interface GetNowPlayingMoviesAction {
@@ -18,7 +18,7 @@ export interface GetNowPlayingMoviesAction {
 
 export interface GetTopRatedMoviesAction {
   type: ActionTypes.GET_TOP_RATED_MOVIES;
-  payload: any;
+  payload: MovieSearchResult;
 }
 
 export type MoviesAction =

@@ -19,7 +19,7 @@ interface MovieDetails {
 }
 
 export interface MovieSearchResult {
-  dates: {
+  dates?: {
     maximum: string;
     minimum: string;
   };
@@ -29,17 +29,23 @@ export interface MovieSearchResult {
   total_results: number;
 }
 
-export interface MovieState {
+export interface MoviesState {
   nowPlaying: MovieSearchResult;
   upcoming: MovieSearchResult;
+  popular: MovieSearchResult;
+  topRated: MovieSearchResult;
 }
 
-const moviesReducer = (state = {}, action: MoviesAction) => {
+const moviesReducer = (state: MoviesState | {} = {}, action: MoviesAction) => {
   switch (action.type) {
     case ActionTypes.GET_NOW_PLAYING_MOVIES:
       return { ...state, nowPlaying: action.payload };
     case ActionTypes.GET_UPCOMING_MOVIES:
       return { ...state, upcoming: action.payload };
+    case ActionTypes.GET_POPULAR_MOVIES:
+      return { ...state, popular: action.payload };
+    case ActionTypes.GET_TOP_RATED_MOVIES:
+      return { ...state, topRated: action.payload };
     default:
       return state;
   }

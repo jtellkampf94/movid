@@ -14,23 +14,7 @@ export interface ConfigState {
   };
 }
 
-const initialState: ConfigState = {
-  change_keys: [],
-  images: {
-    backdrop_sizes: [],
-    base_url: "",
-    logo_sizes: [],
-    poster_sizes: [],
-    profile_sizes: [],
-    secure_base_url: "",
-    still_sizes: []
-  }
-};
-
-const configReducer = (
-  state: ConfigState = initialState,
-  action: ConfigActions
-): ConfigState => {
+const configReducer = (state: ConfigState | {} = {}, action: ConfigActions) => {
   switch (action.type) {
     case ActionTypes.GET_CONFIG:
       return { ...action.payload };
