@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-const App = () => {
-  const { getConfig } = useActions();
+const App: React.FC = () => {
+  const { getConfig, getNowPlayingMovies, getUpcomingMovies } = useActions();
   const state = useTypedSelector(state => state);
   console.log(state);
   useEffect(() => {
     getConfig();
+    getNowPlayingMovies();
+    getUpcomingMovies();
   }, []);
   return (
     <div className="App">

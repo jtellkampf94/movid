@@ -1,8 +1,9 @@
-import ActionTypes from "../action-types";
+import { ConfigState } from "./../reducers/config-reducer";
+import { ActionTypes } from "../action-types";
 
 export interface GetConfigAction {
   type: ActionTypes.GET_CONFIG;
-  payload: any;
+  payload: ConfigState;
 }
 
 export type ConfigActions = GetConfigAction;

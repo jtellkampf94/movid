@@ -1,7 +1,7 @@
-import ActionTypes from "../action-types";
+import { ActionTypes } from "../action-types";
 import { ConfigActions } from "../actions";
 
-interface State {
+export interface ConfigState {
   change_keys: string[];
   images: {
     backdrop_sizes: string[];
@@ -14,7 +14,7 @@ interface State {
   };
 }
 
-const initialState: State = {
+const initialState: ConfigState = {
   change_keys: [],
   images: {
     backdrop_sizes: [],
@@ -27,10 +27,13 @@ const initialState: State = {
   }
 };
 
-const configReducer = (state: State = initialState, action: ConfigActions) => {
+const configReducer = (
+  state: ConfigState = initialState,
+  action: ConfigActions
+): ConfigState => {
   switch (action.type) {
     case ActionTypes.GET_CONFIG:
-      return { config: action.payload };
+      return { ...action.payload };
     default:
       return state;
   }
