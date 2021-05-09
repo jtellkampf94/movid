@@ -1,0 +1,42 @@
+@import "../../styles/variables";
+
+.nav-list {
+  list-style: none;
+  display: flex;
+
+  &-item {
+    margin-left: 1em;
+  }
+
+  &-item a {
+    font-size: 0.75rem;
+    color: $white;
+    font-family: $brand-font;
+    text-transform: uppercase;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .nav-list {
+    flex-direction: column;
+    height: 200px;
+    justify-content: space-around;
+    align-items: center;
+
+    &-item {
+      flex-direction: column;
+      margin-left: 0;
+    }
+
+    &-item a {
+      font-size: 0.75rem;
+      -webkit-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: $red;
+      }
+    }
+  }
+}
