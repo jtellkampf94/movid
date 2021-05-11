@@ -7,5 +7,6 @@ export enum ActionTypes {
   GET_UPCOMING_TV = "get_upcoming_tv",
   GET_POPULAR_TV = "get_popular_tv",
   GET_NOW_PLAYING_TV = "get_now_playing_tv",
-  GET_TOP_RATED_TV = "get_top_rated_tv"
+  GET_TOP_RATED_TV = "get_top_rated_tv",
+  GET_DISCOVER_MOVIES = "get_discover_movies"
 }

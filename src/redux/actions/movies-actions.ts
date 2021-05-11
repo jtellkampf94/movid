@@ -21,8 +21,14 @@ export interface GetTopRatedMoviesAction {
   payload: MovieSearchResult;
 }
 
+export interface GetDiscoverMoviesAction {
+  type: ActionTypes.GET_DISCOVER_MOVIES;
+  payload: MovieSearchResult;
+}
+
 export type MoviesAction =
   | GetUpcomingMoviesAction
   | GetPopularMoviesAction
   | GetNowPlayingMoviesAction
-  | GetTopRatedMoviesAction;
+  | GetTopRatedMoviesAction
+  | GetDiscoverMoviesAction;

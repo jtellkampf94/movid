@@ -1,16 +1,56 @@
-import { useState } from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import AsyncSelect from "react-select/async";
+import { MovieDetails } from "../../redux/reducers/movies-reducer";
 import Header from "../Header";
 
 import "./discover.scss";
 
+interface SearchedPeople {
+  page: number;
+  results: {
+    adult: boolean;
+    gender: number;
+    id: number;
+    known_for: MovieDetails[];
+    known_for_department: string;
+    name: string;
+    popularity: number;
+    profile_path: string;
+  }[];
+  total_pages: number;
+  total_results: number;
+}
+
 const Discover: React.FC = () => {
   const [sortBy, setSortBy] = useState("popularity.desc");
   const [voteAverage, setVoteAverage] = useState<null | string>(null);
+  const [searchedPeople, setSearchedPeople] = useState<null | SearchedPeople>(
+    null
+  );
+  const [peopleInput, setPeopleInput] = useState("");
   const [withPeople, setWithPeople] = useState<null | string>(null);
   const [withGenres, setWithGenres] = useState<null | string>(null);
   const [withKeywords, setWithKeywords] = useState<null | string>(null);
   const [year, setYear] = useState<null | string>(null);
-  const [page, setPage] = useState<null | string>("1");
+  const [page, setPage] = useState("1");
+
+  const key = "1ded79dbc2a8dfdb74aafb044ce26713";
+
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}&${
+    voteAverage ? `vote_average.gte=${voteAverage}&` : ""
+  }${withGenres ? `with_genres=${withGenres}&` : ""}${
+    withPeople ? `with_people=${withPeople}&` : ""
+  }${year ? `primary_release_year=${year}` : ""}`;
+
+  const handleChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): Promise<void> => {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/search/person?api_key=${key}&language=en-US&query=${e.target.value}&page=1&include_adult=false`
+    );
+    setSearchedPeople(data);
+  };
 
   return (
     <div className="discover">
@@ -57,14 +97,26 @@ const Discover: React.FC = () => {
           value={voteAverage?.toString()}
           placeholder="Vote Average"
         />
-        <input
-          className="discover-form__input"
-          onChange={e => setWithPeople(e.target.value)}
-          type="text"
-          name="with_People"
-          value={withPeople?.toString()}
-          placeholder="People involved"
-        />
+        <div className="discover-form__dropdown">
+          <input
+            type="text"
+            placeholder="Search people involved"
+            onChange={handleChange}
+            value={peopleInput}
+          />
+          {searchedPeople?.results.map(person => (
+            <div
+              className="discover-form__dropdown-options"
+              key={person.id}
+              onClick={() => {
+                setWithPeople(person.id.toString());
+                setPeopleInput(person.name);
+              }}
+            >
+              {person.name}
+            </div>
+          ))}
+        </div>
         <input
           className="discover-form__input"
           onChange={e => setWithGenres(e.target.value)}
@@ -92,7 +144,18 @@ const Discover: React.FC = () => {
         />
       </form>
 
-      <button type="submit">Search</button>
+      <button
+        type="submit"
+        onClick={async e => {
+          e.preventDefault();
+
+          console.log(url);
+          const { data } = await axios.get(url);
+          console.log(data);
+        }}
+      >
+        Search
+      </button>
     </div>
   );
 };

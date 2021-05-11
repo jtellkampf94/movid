@@ -2,6 +2,7 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "../action-types";
 import {
+  GetDiscoverMoviesAction,
   GetNowPlayingMoviesAction,
   GetPopularMoviesAction,
   GetTopRatedMoviesAction,
@@ -70,6 +71,47 @@ export const getPopularMovies = () => async (
     );
     const action: GetPopularMoviesAction = {
       type: ActionTypes.GET_POPULAR_MOVIES,
+      payload: data
+    };
+    return dispatch(action);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+interface MovieFilers {
+  sortBy: string;
+  voteAverage: null | string;
+  withPeople: null | string;
+  withGenres: null | string;
+  withKeywords: null | string;
+  year: null | string;
+  page: string;
+}
+
+export const getDiscoverMovies = (movieFilers: MovieFilers) => async (
+  dispatch: Dispatch
+): Promise<GetDiscoverMoviesAction | void> => {
+  try {
+    const {
+      sortBy,
+      voteAverage,
+      withPeople,
+      withGenres,
+      withKeywords,
+      year,
+      page
+    } = movieFilers;
+
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}&${
+      voteAverage ? `vote_average.gte=${voteAverage}&` : ""
+    }${withGenres ? `with_genres=${withGenres}&` : ""}${
+      withPeople ? `with_people=${withPeople}&` : ""
+    }${year ? `year=${year}` : ""}`;
+
+    const { data } = await axios.get(url);
+    const action: GetDiscoverMoviesAction = {
+      type: ActionTypes.GET_DISCOVER_MOVIES,
       payload: data
     };
     return dispatch(action);
