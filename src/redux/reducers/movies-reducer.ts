@@ -31,11 +31,28 @@ export interface MovieSearchResult {
   total_results: number;
 }
 
+export interface SearchedPeople {
+  page: number;
+  results: {
+    adult: boolean;
+    gender: number;
+    id: number;
+    known_for: MovieDetails[];
+    known_for_department: string;
+    name: string;
+    popularity: number;
+    profile_path: string;
+  }[];
+  total_pages: number;
+  total_results: number;
+}
+
 export interface MoviesState {
   nowPlaying: MovieSearchResult;
   upcoming: MovieSearchResult;
   popular: MovieSearchResult;
   topRated: MovieSearchResult;
+  discover: SearchedPeople;
 }
 
 // Derriving initial state for reducer using interfaces above
@@ -68,11 +85,30 @@ const initialMovieSearchResult: MovieSearchResult = {
   total_results: 0
 };
 
+const initialDiscoverState: SearchedPeople = {
+  page: 0,
+  results: [
+    {
+      adult: false,
+      gender: 0,
+      id: 0,
+      known_for: [{ ...initialMovieDetailsState }],
+      known_for_department: "",
+      name: "",
+      popularity: 0,
+      profile_path: ""
+    }
+  ],
+  total_pages: 0,
+  total_results: 0
+};
+
 const initialMoviesState: MoviesState = {
   nowPlaying: { ...initialMovieSearchResult },
   upcoming: { ...initialMovieSearchResult },
   popular: { ...initialMovieSearchResult },
-  topRated: { ...initialMovieSearchResult }
+  topRated: { ...initialMovieSearchResult },
+  discover: { ...initialDiscoverState }
 };
 
 // reducer
@@ -90,6 +126,8 @@ const moviesReducer = (
       return { ...state, popular: action.payload };
     case ActionTypes.GET_TOP_RATED_MOVIES:
       return { ...state, topRated: action.payload };
+    case ActionTypes.GET_DISCOVER_MOVIES:
+      return { ...state, discover: action.payload };
     default:
       return state;
   }

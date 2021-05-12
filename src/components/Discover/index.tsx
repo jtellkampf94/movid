@@ -1,26 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 import AsyncSelect from "react-select/async";
-import { MovieDetails } from "../../redux/reducers/movies-reducer";
+import { SearchedPeople } from "../../redux/reducers/movies-reducer";
 import Header from "../Header";
 
 import "./discover.scss";
-
-interface SearchedPeople {
-  page: number;
-  results: {
-    adult: boolean;
-    gender: number;
-    id: number;
-    known_for: MovieDetails[];
-    known_for_department: string;
-    name: string;
-    popularity: number;
-    profile_path: string;
-  }[];
-  total_pages: number;
-  total_results: number;
-}
 
 const Discover: React.FC = () => {
   const [sortBy, setSortBy] = useState("popularity.desc");
@@ -117,6 +101,7 @@ const Discover: React.FC = () => {
             </div>
           ))}
         </div>
+
         <input
           className="discover-form__input"
           onChange={e => setWithGenres(e.target.value)}
