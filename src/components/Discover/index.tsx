@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import AsyncSelect from "react-select/async";
 import { SearchedPeople } from "../../redux/reducers/movies-reducer";
+import Dropdown from "../Dropdown";
 import Header from "../Header";
 
 import "./discover.scss";
@@ -9,10 +9,6 @@ import "./discover.scss";
 const Discover: React.FC = () => {
   const [sortBy, setSortBy] = useState("popularity.desc");
   const [voteAverage, setVoteAverage] = useState<null | string>(null);
-  const [searchedPeople, setSearchedPeople] = useState<null | SearchedPeople>(
-    null
-  );
-  const [peopleInput, setPeopleInput] = useState("");
   const [withPeople, setWithPeople] = useState<null | string>(null);
   const [withGenres, setWithGenres] = useState<null | string>(null);
   const [withKeywords, setWithKeywords] = useState<null | string>(null);
@@ -26,15 +22,6 @@ const Discover: React.FC = () => {
   }${withGenres ? `with_genres=${withGenres}&` : ""}${
     withPeople ? `with_people=${withPeople}&` : ""
   }${year ? `primary_release_year=${year}` : ""}`;
-
-  const handleChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): Promise<void> => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/search/person?api_key=${key}&language=en-US&query=${e.target.value}&page=1&include_adult=false`
-    );
-    setSearchedPeople(data);
-  };
 
   return (
     <div className="discover">
@@ -71,7 +58,7 @@ const Discover: React.FC = () => {
             Vote Average Ascending
           </option>
         </select>
-
+        <Dropdown setWithPeople={setWithPeople} />
         <input
           className="discover-form__input"
           onChange={e => setVoteAverage(e.target.value)}
@@ -81,26 +68,6 @@ const Discover: React.FC = () => {
           value={voteAverage?.toString()}
           placeholder="Vote Average"
         />
-        <div className="discover-form__dropdown">
-          <input
-            type="text"
-            placeholder="Search people involved"
-            onChange={handleChange}
-            value={peopleInput}
-          />
-          {searchedPeople?.results.map(person => (
-            <div
-              className="discover-form__dropdown-options"
-              key={person.id}
-              onClick={() => {
-                setWithPeople(person.id.toString());
-                setPeopleInput(person.name);
-              }}
-            >
-              {person.name}
-            </div>
-          ))}
-        </div>
 
         <input
           className="discover-form__input"
