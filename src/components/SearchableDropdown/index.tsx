@@ -9,7 +9,7 @@ interface SearchableDropdownProps {
 const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   setWithPeople
 }) => {
-  const key = "1ded79dbc2a8dfdb74aafb044ce26713";
+  const key = process.env.REACT_APP_API_KEY;
 
   const [options, setOptions] = useState<SearchedPeople | null>(null);
   const [optionName, setOptionName] = useState("");

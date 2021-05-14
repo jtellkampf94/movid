@@ -10,7 +10,7 @@ interface DropdownProps {
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ setState }) => {
-  const key = "1ded79dbc2a8dfdb74aafb044ce26713";
+  const key = process.env.REACT_APP_API_KEY;
 
   const [showOptions, setShowOptions] = useState(false);
   const [options, setOptions] = useState<SearchedGenres | null>(null);

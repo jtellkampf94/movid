@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 import { ActionTypes } from "../action-types";
 import { GetConfigAction } from "../actions";
 
-const key = "1ded79dbc2a8dfdb74aafb044ce26713";
+const key = process.env.REACT_APP_API_KEY;
 
 export const getConfig = () => async (
   dispatch: Dispatch

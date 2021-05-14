@@ -9,7 +9,7 @@ import {
   GetUpcomingMoviesAction
 } from "../actions";
 
-const key = "1ded79dbc2a8dfdb74aafb044ce26713";
+const key = process.env.REACT_APP_API_KEY;
 
 export const getNowPlayingMovies = () => async (
   dispatch: Dispatch
