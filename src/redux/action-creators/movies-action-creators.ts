@@ -83,8 +83,7 @@ interface MovieFilers {
   sortBy: string;
   voteAverage: null | string;
   withPeople: null | string;
-  withGenres: null | string;
-  withKeywords: null | string;
+  withGenre: null | string;
   year: null | string;
   page: string;
 }
@@ -97,17 +96,16 @@ export const getDiscoverMovies = (movieFilers: MovieFilers) => async (
       sortBy,
       voteAverage,
       withPeople,
-      withGenres,
-      withKeywords,
+      withGenre,
       year,
       page
     } = movieFilers;
 
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}&${
       voteAverage ? `vote_average.gte=${voteAverage}&` : ""
-    }${withGenres ? `with_genres=${withGenres}&` : ""}${
+    }${withGenre ? `with_genres=${withGenre}&` : ""}${
       withPeople ? `with_people=${withPeople}&` : ""
-    }${year ? `year=${year}` : ""}`;
+    }${year ? `primary_release_year=${year}` : ""}`;
 
     const { data } = await axios.get(url);
     const action: GetDiscoverMoviesAction = {

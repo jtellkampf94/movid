@@ -1,6 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { SearchedPeople } from "../../redux/reducers/movies-reducer";
+import { MovieDetails } from "../../redux/reducers/movies-reducer";
+
+interface SearchedPeople {
+  page: number;
+  results: {
+    adult: boolean;
+    gender: number;
+    id: number;
+    known_for: MovieDetails[];
+    known_for_department: string;
+    name: string;
+    popularity: number;
+    profile_path: string;
+  }[];
+  total_pages: number;
+  total_results: number;
+}
 
 interface SearchableDropdownProps {
   setWithPeople: React.Dispatch<React.SetStateAction<string | null>>;

@@ -1,7 +1,8 @@
-import axios from "axios";
 import React, { useState } from "react";
 import SearchableDropdown from "../SearchableDropdown";
 import Header from "../Header";
+import { useActions } from "../../hooks/useActions";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 import "./discover.scss";
 import Dropdown from "../Dropdown";
@@ -11,35 +12,31 @@ const Discover: React.FC = () => {
   const [voteAverage, setVoteAverage] = useState<null | string>(null);
   const [withPeople, setWithPeople] = useState<null | string>(null);
   const [withGenre, setWithGenre] = useState<null | string>(null);
-  const [withKeywords, setWithKeywords] = useState<null | string>(null);
   const [year, setYear] = useState<null | string>(null);
   const [page, setPage] = useState("1");
 
-  const key = process.env.REACT_APP_API_KEY;
+  const { getDiscoverMovies } = useActions();
 
-  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}&${
-    voteAverage ? `vote_average.gte=${voteAverage}&` : ""
-  }${withGenre ? `with_genres=${withGenre}&` : ""}${
-    withPeople ? `with_people=${withPeople}&` : ""
-  }${year ? `primary_release_year=${year}` : ""}`;
-
-  const search = async () => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${key}&language=en-US`
-    );
-
-    console.log(data);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    getDiscoverMovies({
+      sortBy,
+      voteAverage,
+      withPeople,
+      withGenre,
+      year,
+      page
+    });
   };
 
-  console.log(withGenre);
+  const state = useTypedSelector(state => state.movies.discover);
+
+  console.log(state);
 
   return (
     <div className="discover">
       <Header />
-      <form className="discover-form">
-        <button type="button" onClick={search}>
-          NOW
-        </button>
+      <form onSubmit={handleSubmit} className="discover-form">
         <select
           className="discover-form__select"
           name="sort_by"
@@ -81,24 +78,7 @@ const Discover: React.FC = () => {
           value={voteAverage?.toString()}
           placeholder="Vote Average"
         />
-
-        {/* <input
-          className="discover-form__input"
-          onChange={e => setWithGenre(e.target.value)}
-          type="text"
-          name="with_genres"
-          value={withGenre?.toString()}
-          placeholder="Genres"
-        /> */}
         <Dropdown setState={setWithGenre} />
-        <input
-          className="discover-form__input"
-          onChange={e => setWithKeywords(e.target.value)}
-          type="text"
-          name="with_keywords"
-          value={withKeywords?.toString()}
-          placeholder="Keywords"
-        />
         <input
           className="discover-form__input"
           onChange={e => setYear(e.target.value)}
@@ -108,20 +88,8 @@ const Discover: React.FC = () => {
           value={year?.toString()}
           placeholder="Year"
         />
+        <button type="submit">Search</button>
       </form>
-
-      <button
-        type="submit"
-        onClick={async e => {
-          e.preventDefault();
-
-          console.log(url);
-          const { data } = await axios.get(url);
-          console.log(data);
-        }}
-      >
-        Search
-      </button>
     </div>
   );
 };

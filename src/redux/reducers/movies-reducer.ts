@@ -12,7 +12,7 @@ export interface MovieDetails {
   original_title: string;
   overview: string;
   popularity?: number;
-  poster_path: string;
+  poster_path: string | null;
   release_date: string;
   title: string;
   video: boolean;
@@ -31,20 +31,11 @@ export interface MovieSearchResult {
   total_results: number;
 }
 
-export interface SearchedPeople {
+export interface DiscoverSearchResult {
   page: number;
-  results: {
-    adult: boolean;
-    gender: number;
-    id: number;
-    known_for: MovieDetails[];
-    known_for_department: string;
-    name: string;
-    popularity: number;
-    profile_path: string;
-  }[];
-  total_pages: number;
+  results: MovieDetails[];
   total_results: number;
+  total_pages: number;
 }
 
 export interface MoviesState {
@@ -52,7 +43,7 @@ export interface MoviesState {
   upcoming: MovieSearchResult;
   popular: MovieSearchResult;
   topRated: MovieSearchResult;
-  discover: SearchedPeople;
+  discover: DiscoverSearchResult;
 }
 
 // Derriving initial state for reducer using interfaces above
@@ -85,22 +76,11 @@ const initialMovieSearchResult: MovieSearchResult = {
   total_results: 0
 };
 
-const initialDiscoverState: SearchedPeople = {
+const initialDiscoverSearchResult: DiscoverSearchResult = {
   page: 0,
-  results: [
-    {
-      adult: false,
-      gender: 0,
-      id: 0,
-      known_for: [{ ...initialMovieDetailsState }],
-      known_for_department: "",
-      name: "",
-      popularity: 0,
-      profile_path: ""
-    }
-  ],
-  total_pages: 0,
-  total_results: 0
+  results: [{ ...initialMovieDetailsState }],
+  total_results: 0,
+  total_pages: 0
 };
 
 const initialMoviesState: MoviesState = {
@@ -108,7 +88,7 @@ const initialMoviesState: MoviesState = {
   upcoming: { ...initialMovieSearchResult },
   popular: { ...initialMovieSearchResult },
   topRated: { ...initialMovieSearchResult },
-  discover: { ...initialDiscoverState }
+  discover: { ...initialDiscoverSearchResult }
 };
 
 // reducer

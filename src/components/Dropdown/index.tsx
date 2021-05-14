@@ -40,6 +40,7 @@ const Dropdown: React.FC<DropdownProps> = ({ setState }) => {
       {showOptions &&
         options?.genres.map(genre => (
           <div
+            key={genre.id}
             onClick={() => {
               setGenreName(genre.name);
               setState(genre.id.toString());

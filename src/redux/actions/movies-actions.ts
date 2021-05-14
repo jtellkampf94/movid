@@ -1,6 +1,6 @@
 import {
-  MovieSearchResult,
-  SearchedPeople
+  DiscoverSearchResult,
+  MovieSearchResult
 } from "./../reducers/movies-reducer";
 import { ActionTypes } from "../action-types";
 
@@ -26,7 +26,7 @@ export interface GetTopRatedMoviesAction {
 
 export interface GetDiscoverMoviesAction {
   type: ActionTypes.GET_DISCOVER_MOVIES;
-  payload: SearchedPeople;
+  payload: DiscoverSearchResult;
 }
 
 export type MoviesAction =
