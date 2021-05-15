@@ -1,20 +1,28 @@
+@import "../../styles/variables";
+
 .discover {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+
+  &-form {
+    display: flex;
+    background-color: $charcoal;
+    padding: 20px;
+    // overflow: scroll;
+    &__dropdown-options {
+      background-color: #fff;
+      cursor: pointer;
+      &:hover {
+        background-color: #eee;
+      }
+    }
+  }
 }
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-.discover-form__dropdown-options {
-  background-color: #fff;
-  cursor: pointer;
-  &:hover {
-    background-color: #eee;
-  }
 }
