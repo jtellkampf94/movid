@@ -6,6 +6,8 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 import "./discover.scss";
 import Dropdown from "../Dropdown";
+import Select from "../Select";
+import Option from "../Option";
 
 const Discover: React.FC = () => {
   const [sortBy, setSortBy] = useState("popularity.desc");
@@ -37,7 +39,7 @@ const Discover: React.FC = () => {
     <div className="discover">
       <Header />
       <form onSubmit={handleSubmit} className="discover-form">
-        <select
+        {/* <select
           className="discover-form__select"
           name="sort_by"
           value={sortBy}
@@ -67,7 +69,11 @@ const Discover: React.FC = () => {
           <option className="discover-form__option" value="vote_average.asc">
             Vote Average Ascending
           </option>
-        </select>
+        </select> */}
+
+        <Select placeholder="Sort By...">
+          <Option name="sort_by" id="vote_average.asc" label="Vote Average" />
+        </Select>
         <SearchableDropdown setWithPeople={setWithPeople} />
         <input
           className="discover-form__input"

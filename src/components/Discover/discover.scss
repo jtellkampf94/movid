@@ -11,11 +11,20 @@
     background-color: $charcoal;
     padding: 20px;
     // overflow: scroll;
-    &__dropdown-options {
-      background-color: #fff;
-      cursor: pointer;
+    &__select {
+      background-color: #222;
+      border: none;
+      font-size: 0.75rem;
+      color: white;
+      padding: 0.5rem;
+      outline: none;
+    }
+    &__option {
+      background-color: #222;
+      color: #eee;
       &:hover {
         background-color: #eee;
+        cursor: pointer;
       }
     }
   }
