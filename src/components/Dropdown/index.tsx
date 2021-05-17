@@ -1,56 +1,62 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useRef } from "react";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
-interface SearchedGenres {
-  genres: { id: number; name: string }[];
+interface Item {
+  id: number;
+  name: string;
 }
 
 interface DropdownProps {
-  setState: React.Dispatch<React.SetStateAction<string | null>>;
+  title: string;
+  items: Item[];
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ setState }) => {
-  const key = process.env.REACT_APP_API_KEY;
+const Dropdown: React.FC<DropdownProps> = ({ title, items }) => {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<null | Item>(null);
+  const ref = useRef(null);
 
-  const [showOptions, setShowOptions] = useState(false);
-  const [options, setOptions] = useState<SearchedGenres | null>(null);
-  const [genreName, setGenreName] = useState("");
-
-  useEffect(() => {
-    loadOptions();
-  }, []);
-
-  const loadOptions = async () => {
-    try {
-      const { data } = await axios.get(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=${key}&language=en-US`
-      );
-      setOptions(data);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleClick = (item: Item): void => {
+    setSelected(item);
+    setOpen(false);
   };
 
+  const handleClickOutside = () => {
+    setOpen(false);
+  };
+
+  useOnClickOutside(ref, handleClickOutside);
   return (
-    <div>
-      <input placeholder="Genre" value={genreName} disabled type="text" />
-      <button type="button" onClick={() => setShowOptions(!showOptions)}>
-        v
-      </button>
-      {showOptions &&
-        options?.genres.map(genre => (
-          <div
-            key={genre.id}
-            onClick={() => {
-              setGenreName(genre.name);
-              setState(genre.id.toString());
-              setShowOptions(false);
-            }}
-            style={{ backgroundColor: "white" }}
-          >
-            {genre.name}
-          </div>
-        ))}
+    <div ref={ref} onClick={e => e.stopPropagation()} className="dd-wrapper">
+      <div
+        tabIndex={0}
+        className="dd-header"
+        role="button"
+        onKeyPress={() => setOpen(!open)}
+        onClick={() => setOpen(!open)}
+      >
+        <div className="dd-header__title">
+          <p className="dd-header__title--bold">
+            {selected ? selected.name : title}
+          </p>
+        </div>
+        <div className="dd-header__action">
+          <p>{open ? "Close" : "Open"}</p>
+        </div>
+      </div>
+      {open && (
+        <ul className="dd-list">
+          {items.map(item => (
+            <li className="dd-list-item" key={item.id}>
+              <button type="button" onClick={() => handleClick(item)}>
+                select
+              </button>
+              <span>{item.name}</span>
+              <span>{selected && item.id === selected.id && "selected"}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
