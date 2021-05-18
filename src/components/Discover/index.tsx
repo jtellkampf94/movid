@@ -9,14 +9,14 @@ import "./discover.scss";
 import Dropdown from "../Dropdown";
 
 const sortByOptions = [
-  { id: 1, name: "popularity.desc" },
-  { id: 2, name: "popularity.asc" },
-  { id: 3, name: "release_date.desc" },
-  { id: 4, name: "release_date.asc" },
-  { id: 5, name: "revenue.desc" },
-  { id: 6, name: "revenue.asc" },
-  { id: 7, name: "vote_average.desc" },
-  { id: 8, name: "vote_average.asc" }
+  { id: "popularity.desc", name: "Popularity Descending" },
+  { id: "popularity.asc", name: "Popularity Ascending" },
+  { id: "release_date.desc", name: "Release Date Descending" },
+  { id: "release_date.asc", name: "Release Date Ascending" },
+  { id: "revenue.desc", name: "Revenue Descending" },
+  { id: "revenue.asc", name: "Revenue Ascending" },
+  { id: "vote_average.desc", name: "Vote Average Descending" },
+  { id: "vote_average.asc", name: "Vote Average Ascending" }
 ];
 
 interface SearchedGenres {
@@ -24,7 +24,7 @@ interface SearchedGenres {
 }
 
 const Discover: React.FC = () => {
-  const [sortBy, setSortBy] = useState("popularity.desc");
+  const [sortBy, setSortBy] = useState<string | null>(null);
   const [voteAverage, setVoteAverage] = useState<null | string>(null);
   const [withPeople, setWithPeople] = useState<null | string>(null);
   const [withGenre, setWithGenre] = useState<null | string>(null);
@@ -71,9 +71,15 @@ const Discover: React.FC = () => {
     <div className="discover">
       <Header />
       <form onSubmit={handleSubmit} className="discover-form">
-        <Dropdown title="SortBy" items={sortByOptions} />
+        <Dropdown title="Sort By" items={sortByOptions} setState={setSortBy} />
 
-        {genres && <Dropdown items={genres.genres} title="Genres" />}
+        {genres && (
+          <Dropdown
+            items={genres.genres}
+            title="Genres"
+            setState={setWithGenre}
+          />
+        )}
 
         <SearchableDropdown setWithPeople={setWithPeople} />
         <input

@@ -80,7 +80,7 @@ export const getPopularMovies = () => async (
 };
 
 interface MovieFilers {
-  sortBy: string;
+  sortBy: string | null;
   voteAverage: null | string;
   withPeople: null | string;
   withGenre: null | string;
@@ -92,7 +92,7 @@ export const getDiscoverMovies = (movieFilers: MovieFilers) => async (
   dispatch: Dispatch
 ): Promise<GetDiscoverMoviesAction | void> => {
   try {
-    const {
+    let {
       sortBy,
       voteAverage,
       withPeople,
@@ -100,6 +100,10 @@ export const getDiscoverMovies = (movieFilers: MovieFilers) => async (
       year,
       page
     } = movieFilers;
+
+    if (sortBy === null) {
+      sortBy = "popularity.desc";
+    }
 
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}&${
       voteAverage ? `vote_average.gte=${voteAverage}&` : ""
