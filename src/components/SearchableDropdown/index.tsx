@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import { MovieDetails } from "../../redux/reducers/movies-reducer";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
+
+import "./searchableDropdown.scss";
 
 interface SearchedPeople {
   page: number;
@@ -29,6 +32,7 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
 
   const [options, setOptions] = useState<SearchedPeople | null>(null);
   const [optionName, setOptionName] = useState("");
+  const ref = useRef(null);
 
   const handleChange = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -47,27 +51,49 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
     }
   };
 
+  const handleClick = (person: SearchedPeople["results"][0]) => {
+    setWithPeople(person.id.toString());
+    setOptionName(person.name);
+    setOptions(null);
+  };
+
+  const handleClickOutside = () => {
+    setOptions(null);
+  };
+
+  useOnClickOutside(ref, handleClickOutside);
+
   return (
-    <div className="discover-form__dropdown">
-      <input
-        type="text"
-        placeholder="Search people involved"
-        onChange={handleChange}
-        value={optionName}
-      />
-      {options?.results.map(person => (
-        <div
-          className="discover-form__dropdown-options"
-          key={person.id}
-          onClick={() => {
-            setWithPeople(person.id.toString());
-            setOptionName(person.name);
-            setOptions(null);
-          }}
-        >
-          {person.name}
-        </div>
-      ))}
+    <div
+      className="searchable-dropdown"
+      ref={ref}
+      onClick={e => e.stopPropagation()}
+    >
+      <div className="searchable-dropdown-search-box">
+        <i
+          className={`searchable-dropdown-search-icon fas fa-search ${
+            options ? "active" : ""
+          }`}
+        ></i>
+        <input
+          className="searchable-dropdown-input"
+          type="text"
+          placeholder="Search people involved"
+          onChange={handleChange}
+          value={optionName}
+        />
+      </div>
+      <ul className={`searchable-dropdown-list ${optionName ? "active" : ""}`}>
+        {options?.results.map(person => (
+          <li
+            className="searchable-dropdown-list-item"
+            key={person.id}
+            onClick={() => handleClick(person)}
+          >
+            {person.name}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

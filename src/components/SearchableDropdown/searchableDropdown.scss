@@ -1,0 +1,68 @@
+@import "../../styles/variables";
+
+.searchable-dropdown {
+  color: $white;
+  font-size: 0.75rem;
+  width: 200px;
+
+  &-search-box {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    color: $white;
+    background-color: $charcoal;
+  }
+
+  &-search-icon {
+    padding-left: 0.75rem;
+    max-width: 28px;
+    transition: all 0.4s;
+
+    &.active {
+      max-width: 0;
+      padding-left: 0;
+    }
+  }
+
+  &-input {
+    color: $white;
+    background-color: $charcoal;
+    padding: 0.75rem;
+    width: 100%;
+    outline: none;
+    border: none;
+  }
+
+  & &-list {
+    background-color: $primary-grey;
+    list-style: none;
+    cursor: pointer;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s;
+
+    &.active {
+      opacity: 1;
+      max-height: 200px;
+      overflow-y: scroll;
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      background: $dark-grey;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $tertiary-grey;
+    }
+
+    &-item {
+      padding: 0.75rem;
+
+      &:hover {
+        background-color: $secondary-grey;
+      }
+    }
+  }
+}
