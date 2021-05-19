@@ -11,16 +11,17 @@
     align-items: center;
     color: $white;
     background-color: $charcoal;
+    &.focus {
+      background-color: $primary-grey;
+    }
   }
 
   &-search-icon {
     padding-left: 0.75rem;
     max-width: 28px;
     transition: all 0.4s;
-
-    &.active {
-      max-width: 0;
-      padding-left: 0;
+    &.focus {
+      background-color: $primary-grey;
     }
   }
 
@@ -31,6 +32,10 @@
     width: 100%;
     outline: none;
     border: none;
+    font-size: 0.75rem;
+    &:focus {
+      background-color: $primary-grey;
+    }
   }
 
   & &-list {
@@ -38,9 +43,9 @@
     list-style: none;
     cursor: pointer;
     max-height: 0;
-    overflow: hidden;
     opacity: 0;
     transition: all 0.4s;
+    overflow: hidden;
 
     &.active {
       opacity: 1;

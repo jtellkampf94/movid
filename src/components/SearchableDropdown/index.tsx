@@ -32,6 +32,7 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
 
   const [options, setOptions] = useState<SearchedPeople | null>(null);
   const [optionName, setOptionName] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
   const ref = useRef(null);
 
   const handleChange = async (
@@ -51,6 +52,10 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
     }
   };
 
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
   const handleClick = (person: SearchedPeople["results"][0]) => {
     setWithPeople(person.id.toString());
     setOptionName(person.name);
@@ -59,6 +64,7 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
 
   const handleClickOutside = () => {
     setOptions(null);
+    setIsFocused(false);
   };
 
   useOnClickOutside(ref, handleClickOutside);
@@ -69,10 +75,12 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
       ref={ref}
       onClick={e => e.stopPropagation()}
     >
-      <div className="searchable-dropdown-search-box">
+      <div
+        className={`searchable-dropdown-search-box ${isFocused ? "focus" : ""}`}
+      >
         <i
           className={`searchable-dropdown-search-icon fas fa-search ${
-            options ? "active" : ""
+            isFocused ? "focus" : ""
           }`}
         ></i>
         <input
@@ -80,6 +88,7 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
           type="text"
           placeholder="Search people involved"
           onChange={handleChange}
+          onFocus={handleFocus}
           value={optionName}
         />
       </div>

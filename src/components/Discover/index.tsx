@@ -70,38 +70,54 @@ const Discover: React.FC = () => {
   return (
     <div className="discover">
       <Header />
-      <form onSubmit={handleSubmit} className="discover-form">
-        <Dropdown title="Sort By" items={sortByOptions} setState={setSortBy} />
-
-        {genres && (
+      <form onSubmit={handleSubmit} className="discover-form-form">
+        <div className="discover-form-input-container">
           <Dropdown
-            items={genres.genres}
-            title="Genres"
-            setState={setWithGenre}
+            title="Sort By"
+            items={sortByOptions}
+            setState={setSortBy}
           />
+        </div>
+        {genres && (
+          <div className="discover-form-input-container">
+            <Dropdown
+              items={genres.genres}
+              title="Genres"
+              setState={setWithGenre}
+            />
+          </div>
         )}
+        <div className="discover-form-input-container">
+          <SearchableDropdown setWithPeople={setWithPeople} />
+        </div>
 
-        <SearchableDropdown setWithPeople={setWithPeople} />
-        <input
-          className="discover-form__input"
-          onChange={e => setVoteAverage(e.target.value)}
-          type="number"
-          min="0"
-          name="vote_average"
-          value={voteAverage?.toString()}
-          placeholder="Vote Average"
-        />
-
-        <input
-          className="discover-form__input"
-          onChange={e => setYear(e.target.value)}
-          type="number"
-          min="0"
-          name="year"
-          value={year?.toString()}
-          placeholder="Year"
-        />
-        <button type="submit">Search</button>
+        <div className="discover-form-input-container">
+          <input
+            className="discover-form-input"
+            onChange={e => setVoteAverage(e.target.value)}
+            type="number"
+            min="0"
+            name="vote_average"
+            value={voteAverage?.toString()}
+            placeholder="Vote Average"
+          />
+        </div>
+        <div className="discover-form-input-container">
+          <input
+            className="discover-form-input"
+            onChange={e => setYear(e.target.value)}
+            type="number"
+            min="0"
+            name="year"
+            value={year?.toString()}
+            placeholder="Year"
+          />
+        </div>
+        <div className="discover-form-button-container">
+          <button type="submit" className="discover-form-button">
+            Search
+          </button>
+        </div>
       </form>
     </div>
   );

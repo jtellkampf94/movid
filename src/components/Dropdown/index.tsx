@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
-import ArrowIcon from "../../assets/icons/arrow-down.svg";
 
 import "./dropdown.scss";
 
