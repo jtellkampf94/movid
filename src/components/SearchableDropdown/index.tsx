@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef, Fragment } from "react";
 import axios from "axios";
 import { MovieDetails } from "../../redux/reducers/movies-reducer";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
