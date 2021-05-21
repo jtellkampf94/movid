@@ -25,9 +25,11 @@ const MovieCard: React.FC<MovieCardProps> = ({
           background: `url(${secureBaseUrl}${posterSize}${movie.poster_path})  no-repeat`
         }}
       >
-        <h2 className="movie-card-title">{movie.title}</h2>
-        {/* <div className="movie-card-body">{movie.overview}</div> */}
-        <div className="movie-card-rating">{movie.vote_average}</div>
+        <div className="movie-card-overlay"></div>
+        <div className="movie-card-body">
+          <h2 className="movie-card-title">{movie.title}</h2>
+          <div className="movie-card-rating">{movie.vote_average}</div>
+        </div>
       </div>
     </Link>
   );

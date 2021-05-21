@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import Header from "../Header";
 import MovieCard from "../MovieCard";
 
 const Profile: React.FC = () => {
@@ -14,11 +15,11 @@ const Profile: React.FC = () => {
   const config = useTypedSelector(state => state.config.images);
 
   return (
-    <div style={{ display: "flex", width: "100vw" }}>
+    <div>
       {movies.results.map(movie => (
         <MovieCard
           secureBaseUrl={config.secure_base_url}
-          posterSize={config.poster_sizes[1]}
+          posterSize={config.poster_sizes[2]}
           movie={movie}
         />
       ))}
