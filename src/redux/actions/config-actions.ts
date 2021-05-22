@@ -1,9 +1,14 @@
-import { ConfigState } from "./../reducers/config-reducer";
+import { ImageConfig, MovieGenreConfig } from "./../reducers/config-reducer";
 import { ActionTypes } from "../action-types";
 
-export interface GetConfigAction {
-  type: ActionTypes.GET_CONFIG;
-  payload: ConfigState;
+export interface GetImagesConfigAction {
+  type: ActionTypes.GET_IMAGE_CONFIG;
+  payload: ImageConfig;
 }
 
-export type ConfigActions = GetConfigAction;
+export interface GetMovieGenreConfigAction {
+  type: ActionTypes.GET_MOVIE_GENRE_CONFIG;
+  payload: MovieGenreConfig;
+}
+
+export type ConfigActions = GetImagesConfigAction | GetMovieGenreConfigAction;

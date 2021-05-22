@@ -1,5 +1,6 @@
 export enum ActionTypes {
-  GET_CONFIG = "get_config",
+  GET_IMAGE_CONFIG = "get_image_config",
+  GET_MOVIE_GENRE_CONFIG = "get_movie_genre_config",
   GET_UPCOMING_MOVIES = "get_upcoming_movies",
   GET_POPULAR_MOVIES = "get_popular_movies",
   GET_NOW_PLAYING_MOVIES = "get_now_playing_movies",

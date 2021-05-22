@@ -12,14 +12,15 @@ const Profile: React.FC = () => {
     getNowPlayingMovies();
   });
   const movies = useTypedSelector(state => state.movies.nowPlaying);
-  const config = useTypedSelector(state => state.config.images);
+  const config = useTypedSelector(state => state.config);
 
   return (
     <div>
       {movies.results.map(movie => (
         <MovieCard
-          secureBaseUrl={config.secure_base_url}
-          posterSize={config.poster_sizes[2]}
+          movieGenres={config.movieGenres}
+          secureBaseUrl={config.images.images.secure_base_url}
+          posterSize={config.images.images.poster_sizes[2]}
           movie={movie}
         />
       ))}

@@ -13,7 +13,7 @@ SwiperCore.use([Autoplay, Navigation]);
 
 const Carousel: React.FC = () => {
   const { secure_base_url: baseUrl, backdrop_sizes: sizes } = useTypedSelector(
-    state => state.config.images
+    state => state.config.images.images
   );
 
   const movies = useTypedSelector(state => state.movies.nowPlaying.results);

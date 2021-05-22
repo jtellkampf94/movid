@@ -7,10 +7,11 @@ import Discover from "../Discover";
 import Profile from "../Profile";
 
 const App: React.FC = () => {
-  const { getConfig } = useActions();
+  const { getImagesConfig, getMovieGenreConfig } = useActions();
 
   useEffect(() => {
-    getConfig();
+    getImagesConfig();
+    getMovieGenreConfig();
   }, []);
 
   return (
