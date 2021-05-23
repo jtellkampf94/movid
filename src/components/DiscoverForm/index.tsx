@@ -21,13 +21,16 @@ interface SearchedGenres {
   genres: { id: number; name: string }[];
 }
 
-const DiscoverForm: React.FC = () => {
+interface DiscoverFormProps {
+  page: string;
+}
+
+const DiscoverForm: React.FC<DiscoverFormProps> = ({ page }) => {
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [voteAverage, setVoteAverage] = useState<null | string>(null);
   const [withPeople, setWithPeople] = useState<null | string>(null);
   const [withGenre, setWithGenre] = useState<null | string>(null);
   const [year, setYear] = useState<null | string>(null);
-  const [page, setPage] = useState("1");
 
   const [genres, setGenres] = useState<SearchedGenres | null>(null);
   const key = process.env.REACT_APP_API_KEY;
@@ -35,6 +38,17 @@ const DiscoverForm: React.FC = () => {
   useEffect(() => {
     loadOptions();
   }, []);
+
+  useEffect(() => {
+    getDiscoverMovies({
+      sortBy,
+      voteAverage,
+      withPeople,
+      withGenre,
+      year,
+      page
+    });
+  }, [page]);
 
   const loadOptions = async () => {
     try {
