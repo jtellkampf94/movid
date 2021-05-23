@@ -42,6 +42,11 @@
     opacity: 0;
     transition: all 0.4s;
     overflow: hidden;
+    z-index: 1;
+    position: absolute;
+    width: 200px;
+    -webkit-box-shadow: 3px 3px 15px -2px $black;
+    box-shadow: 3px 3px 15px -2px $black;
 
     &::-webkit-scrollbar {
       width: 8px;

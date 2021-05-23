@@ -2,8 +2,17 @@
 
 .discover {
   display: flex;
+  flex-direction: column;
   margin-top: 100px;
   justify-content: center;
-  height: 100vh;
-  width: 100%;
+  // height: 100vh;
+  // width: 100%;
+
+  &-search-results {
+    margin-top: 50px;
+    display: flex;
+    row-gap: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }

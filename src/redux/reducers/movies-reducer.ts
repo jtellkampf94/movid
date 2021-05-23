@@ -72,14 +72,14 @@ const initialMovieSearchResult: MovieSearchResult = {
     minimum: ""
   },
   page: 0,
-  results: [{ ...initialMovieDetailsState }],
+  results: [],
   total_pages: 0,
   total_results: 0
 };
 
 const initialDiscoverSearchResult: DiscoverSearchResult = {
   page: 0,
-  results: [{ ...initialMovieDetailsState }],
+  results: [],
   total_results: 0,
   total_pages: 0
 };
