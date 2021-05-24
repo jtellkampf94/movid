@@ -1,12 +1,10 @@
 @import "../../styles/variables";
 
 .discover-form {
-  &-form {
-    background-color: $dark-grey;
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-  }
+  width: 100%;
+  background-color: $dark-grey;
+  display: flex;
+  justify-content: space-around;
 
   &-input {
     border: none;
@@ -36,4 +34,30 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+@media only screen and (min-width: 1200px) {
+  .discover-form {
+    width: 1220px;
+  }
+}
+
+@media only screen and (max-width: 1090px) {
+  .discover-form {
+    flex-direction: column;
+    align-items: center;
+    height: 350px;
+    justify-content: space-between;
+    &-input {
+      width: 600px;
+    }
+  }
+}
+
+@media only screen and (max-width: 715px) {
+  .discover-form {
+    &-input {
+      width: 400px;
+    }
+  }
 }

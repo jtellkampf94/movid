@@ -43,7 +43,7 @@ const Dropdown: React.FC<DropdownProps> = ({ title, items, setState }) => {
         onKeyPress={() => setOpen(!open)}
         onClick={() => setOpen(!open)}
       >
-        <p className="dropdown-header__title">
+        <p className={`dropdown-header-title ${selected ? "active" : ""}`}>
           {selected ? selected.name : title}
         </p>
       </div>

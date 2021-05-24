@@ -17,6 +17,14 @@
     justify-content: space-between;
     cursor: pointer;
     position: relative;
+
+    &-title {
+      color: $placeholder-grey;
+    }
+
+    &-title.active {
+      color: $white;
+    }
     &:focus {
       background-color: $primary-grey;
     }
@@ -69,6 +77,26 @@
       &:hover {
         background-color: $secondary-grey;
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 1090px) {
+  .dropdown {
+    width: 600px;
+
+    &-list {
+      width: 600px;
+    }
+  }
+}
+
+@media only screen and (max-width: 715px) {
+  .dropdown {
+    width: 400px;
+
+    &-list {
+      width: 400px;
     }
   }
 }

@@ -76,7 +76,7 @@ const DiscoverForm: React.FC<DiscoverFormProps> = ({ page }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="discover-form-form">
+    <form onSubmit={handleSubmit} className="discover-form">
       <div className="discover-form-input-container">
         <Dropdown title="Sort By" items={sortByOptions} setState={setSortBy} />
       </div>
