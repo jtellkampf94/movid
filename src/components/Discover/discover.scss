@@ -15,4 +15,39 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+
+  &-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0;
+
+    &-page-info {
+      padding: 0 10px;
+      color: $white;
+      height: 50px;
+      background-color: $primary-grey;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &-button {
+      font-family: $brand-font;
+      background-color: $red;
+      border: none;
+      padding: 5px;
+      height: 50px;
+      width: 100px;
+      color: $white;
+      cursor: pointer;
+      transition: 0.2s ease-in;
+
+      &:hover {
+        transform: scale(1.1);
+        -webkit-box-shadow: 3px 3px 15px -2px $black;
+        box-shadow: 3px 3px 15px -2px $black;
+      }
+    }
+  }
 }

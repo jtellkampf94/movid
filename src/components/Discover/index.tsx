@@ -31,16 +31,22 @@ const Discover: React.FC = () => {
           ))}
       </div>
       <div className="discover-pagination">
-        {discover.total_results > 0 && (
+        {discover.total_pages > 1 && (
           <Fragment>
-            <button onClick={() => setPage(prevStatePage => prevStatePage - 1)}>
-              prev
+            <button
+              className="discover-pagination-button"
+              onClick={() => setPage(prevStatePage => prevStatePage - 1)}
+            >
+              Previous
             </button>
-            <p>
+            <div className="discover-pagination-page-info">
               {discover.page}/{discover.total_pages}
-            </p>
-            <button onClick={() => setPage(prevStatePage => prevStatePage + 1)}>
-              next
+            </div>
+            <button
+              className="discover-pagination-button"
+              onClick={() => setPage(prevStatePage => prevStatePage + 1)}
+            >
+              Next
             </button>
           </Fragment>
         )}

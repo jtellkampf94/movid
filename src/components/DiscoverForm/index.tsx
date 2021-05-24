@@ -74,6 +74,7 @@ const DiscoverForm: React.FC<DiscoverFormProps> = ({ page }) => {
       page
     });
   };
+
   return (
     <form onSubmit={handleSubmit} className="discover-form-form">
       <div className="discover-form-input-container">
@@ -99,7 +100,7 @@ const DiscoverForm: React.FC<DiscoverFormProps> = ({ page }) => {
           type="number"
           min="0"
           name="vote_average"
-          value={voteAverage?.toString()}
+          value={voteAverage ? voteAverage : ""}
           placeholder="Vote Average"
         />
       </div>
@@ -110,7 +111,7 @@ const DiscoverForm: React.FC<DiscoverFormProps> = ({ page }) => {
           type="number"
           min="0"
           name="year"
-          value={year?.toString()}
+          value={year ? year : ""}
           placeholder="Year"
         />
       </div>
