@@ -35,7 +35,14 @@ const Carousel: React.FC = () => {
             baseUrl.length > 0 ? baseUrl + sizes[2] + movie.backdrop_path : "";
           return (
             <SwiperSlide key={movie.id}>
-              <img src={srcUrl} alt="" />
+              <div
+                className="swiper-slide-background"
+                style={{ background: `url(${srcUrl})  no-repeat` }}
+              >
+                <div className="swiper-slide-container">
+                  <h1 className="swiper-slide-title">{movie.title}</h1>
+                </div>
+              </div>
             </SwiperSlide>
           );
         })}

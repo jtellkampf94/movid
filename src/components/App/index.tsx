@@ -5,6 +5,7 @@ import { useActions } from "../../hooks/useActions";
 import Home from "../Home";
 import Discover from "../Discover";
 import Profile from "../Profile";
+import Details from "../Details";
 
 const App: React.FC = () => {
   const { getImagesConfig, getMovieGenreConfig } = useActions();
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Route path="/" exact component={Home} />
         <Route path="/discover" exact component={Discover} />
         <Route path="/profile" exact component={Profile} />
+        <Route path="/details/:type/:id" exact component={Details} />
       </Switch>
     </div>
   );
