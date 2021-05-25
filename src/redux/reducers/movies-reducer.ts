@@ -49,23 +49,6 @@ export interface MoviesState {
 
 // Derriving initial state for reducer using interfaces above
 
-const initialMovieDetailsState: MovieDetails = {
-  adult: false,
-  backdrop_path: "",
-  genre_ids: [],
-  id: 0,
-  original_language: "",
-  original_title: "",
-  overview: "",
-  popularity: 0,
-  poster_path: "",
-  release_date: "",
-  title: "",
-  video: true,
-  vote_average: 0,
-  vote_count: 0
-};
-
 const initialMovieSearchResult: MovieSearchResult = {
   dates: {
     maximum: "",

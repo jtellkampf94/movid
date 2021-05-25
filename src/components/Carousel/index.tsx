@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation } from "swiper/core";
 
+import { MovieDetails } from "../../redux/reducers/movies-reducer";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 import "swiper/swiper.min.css";
@@ -11,13 +12,13 @@ import "./carousel.scss";
 
 SwiperCore.use([Autoplay, Navigation]);
 
-const Carousel: React.FC = () => {
-  const { secure_base_url: baseUrl, backdrop_sizes: sizes } = useTypedSelector(
-    state => state.config.images.images
-  );
+interface CarouselProps {
+  items: MovieDetails[];
+  baseUrl: string;
+  sizes: string[];
+}
 
-  const movies = useTypedSelector(state => state.movies.nowPlaying.results);
-
+const Carousel: React.FC<CarouselProps> = ({ baseUrl, sizes, items }) => {
   return (
     <Swiper
       spaceBetween={30}
@@ -29,23 +30,22 @@ const Carousel: React.FC = () => {
       navigation={true}
       className="swiper"
     >
-      {movies.length > 1 &&
-        movies.map(movie => {
-          const srcUrl =
-            baseUrl.length > 0 ? baseUrl + sizes[2] + movie.backdrop_path : "";
-          return (
-            <SwiperSlide key={movie.id}>
-              <div
-                className="swiper-slide-background"
-                style={{ background: `url(${srcUrl})  no-repeat` }}
-              >
-                <div className="swiper-slide-container">
-                  <h1 className="swiper-slide-title">{movie.title}</h1>
-                </div>
+      {items.map(item => {
+        const srcUrl =
+          baseUrl.length > 0 ? baseUrl + sizes[2] + item.backdrop_path : "";
+        return (
+          <SwiperSlide key={item.id}>
+            <div
+              className="swiper-slide-background"
+              style={{ background: `url(${srcUrl})  no-repeat` }}
+            >
+              <div className="swiper-slide-container">
+                <h1 className="swiper-slide-title">{item.title}</h1>
               </div>
-            </SwiperSlide>
-          );
-        })}
+            </div>
+          </SwiperSlide>
+        );
+      })}
     </Swiper>
   );
 };
