@@ -13,5 +13,7 @@ export enum ActionTypes {
   GET_DETAILS = "get_details",
   GET_CREDITS = "get_credits",
   GET_TRAILERS = "get_trailers",
-  GET_REVIEWS = "get_reviews"
+  GET_REVIEWS = "get_reviews",
+  GET_PEOPLE_DETAILS = "get_people_details",
+  GET_PEOPLE_COMBINDED_CREDITS = "get_people_combined_credits"
 }
