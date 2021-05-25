@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { MovieDetails } from "../../redux/reducers/movies-reducer";
+import { TVDetails } from "../../redux/reducers/tv-reducer";
 import Carousel from "../Carousel";
 import Header from "../Header";
 
@@ -14,11 +15,19 @@ const Home: React.FC = () => {
     getUpcomingMovies,
     getPopularMovies,
     getTopRatedMovies,
-    getNowPlayingMovies
+    getNowPlayingMovies,
+    getTVAiringToday,
+    getPopularTV,
+    getTVOnTheAir,
+    getTopRatedTV
   } = useActions();
 
   useEffect(() => {
     if (isTV) {
+      getTVAiringToday();
+      getPopularTV();
+      getTVOnTheAir();
+      getTopRatedTV();
     } else {
       getUpcomingMovies();
       getPopularMovies();
@@ -31,10 +40,11 @@ const Home: React.FC = () => {
 
   const { secure_base_url, backdrop_sizes } = state.config.images.images;
   const { results: moviesNowPlaying } = state.movies.nowPlaying;
+  const { results: tvAiringToday } = state.tv.airingToday;
 
-  let items: [] | MovieDetails[];
+  let items: TVDetails[] | MovieDetails[];
   if (isTV) {
-    items = [];
+    items = tvAiringToday;
   } else {
     items = moviesNowPlaying;
   }

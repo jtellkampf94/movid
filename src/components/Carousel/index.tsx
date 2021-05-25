@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation } from "swiper/core";
 
 import { MovieDetails } from "../../redux/reducers/movies-reducer";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { TVDetails } from "../../redux/reducers/tv-reducer";
 
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
@@ -13,7 +13,7 @@ import "./carousel.scss";
 SwiperCore.use([Autoplay, Navigation]);
 
 interface CarouselProps {
-  items: MovieDetails[];
+  items: MovieDetails[] | TVDetails[];
   baseUrl: string;
   sizes: string[];
 }
@@ -30,17 +30,21 @@ const Carousel: React.FC<CarouselProps> = ({ baseUrl, sizes, items }) => {
       navigation={true}
       className="swiper"
     >
-      {items.map(item => {
+      {items.map((item: TVDetails | MovieDetails) => {
         const srcUrl =
           baseUrl.length > 0 ? baseUrl + sizes[2] + item.backdrop_path : "";
         return (
           <SwiperSlide key={item.id}>
             <div
               className="swiper-slide-background"
-              style={{ background: `url(${srcUrl})  no-repeat` }}
+              style={{
+                backgroundImage: `url(${srcUrl})`
+              }}
             >
               <div className="swiper-slide-container">
-                <h1 className="swiper-slide-title">{item.title}</h1>
+                <h1 className="swiper-slide-title">
+                  {item.title ? item.title : item.name}
+                </h1>
               </div>
             </div>
           </SwiperSlide>

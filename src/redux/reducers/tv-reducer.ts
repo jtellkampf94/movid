@@ -15,6 +15,7 @@ export interface TVDetails {
   vote_count: number;
   name: string;
   original_name: string;
+  title: undefined;
 }
 
 export interface TVResults {
@@ -25,17 +26,24 @@ export interface TVResults {
 }
 
 interface TVState {
-  airingToday: TVResults | null;
-  popular: TVResults | null;
-  onTheAir: TVResults | null;
-  topRated: TVResults | null;
+  airingToday: TVResults;
+  popular: TVResults;
+  onTheAir: TVResults;
+  topRated: TVResults;
 }
 
+const initialTVResults: TVResults = {
+  page: 0,
+  results: [],
+  total_results: 0,
+  total_pages: 0
+};
+
 const initialState: TVState = {
-  airingToday: null,
-  popular: null,
-  onTheAir: null,
-  topRated: null
+  airingToday: { ...initialTVResults },
+  popular: { ...initialTVResults },
+  onTheAir: { ...initialTVResults },
+  topRated: { ...initialTVResults }
 };
 
 const tvReducer = (
