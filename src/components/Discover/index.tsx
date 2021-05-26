@@ -15,6 +15,9 @@ const Discover: React.FC = () => {
   return (
     <div className="discover">
       <Header />
+      <div className="discover-heading">
+        <h1 className="discover-heading-title">Discover</h1>
+      </div>
       <DiscoverForm page={page.toString()} />
       <div className="discover-search-results">
         {discover.total_results > 0 &&
