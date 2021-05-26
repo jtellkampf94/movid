@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, Fragment } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import Header from "../Header";
 
 import "./details.scss";
 
@@ -16,7 +17,7 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const credits = useTypedSelector(state => state.details.credits);
   const trailers = useTypedSelector(state => state.details.trailers);
   const reviews = useTypedSelector(state => state.details.reviews);
-
+  const images = useTypedSelector(state => state.config.images.images);
   useEffect(() => {
     const type = match.params.type;
     const id = match.params.id;
@@ -26,10 +27,39 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
     getReviews(type, id);
   }, []);
 
+  //${images.secure_base_url}original${details.backdrop_path}
+
   return (
-    <div>
-      <h1>{details?.title}</h1>
-      <h2>{details?.overview}</h2>
+    <div className="details">
+      <Header />
+      {details && (
+        <Fragment>
+          <div
+            className="details-poster"
+            style={{
+              background: `linear-gradient(0deg, rgba(0,0,0,1) 5%, rgba(0,0,0,0.45) 92%) center center no-repeat, #fff
+              url(${images.secure_base_url}original${details.backdrop_path})
+              center top no-repeat`
+            }}
+          >
+            <div className="details-header">
+              <img
+                src={
+                  images.secure_base_url +
+                  images.poster_sizes[0] +
+                  details.poster_path
+                }
+                alt=""
+                className="details-header-img"
+              />
+              <h1 className="details-header-title">{details.title}</h1>
+            </div>
+          </div>
+          <div className="details-main">
+            <h2 className="details-main-overview">{details.overview}</h2>
+          </div>
+        </Fragment>
+      )}
       <h1>{credits?.cast[0].name}</h1>
       <iframe
         title="1"

@@ -1,0 +1,39 @@
+@import "../../styles/variables";
+
+.details {
+  &-poster {
+    background-size: cover !important;
+    width: 100%;
+    height: 80vh;
+    position: relative;
+  }
+
+  &-header {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -66px;
+    display: flex;
+    align-items: center;
+
+    &-title {
+      color: $white;
+      font-family: $brand-font;
+      text-transform: uppercase;
+      font-size: 2rem;
+      margin-left: 25px;
+    }
+  }
+
+  &-main {
+    padding: 100px 150px 0px;
+    background: linear-gradient(0deg, transparent, $black) center center
+      no-repeat;
+    &-overview {
+      font-size: 1rem;
+      color: $white;
+      font-weight: normal;
+      line-height: 1.5rem;
+    }
+  }
+}
