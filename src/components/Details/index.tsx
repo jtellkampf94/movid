@@ -2,7 +2,9 @@ import { useEffect, Fragment } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import CastCarousel from "../CastCarousel";
 import Header from "../Header";
+import StarRating from "../StarRating";
 
 import "./details.scss";
 
@@ -52,7 +54,18 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                 alt=""
                 className="details-header-img"
               />
-              <h1 className="details-header-title">{details.title}</h1>
+              <div className="details-header-info">
+                <h1 className="details-header-info-title">{details.title}</h1>
+                <div className="details-header-info-rating">
+                  <span className="details-header-info-rating-number">
+                    {details.vote_average}
+                  </span>
+                  <StarRating rating={details.vote_average} />
+                </div>
+                <p className="details-header-info-status">
+                  {details.status} | {details.original_language.toUpperCase()}
+                </p>
+              </div>
             </div>
           </div>
           <div className="details-main">
@@ -60,7 +73,16 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
           </div>
         </Fragment>
       )}
-      <h1>{credits?.cast[0].name}</h1>
+      <div className="details-cast">
+        <h2 className="details-cast-heading">Cast</h2>
+        {credits && (
+          <CastCarousel
+            secureBaseURL={images.secure_base_url}
+            profileSize={images.profile_sizes[1]}
+            cast={credits.cast}
+          />
+        )}
+      </div>
       <iframe
         title="1"
         width="420"

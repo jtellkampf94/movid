@@ -10,23 +10,37 @@
 
   &-header {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 15%;
     bottom: -66px;
     display: flex;
     align-items: center;
 
-    &-title {
-      color: $white;
-      font-family: $brand-font;
-      text-transform: uppercase;
-      font-size: 2rem;
+    &-info {
       margin-left: 25px;
+      color: $white;
+      align-self: flex-end;
+      display: flex;
+      flex-direction: column;
+
+      &-title {
+        font-family: $brand-font;
+        text-transform: uppercase;
+        font-size: 2rem;
+      }
+
+      &-rating {
+        display: flex;
+        margin: 5px 0;
+        &-number {
+          margin-right: 10px;
+          font-weight: bold;
+        }
+      }
     }
   }
 
   &-main {
-    padding: 100px 150px 0px;
+    padding: 100px 15% 0;
     background: linear-gradient(0deg, transparent, $black) center center
       no-repeat;
     &-overview {
@@ -34,6 +48,17 @@
       color: $white;
       font-weight: normal;
       line-height: 1.5rem;
+    }
+  }
+
+  &-cast {
+    padding: 40px 15%;
+    &-heading {
+      font-size: 1.5rem;
+      margin-bottom: 40px;
+      font-family: $brand-font;
+      text-transform: uppercase;
+      color: $white;
     }
   }
 }

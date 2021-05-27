@@ -1,0 +1,71 @@
+@import "../../styles/variables";
+
+.swiper {
+  &-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  &-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    cursor: pointer;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+
+    &-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: relative;
+    }
+    &-placeholder {
+      height: 211px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $secondary-grey;
+
+      &-image {
+        color: $dark-grey;
+        font-size: 100px;
+      }
+    }
+
+    &-details {
+      z-index: 1;
+      position: absolute;
+      bottom: 0;
+      background-color: $primary-grey;
+
+      color: $white;
+      width: 100%;
+      // height: 100%;
+
+      &-name {
+        font-size: 0.75rem;
+        font-weight: bold;
+        font-family: $brand-font;
+        text-transform: uppercase;
+      }
+
+      &-character {
+        font-size: 0.7rem;
+      }
+    }
+  }
+}

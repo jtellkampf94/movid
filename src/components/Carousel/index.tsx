@@ -41,11 +41,11 @@ const Carousel: React.FC<CarouselProps> = ({ baseUrl, sizes, items }) => {
                 backgroundImage: `url(${srcUrl})`
               }}
             >
-              <div className="swiper-slide-container">
+              {/* <div className="swiper-slide-container">
                 <h1 className="swiper-slide-title">
                   {item.title ? item.title : item.name}
                 </h1>
-              </div>
+              </div> */}
             </div>
           </SwiperSlide>
         );
