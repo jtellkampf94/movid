@@ -4,7 +4,9 @@ import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import CastCarousel from "../CastCarousel";
 import Header from "../Header";
+import Review from "../Review";
 import StarRating from "../StarRating";
+import TrailersCarousel from "../TrailersCarousel";
 
 import "./details.scss";
 
@@ -74,7 +76,7 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         </Fragment>
       )}
       <div className="details-cast">
-        <h2 className="details-cast-heading">Cast</h2>
+        <h2 className="details-heading">Cast</h2>
         {credits && (
           <CastCarousel
             secureBaseURL={images.secure_base_url}
@@ -83,13 +85,16 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
           />
         )}
       </div>
-      <iframe
-        title="1"
-        width="420"
-        height="315"
-        src={`https://www.youtube.com/embed/${trailers?.results[0].key}`}
-      ></iframe>
-      <p>{reviews?.results[0].content}</p>
+
+      <div className="details-trailers">
+        <h2 className="details-heading">Trailers</h2>
+        {trailers && <TrailersCarousel trailers={trailers.results} />}
+      </div>
+
+      <div className="details-reviews">
+        <h2 className="details-heading">Reviews</h2>
+        <p>{reviews && <Review reviews={reviews.results} />}</p>
+      </div>
     </div>
   );
 };

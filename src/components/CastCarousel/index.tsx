@@ -21,13 +21,12 @@ const CastCarousel: React.FC<CastCarouselProps> = ({
   secureBaseURL,
   profileSize
 }) => {
-  const [isActive, setIsActive] = useState(false);
   return (
     <Fragment>
       <Swiper
         slidesPerView={6}
         spaceBetween={20}
-        slidesPerGroup={3}
+        slidesPerGroup={1}
         loop={true}
         loopFillGroupWithBlank={true}
         navigation={true}
@@ -40,19 +39,13 @@ const CastCarousel: React.FC<CastCarouselProps> = ({
                 src={secureBaseURL + profileSize + person.profile_path}
                 alt=""
                 className="swiper-slide-img"
-                onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)}
               />
             ) : (
-              <div
-                className="swiper-slide-placeholder"
-                onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)}
-              >
+              <div className="swiper-slide-placeholder">
                 <i className="far fa-user swiper-slide-placeholder-image"></i>
               </div>
             )}
-            <div className={`swiper-slide-details ${isActive ? "active" : ""}`}>
+            <div className="swiper-slide-details">
               <h2 className="swiper-slide-details-name">{person.name}</h2>
               <p className="swiper-slide-details-character">
                 {person.character}

@@ -51,14 +51,23 @@
     }
   }
 
+  &-heading {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    font-family: $brand-font;
+    text-transform: uppercase;
+    color: $white;
+  }
+
   &-cast {
     padding: 40px 15%;
-    &-heading {
-      font-size: 1.5rem;
-      margin-bottom: 40px;
-      font-family: $brand-font;
-      text-transform: uppercase;
-      color: $white;
-    }
+  }
+
+  &-trailers {
+    padding: 0px 15% 40px;
+  }
+
+  &-reviews {
+    padding: 0px 15%;
   }
 }
