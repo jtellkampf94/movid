@@ -100,3 +100,13 @@
     }
   }
 }
+
+@media only screen and (max-width: 425px) {
+  .dropdown {
+    width: 300px;
+
+    &-list {
+      width: 300px;
+    }
+  }
+}

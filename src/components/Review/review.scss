@@ -12,6 +12,10 @@
     flex-direction: column;
   }
 
+  &-content {
+    overflow: hidden;
+  }
+
   &-author {
     align-self: flex-end;
     font-size: 0.75rem;

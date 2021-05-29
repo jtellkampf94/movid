@@ -61,3 +61,11 @@ input[type="number"]::-webkit-outer-spin-button {
     }
   }
 }
+
+@media only screen and (max-width: 425px) {
+  .discover-form {
+    &-input {
+      width: 300px;
+    }
+  }
+}

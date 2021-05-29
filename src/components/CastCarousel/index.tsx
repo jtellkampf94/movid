@@ -1,5 +1,6 @@
-import React, { useRef, useState, Fragment } from "react";
+import { Fragment } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useMediaQuery } from "react-responsive";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 
@@ -21,11 +22,41 @@ const CastCarousel: React.FC<CastCarouselProps> = ({
   secureBaseURL,
   profileSize
 }) => {
+  const isMediumScreen = useMediaQuery({ query: "(max-width: 1000px)" });
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 800px)" });
+  const isExtraSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
+  const isExtraExtraSmallScreen = useMediaQuery({
+    query: "(max-width: 400px)"
+  });
+
+  let slidesPerView = 6;
+  let spaceBetween = 20;
+  if (isMediumScreen) {
+    slidesPerView = 5;
+  }
+  if (isMediumScreen && isSmallScreen) {
+    slidesPerView = 4;
+    spaceBetween = 10;
+  }
+  if (isMediumScreen && isSmallScreen && isExtraSmallScreen) {
+    slidesPerView = 3;
+    spaceBetween = 10;
+  }
+  if (
+    isMediumScreen &&
+    isSmallScreen &&
+    isExtraSmallScreen &&
+    isExtraExtraSmallScreen
+  ) {
+    slidesPerView = 2;
+    spaceBetween = 10;
+  }
+
   return (
     <Fragment>
       <Swiper
-        slidesPerView={6}
-        spaceBetween={20}
+        slidesPerView={slidesPerView}
+        spaceBetween={spaceBetween}
         slidesPerGroup={1}
         loop={true}
         loopFillGroupWithBlank={true}

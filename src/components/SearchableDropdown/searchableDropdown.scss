@@ -96,3 +96,13 @@
     }
   }
 }
+
+@media only screen and (max-width: 425px) {
+  .searchable-dropdown {
+    width: 300px;
+
+    & &-list {
+      width: 300px;
+    }
+  }
+}

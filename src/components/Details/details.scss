@@ -71,3 +71,51 @@
     padding: 0px 15%;
   }
 }
+
+@media only screen and (max-width: 1200px) {
+  .details {
+    &-header {
+      left: 10%;
+    }
+
+    &-main {
+      padding: 100px 10% 0;
+    }
+
+    &-cast {
+      padding: 40px 10%;
+    }
+
+    &-trailers {
+      padding: 0px 10% 40px;
+    }
+
+    &-reviews {
+      padding: 0px 10%;
+    }
+  }
+}
+
+@media only screen and (max-width: 715px) {
+  .details {
+    &-header {
+      left: 7%;
+    }
+
+    &-main {
+      padding: 100px 7% 0;
+    }
+
+    &-cast {
+      padding: 40px 7%;
+    }
+
+    &-trailers {
+      padding: 0px 7% 40px;
+    }
+
+    &-reviews {
+      padding: 0px 7%;
+    }
+  }
+}
