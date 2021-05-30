@@ -54,6 +54,7 @@ const Home: React.FC = () => {
       <Header />
       {items.length > 0 && (
         <Carousel
+          isTV={isTV}
           items={items}
           baseUrl={secure_base_url}
           sizes={backdrop_sizes}

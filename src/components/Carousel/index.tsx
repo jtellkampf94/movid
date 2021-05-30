@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation } from "swiper/core";
 
@@ -16,9 +17,12 @@ interface CarouselProps {
   items: MovieDetails[] | TVDetails[];
   baseUrl: string;
   sizes: string[];
+  isTV: boolean;
 }
 
-const Carousel: React.FC<CarouselProps> = ({ baseUrl, sizes, items }) => {
+const Carousel: React.FC<CarouselProps> = ({ baseUrl, sizes, items, isTV }) => {
+  let history = useHistory();
+
   return (
     <Swiper
       spaceBetween={30}
@@ -41,11 +45,18 @@ const Carousel: React.FC<CarouselProps> = ({ baseUrl, sizes, items }) => {
                 backgroundImage: `url(${srcUrl})`
               }}
             >
-              {/* <div className="swiper-slide-container">
-                <h1 className="swiper-slide-title">
-                  {item.title ? item.title : item.name}
-                </h1>
-              </div> */}
+              <div
+                className="swiper-slide-overlay"
+                onClick={() =>
+                  history.push(`/details/${isTV ? "tv" : "movie"}/${item.id}`)
+                }
+              >
+                <div className="swiper-slide-container">
+                  <h1 className="swiper-slide-title">
+                    {item.title ? item.title : item.name}
+                  </h1>
+                </div>
+              </div>
             </div>
           </SwiperSlide>
         );
