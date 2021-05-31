@@ -31,6 +31,7 @@
       &-rating {
         display: flex;
         margin: 5px 0;
+        color: $gold;
         &-number {
           margin-right: 10px;
           font-weight: bold;
@@ -49,6 +50,12 @@
       font-weight: normal;
       line-height: 1.5rem;
     }
+  }
+
+  &-loader-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
   }
 
   &-heading {
@@ -70,6 +77,10 @@
   &-reviews {
     padding: 0px 15%;
   }
+}
+
+.header-loader {
+  margin-top: 80px;
 }
 
 @media only screen and (max-width: 1200px) {

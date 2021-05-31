@@ -176,6 +176,14 @@ const detailsReducer = (
       return { ...state, trailers: action.payload };
     case ActionTypes.GET_REVIEWS:
       return { ...state, reviews: action.payload };
+    case ActionTypes.CLEAR_DETAILS:
+      return {
+        ...state,
+        details: null,
+        credits: null,
+        trailers: null,
+        reviews: null
+      };
     default:
       return state;
   }

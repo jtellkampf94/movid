@@ -92,6 +92,8 @@ const moviesReducer = (
       return { ...state, topRated: action.payload };
     case ActionTypes.GET_DISCOVER_MOVIES:
       return { ...state, discover: action.payload };
+    case ActionTypes.CLEAR_DISCOVER_MOVIES:
+      return { ...state, discover: { ...initialDiscoverSearchResult } };
     default:
       return state;
   }

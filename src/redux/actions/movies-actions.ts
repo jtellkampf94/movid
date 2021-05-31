@@ -29,9 +29,14 @@ export interface GetDiscoverMoviesAction {
   payload: DiscoverSearchResult;
 }
 
+export interface ClearDiscoverMoviesAction {
+  type: ActionTypes.CLEAR_DISCOVER_MOVIES;
+}
+
 export type MoviesAction =
   | GetUpcomingMoviesAction
   | GetPopularMoviesAction
   | GetNowPlayingMoviesAction
   | GetTopRatedMoviesAction
-  | GetDiscoverMoviesAction;
+  | GetDiscoverMoviesAction
+  | ClearDiscoverMoviesAction;

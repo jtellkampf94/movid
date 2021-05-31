@@ -2,6 +2,7 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "../action-types";
 import {
+  ClearDiscoverMoviesAction,
   GetDiscoverMoviesAction,
   GetNowPlayingMoviesAction,
   GetPopularMoviesAction,
@@ -120,4 +121,13 @@ export const getDiscoverMovies = (movieFilers: MovieFilers) => async (
   } catch (error) {
     console.log(error);
   }
+};
+
+export const clearDiscoverMovies = () => (
+  dispatch: Dispatch
+): ClearDiscoverMoviesAction => {
+  const action: ClearDiscoverMoviesAction = {
+    type: ActionTypes.CLEAR_DISCOVER_MOVIES
+  };
+  return dispatch(action);
 };

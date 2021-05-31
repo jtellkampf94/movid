@@ -35,6 +35,8 @@ const DiscoverForm: React.FC<DiscoverFormProps> = ({ page }) => {
   const [genres, setGenres] = useState<SearchedGenres | null>(null);
   const key = process.env.REACT_APP_API_KEY;
 
+  const { getDiscoverMovies, clearDiscoverMovies } = useActions();
+
   useEffect(() => {
     loadOptions();
   }, []);
@@ -48,6 +50,10 @@ const DiscoverForm: React.FC<DiscoverFormProps> = ({ page }) => {
       year,
       page
     });
+
+    return () => {
+      clearDiscoverMovies();
+    };
   }, [page]);
 
   const loadOptions = async () => {
@@ -60,8 +66,6 @@ const DiscoverForm: React.FC<DiscoverFormProps> = ({ page }) => {
       console.log(error);
     }
   };
-
-  const { getDiscoverMovies } = useActions();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

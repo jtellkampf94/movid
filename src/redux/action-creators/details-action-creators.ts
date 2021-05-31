@@ -4,7 +4,8 @@ import {
   GetDetailsAction,
   GetCreditsAction,
   GetReviewsAction,
-  GetTrailersAction
+  GetTrailersAction,
+  ClearDetailsAction
 } from "../actions";
 import { ActionTypes } from "../action-types";
 
@@ -76,4 +77,9 @@ export const getReviews = (type: string, id: string) => async (
   } catch (error) {
     console.log(error);
   }
+};
+
+export const clearDetails = () => (dispatch: Dispatch): ClearDetailsAction => {
+  const action: ClearDetailsAction = { type: ActionTypes.CLEAR_DETAILS };
+  return dispatch(action);
 };

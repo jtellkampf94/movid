@@ -26,8 +26,13 @@ export interface GetReviewsAction {
   payload: Reviews;
 }
 
+export interface ClearDetailsAction {
+  type: ActionTypes.CLEAR_DETAILS;
+}
+
 export type detailsAction =
   | GetDetailsAction
   | GetCreditsAction
   | GetTrailersAction
-  | GetReviewsAction;
+  | GetReviewsAction
+  | ClearDetailsAction;

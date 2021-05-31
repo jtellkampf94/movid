@@ -33,30 +33,37 @@
       height: 100%;
       display: flex;
       align-items: flex-end;
-      display: flex;
       background-image: linear-gradient(
         77deg,
         rgba(0, 0, 0, 0.6) 0,
         rgba(0, 0, 0, 0) 85%
       );
-      pointer-events: all;
     }
 
     &-container {
-      // background-color: red;
+      display: flex;
+      flex-direction: column;
+      padding: 4%;
+      max-width: 45%;
     }
-
-    // &-link {
-    //   display: block;
-    //   width: 100%;
-    //   height: 100%;
-    // }
 
     &-title {
       font-family: $brand-font;
       text-transform: uppercase;
       font-weight: bold;
       font-size: 2rem;
+      text-align: left;
+    }
+
+    &-home-details {
+      display: flex;
+      align-items: center;
+    }
+
+    &-rating {
+      color: $gold;
+      margin: 0 5px;
+      font-weight: bold;
     }
   }
 }

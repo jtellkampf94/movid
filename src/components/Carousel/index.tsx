@@ -2,6 +2,7 @@ import { useHistory } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation } from "swiper/core";
 
+import { MovieGenreConfig } from "../../redux/reducers/config-reducer";
 import { MovieDetails } from "../../redux/reducers/movies-reducer";
 import { TVDetails } from "../../redux/reducers/tv-reducer";
 
@@ -10,6 +11,7 @@ import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 
 import "./carousel.scss";
+import StarRating from "../StarRating";
 
 SwiperCore.use([Autoplay, Navigation]);
 
@@ -18,11 +20,23 @@ interface CarouselProps {
   baseUrl: string;
   sizes: string[];
   isTV: boolean;
+  genres: MovieGenreConfig["genres"];
 }
 
-const Carousel: React.FC<CarouselProps> = ({ baseUrl, sizes, items, isTV }) => {
-  let history = useHistory();
+const Carousel: React.FC<CarouselProps> = ({
+  baseUrl,
+  sizes,
+  items,
+  isTV,
+  genres
+}) => {
+  const history = useHistory();
 
+  const mapGenre = (genreId: number) => {
+    const genreArray = genres.filter(genre => genre.id === genreId);
+    const genre = genreArray[0] ? genreArray[0].name : "";
+    return genre;
+  };
   return (
     <Swiper
       spaceBetween={30}
@@ -55,6 +69,15 @@ const Carousel: React.FC<CarouselProps> = ({ baseUrl, sizes, items, isTV }) => {
                   <h1 className="swiper-slide-title">
                     {item.title ? item.title : item.name}
                   </h1>
+                  <div className="swiper-slide-home-details">
+                    <span className="swiper-slider-genre">
+                      {item.genre_ids[0] && mapGenre(item.genre_ids[0])} |
+                    </span>
+                    <span className="swiper-slide-rating">
+                      {item.vote_average}
+                    </span>
+                    <StarRating rating={item.vote_average} />
+                  </div>
                 </div>
               </div>
             </div>

@@ -54,6 +54,7 @@ const Home: React.FC = () => {
       <Header />
       {items.length > 0 && (
         <Carousel
+          genres={state.config.movieGenres.genres}
           isTV={isTV}
           items={items}
           baseUrl={secure_base_url}

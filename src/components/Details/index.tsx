@@ -1,5 +1,8 @@
 import { useEffect, Fragment } from "react";
 import { RouteComponentProps } from "react-router-dom";
+import { ScaleLoader } from "react-spinners";
+import { css } from "@emotion/react";
+
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import CastCarousel from "../CastCarousel";
@@ -16,12 +19,18 @@ interface Params {
 }
 
 const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
-  const { getDetails, getCredits, getTrailers, getReviews } = useActions();
-  const details = useTypedSelector(state => state.details.details);
-  const credits = useTypedSelector(state => state.details.credits);
-  const trailers = useTypedSelector(state => state.details.trailers);
-  const reviews = useTypedSelector(state => state.details.reviews);
+  const {
+    getDetails,
+    getCredits,
+    getTrailers,
+    getReviews,
+    clearDetails
+  } = useActions();
+  const detailsState = useTypedSelector(state => state.details);
   const images = useTypedSelector(state => state.config.images.images);
+
+  const { details, reviews, trailers, credits } = detailsState;
+
   useEffect(() => {
     const type = match.params.type;
     const id = match.params.id;
@@ -29,14 +38,16 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
     getCredits(type, id);
     getTrailers(type, id);
     getReviews(type, id);
-  }, []);
 
-  //${images.secure_base_url}original${details.backdrop_path}
+    return () => {
+      clearDetails();
+    };
+  }, []);
 
   return (
     <div className="details">
       <Header />
-      {details && (
+      {details ? (
         <Fragment>
           <div
             className="details-poster"
@@ -74,6 +85,10 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
             <h2 className="details-main-overview">{details.overview}</h2>
           </div>
         </Fragment>
+      ) : (
+        <div className="details-loader-container header-loader">
+          <ScaleLoader loading color="white" />
+        </div>
       )}
       <div className="details-cast">
         <h2 className="details-heading">Cast</h2>
@@ -88,12 +103,24 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
 
       <div className="details-trailers">
         <h2 className="details-heading">Trailers</h2>
-        {trailers && <TrailersCarousel trailers={trailers.results} />}
+        {trailers ? (
+          <TrailersCarousel trailers={trailers.results} />
+        ) : (
+          <div className="details-loader-container">
+            <ScaleLoader loading color="white" />
+          </div>
+        )}
       </div>
 
       <div className="details-reviews">
         <h2 className="details-heading">Reviews</h2>
-        <p>{reviews && <Review reviews={reviews.results} />}</p>
+        {reviews ? (
+          <Review reviews={reviews.results} />
+        ) : (
+          <div className="details-loader-container">
+            <ScaleLoader loading color="white" />
+          </div>
+        )}
       </div>
     </div>
   );
