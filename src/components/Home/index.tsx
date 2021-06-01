@@ -5,6 +5,7 @@ import { MovieDetails } from "../../redux/reducers/movies-reducer";
 import { TVDetails } from "../../redux/reducers/tv-reducer";
 import Carousel from "../Carousel";
 import Header from "../Header";
+import MoviesCarousel from "../MoviesCarousel";
 
 import "./home.scss";
 
@@ -38,32 +39,154 @@ const Home: React.FC = () => {
 
   const state = useTypedSelector(state => state);
 
-  const { secure_base_url, backdrop_sizes } = state.config.images.images;
-  const { results: moviesNowPlaying } = state.movies.nowPlaying;
-  const { results: tvAiringToday } = state.tv.airingToday;
+  const {
+    secure_base_url,
+    backdrop_sizes,
+    poster_sizes
+  } = state.config.images.images;
+  const {
+    nowPlaying: nowPlayingMovies,
+    upcoming: upcomingMovies,
+    topRated: topRatedMovies,
+    popular: popularMovies
+  } = state.movies;
+  const {
+    airingToday,
+    popular: popularTV,
+    onTheAir,
+    topRated: topRatedTV
+  } = state.tv;
 
   let items: TVDetails[] | MovieDetails[];
+  let upcoming: TVDetails[] | MovieDetails[];
   if (isTV) {
-    items = tvAiringToday;
+    items = airingToday.results;
+    upcoming = airingToday.results;
   } else {
-    items = moviesNowPlaying;
+    items = nowPlayingMovies.results;
+    upcoming = airingToday.results;
   }
 
   return (
     <div className="home">
       <Header />
-      {items.length > 0 && (
+      {isTV && airingToday.results.length > 0 && (
         <Carousel
           genres={state.config.movieGenres.genres}
           isTV={isTV}
-          items={items}
+          tv={airingToday.results}
           baseUrl={secure_base_url}
           sizes={backdrop_sizes}
         />
       )}
-      <div className="home-buttons">
-        <button onClick={() => setIsTV(false)}>Movie</button>
-        <button onClick={() => setIsTV(true)}>TV</button>
+      {!isTV && nowPlayingMovies.results.length > 0 && (
+        <Carousel
+          genres={state.config.movieGenres.genres}
+          isTV={isTV}
+          movies={nowPlayingMovies.results}
+          baseUrl={secure_base_url}
+          sizes={backdrop_sizes}
+        />
+      )}
+      <div className="home-main-content">
+        <div className="home-buttons-container">
+          <button className="home-buttons" onClick={() => setIsTV(false)}>
+            Movie
+          </button>
+          <button className="home-buttons" onClick={() => setIsTV(true)}>
+            TV
+          </button>
+        </div>
+
+        <div className="home-carousel-container home-upcoming">
+          <h2 className="home-title home-title-upcoming">
+            {isTV ? "Airing Today" : "Upcoming"}
+          </h2>
+          {!isTV && upcomingMovies.results.length > 0 && (
+            <MoviesCarousel
+              movieGenres={state.config.movieGenres}
+              isTV={isTV}
+              movies={upcomingMovies.results}
+              secureBaseURL={secure_base_url}
+              posterSize={poster_sizes[2]}
+            />
+          )}
+          {isTV && airingToday.results.length > 0 && (
+            <MoviesCarousel
+              movieGenres={state.config.movieGenres}
+              isTV={isTV}
+              tv={airingToday.results}
+              secureBaseURL={secure_base_url}
+              posterSize={poster_sizes[2]}
+            />
+          )}
+        </div>
+
+        <div className="home-carousel-container home-popular">
+          <h2 className="home-title">Popular</h2>
+          {!isTV && popularMovies.results.length > 0 && (
+            <MoviesCarousel
+              movieGenres={state.config.movieGenres}
+              isTV={isTV}
+              movies={popularMovies.results}
+              secureBaseURL={secure_base_url}
+              posterSize={poster_sizes[2]}
+            />
+          )}
+          {isTV && popularTV.results.length > 0 && (
+            <MoviesCarousel
+              movieGenres={state.config.movieGenres}
+              isTV={isTV}
+              tv={popularTV.results}
+              secureBaseURL={secure_base_url}
+              posterSize={poster_sizes[2]}
+            />
+          )}
+        </div>
+
+        <div className="home-carousel-container home-now-playing">
+          <h2 className="home-title">{isTV ? "On The Air" : "Now Playing"}</h2>
+          {!isTV && nowPlayingMovies.results.length > 0 && (
+            <MoviesCarousel
+              movieGenres={state.config.movieGenres}
+              isTV={isTV}
+              movies={nowPlayingMovies.results}
+              secureBaseURL={secure_base_url}
+              posterSize={poster_sizes[2]}
+            />
+          )}
+          {isTV && onTheAir.results.length > 0 && (
+            <MoviesCarousel
+              movieGenres={state.config.movieGenres}
+              isTV={isTV}
+              tv={onTheAir.results}
+              secureBaseURL={secure_base_url}
+              posterSize={poster_sizes[2]}
+            />
+          )}
+        </div>
+
+        <div className="home-carousel-container home-top-rated">
+          <h2 className="home-title">Top Rated</h2>
+          {!isTV && topRatedMovies.results.length > 0 && (
+            <MoviesCarousel
+              movieGenres={state.config.movieGenres}
+              isTV={isTV}
+              movies={topRatedMovies.results}
+              secureBaseURL={secure_base_url}
+              posterSize={poster_sizes[2]}
+            />
+          )}
+          {isTV && topRatedTV.results.length > 0 && (
+            <MoviesCarousel
+              movieGenres={state.config.movieGenres}
+              isTV={isTV}
+              tv={topRatedTV.results}
+              secureBaseURL={secure_base_url}
+              posterSize={poster_sizes[2]}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

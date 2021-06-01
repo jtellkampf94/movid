@@ -20,12 +20,14 @@
   }
 
   &-button {
+    font-family: $brand-font;
     font-size: 0.75rem;
     font-weight: bold;
     padding: 0.75rem;
     border: none;
     background-color: $red;
     color: $white;
+    text-transform: uppercase;
     cursor: pointer;
   }
 }

@@ -27,6 +27,7 @@ const Discover: React.FC = () => {
             <MovieCard
               key={movie.id}
               movie={movie}
+              isTV={false}
               movieGenres={config.movieGenres}
               secureBaseUrl={config.images.images.secure_base_url}
               posterSize={config.images.images.poster_sizes[2]}

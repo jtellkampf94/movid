@@ -5,6 +5,8 @@
   width: 185px;
   display: inline-block;
   transition: 0.4s ease-in;
+  overflow: visible;
+
   &:hover {
     transform: scale(1.1);
     -webkit-box-shadow: 3px 3px 15px -2px $black;
@@ -40,6 +42,7 @@
         transparent,
         rgba($black, 0.5)
       );
+      z-index: 1;
     }
   }
 
@@ -75,6 +78,8 @@
     width: 100%;
     -webkit-box-shadow: 3px 3px 15px -2px $black;
     box-shadow: 3px 3px 15px -2px $black;
+    overflow: visible;
+
     &-title {
       font-size: 0.75rem;
       font-family: $brand-font;

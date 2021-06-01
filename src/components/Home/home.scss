@@ -1,5 +1,50 @@
+@import "../../styles/variables";
+
 .home {
+  &-main-content {
+    padding: 0 4%;
+    overflow: visible;
+    background: linear-gradient(0deg, transparent, $black) center center;
+  }
+  &-buttons-container {
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-between;
+  }
   &-buttons {
-    padding-top: 100px;
+    width: 10%;
+    border: none;
+    height: 35px;
+    font-family: $brand-font;
+    text-transform: uppercase;
+    font-weight: bolder;
+    background-color: $white;
+    color: $black;
+    cursor: pointer;
+    transition: 0.4s ease-in;
+    &:hover {
+      -webkit-box-shadow: 3px 3px 15px -2px $black;
+      box-shadow: 3px 3px 15px -2px $black;
+    }
+  }
+
+  &-carousel-container {
+    height: 420px;
+    overflow: hidden;
+  }
+
+  &-title {
+    font-family: $brand-font;
+    text-transform: uppercase;
+    color: $white;
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 715px) {
+  .home {
+    &-buttons {
+      width: 20%;
+    }
   }
 }

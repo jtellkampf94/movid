@@ -5,7 +5,7 @@ export interface TVDetails {
   poster_path: string | null;
   popularity: number;
   id: number;
-  backdrop_path: string | null;
+  backdrop_path: string;
   vote_average: number;
   overview: string;
   first_air_date: string;
@@ -15,7 +15,6 @@ export interface TVDetails {
   vote_count: number;
   name: string;
   original_name: string;
-  title: undefined;
 }
 
 export interface TVResults {

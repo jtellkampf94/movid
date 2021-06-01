@@ -20,14 +20,14 @@ const Profile: React.FC = () => {
     <Fragment>
       <Header />
       <div className="profile">
-        {movies.results.map(movie => (
+        {/* {movies.results.map(movie => (
           <MovieCard
             movieGenres={config.movieGenres}
             secureBaseUrl={config.images.images.secure_base_url}
             posterSize={config.images.images.poster_sizes[2]}
             movie={movie}
           />
-        ))}
+        ))} */}
       </div>
     </Fragment>
   );

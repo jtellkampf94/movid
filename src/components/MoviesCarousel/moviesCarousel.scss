@@ -1,0 +1,12 @@
+.movies-carousel {
+  overflow-y: visible;
+
+  &-slide {
+    background: transparent !important;
+    height: 350px;
+    text-align: left !important;
+
+    &:hover {
+    }
+  }
+}
