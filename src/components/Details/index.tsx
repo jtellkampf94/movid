@@ -1,7 +1,6 @@
 import { useEffect, Fragment } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
-import { css } from "@emotion/react";
 
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";

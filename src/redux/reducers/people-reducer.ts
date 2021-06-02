@@ -104,7 +104,7 @@ const peopleReducer = (
   state: PeopleState = initialState,
   action: PeopleAction
 ): PeopleState => {
-  switch (action.payload) {
+  switch (action.type) {
     case ActionTypes.GET_PEOPLE_DETAILS:
       return { ...state, details: action.payload };
     case ActionTypes.GET_PEOPLE_COMBINDED_CREDITS:

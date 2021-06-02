@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { useHistory } from "react-router";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useMediaQuery } from "react-responsive";
 import "swiper/swiper.min.css";
@@ -22,6 +23,7 @@ const CastCarousel: React.FC<CastCarouselProps> = ({
   secureBaseURL,
   profileSize
 }) => {
+  const history = useHistory();
   const isMediumScreen = useMediaQuery({ query: "(max-width: 1000px)" });
   const isSmallScreen = useMediaQuery({ query: "(max-width: 800px)" });
   const isExtraSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
@@ -70,9 +72,13 @@ const CastCarousel: React.FC<CastCarouselProps> = ({
                 src={secureBaseURL + profileSize + person.profile_path}
                 alt=""
                 className="swiper-slide-img"
+                onClick={() => history.push(`/people/${person.id}`)}
               />
             ) : (
-              <div className="swiper-slide-placeholder">
+              <div
+                className="swiper-slide-placeholder"
+                onClick={() => history.push(`/people/${person.id}`)}
+              >
                 <i className="far fa-user swiper-slide-placeholder-image"></i>
               </div>
             )}
