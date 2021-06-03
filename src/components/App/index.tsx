@@ -7,6 +7,7 @@ import Discover from "../Discover";
 import Profile from "../Profile";
 import Details from "../Details";
 import People from "../People";
+import Search from "../Search";
 
 const App: React.FC = () => {
   const { getImagesConfig, getMovieGenreConfig } = useActions();
@@ -24,6 +25,7 @@ const App: React.FC = () => {
         <Route path="/profile" exact component={Profile} />
         <Route path="/details/:type/:id" exact component={Details} />
         <Route path="/people/:id" exact component={People} />
+        <Route path="/search/:id" exact component={Search} />
       </Switch>
     </div>
   );
