@@ -1,9 +1,10 @@
 import { useEffect, Fragment } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { CombinedCredits } from "../../redux/reducers/people-reducer";
 import Header from "../Header";
 import StarRating from "../StarRating";
 
@@ -21,6 +22,18 @@ const People: React.FC<RouteComponentProps<Params>> = ({ match }) => {
     getPeopleDetails(id);
     getPeopleCombinedCredits(id);
   }, []);
+
+  const removeDuplicates = (creditsArray: CombinedCredits['cast']) => {
+    let uniqueArray:CombinedCredits['cast']  = []
+    creditsArray.forEach((credit) => {
+      const res = uniqueArray.filter(c => c.id === credit.id)
+      if(res.length === 0) {
+        uniqueArray.push(credit)
+      }
+    })
+
+    return uniqueArray
+  }
 
   const state = useTypedSelector(state => state);
 
@@ -69,7 +82,50 @@ const People: React.FC<RouteComponentProps<Params>> = ({ match }) => {
             </div>
           </div>
           <div className="people-main">
-            <h2 className="people-main-biography">{person.biography}</h2>
+            <h2 className="people-heading">Biography</h2>
+            <p className="people-main-biography">{person.biography}</p>
+
+            <h2 className="people-heading">Credits</h2>
+
+            {combinedCredits.cast.length > 0 ? (
+              removeDuplicates(combinedCredits.cast).map((role, index) => (
+                <Link
+                  key={role.id}
+                  to={`/details/${role.media_type}/${role.id}`}
+                >
+                  <div className="people-main-credit">
+                    {role.poster_path ? (
+                      <div className="people-main-credit-image-container">
+                        <img
+                          className="people-main-credit-image"
+                          src={
+                            secure_base_url + poster_sizes[0] + role.poster_path
+                          }
+                          alt={role.title}
+                        />
+                      </div>
+                    ) : (
+                      <div className="people-main-credit-placeholder">
+                        <i className="people-main-credit-placeholder-image far fa-file-image"></i>
+                      </div>
+                    )}
+                    <div className="people-main-credit-details">
+                      <h3 className="people-main-credit-title">{role.title}</h3>
+                      <p className="people-main-credit-character">
+                        {role.character}
+                      </p>
+                      <p className="people-main-credit-overview">
+                        {role.overview}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <div className="people-loader-container header-loader">
+                <ScaleLoader loading color="white" />
+              </div>
+            )}
           </div>
         </Fragment>
       ) : (

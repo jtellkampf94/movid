@@ -40,6 +40,14 @@
     }
   }
 
+  &-heading {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    font-family: $brand-font;
+    text-transform: uppercase;
+    color: $white;
+  }
+
   &-main {
     padding: 100px 15% 0;
     background: linear-gradient(0deg, transparent, $black) center center
@@ -49,6 +57,57 @@
       color: $white;
       font-weight: normal;
       line-height: 1.5rem;
+      margin-bottom: 40px;
+    }
+
+    &-credit {
+      color: $white;
+      display: grid;
+      grid-template-columns: 92px calc(100% - 92px);
+      grid-template-rows: 138px;
+      line-height: 1.3rem;
+      height: 138px;
+      margin-bottom: 20px;
+
+      &-details {
+        padding-left: 5px;
+      }
+
+      &-title {
+        font-size: 1rem;
+        font-family: $brand-font;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      &-character {
+        font-size: 0.75rem;
+        color: $tertiary-grey;
+        font-weight: bold;
+      }
+
+      &-overview {
+        font-size: 0.9rem;
+        height: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &-placeholder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $secondary-grey;
+        width: 92px;
+        height: 138px;
+        flex-shrink: 0;
+        flex-grow: 0;
+
+        &-image {
+          color: $dark-grey;
+          font-size: 100px;
+        }
+      }
     }
   }
 }

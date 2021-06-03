@@ -59,7 +59,7 @@ const Carousel: React.FC<CarouselProps> = props => {
                 ? props.baseUrl + props.sizes[2] + tvItem.backdrop_path
                 : "";
             return (
-              <SwiperSlide>
+              <SwiperSlide key={tvItem.id}>
                 <div
                   className="swiper-slide-background"
                   style={{
@@ -94,7 +94,7 @@ const Carousel: React.FC<CarouselProps> = props => {
                 ? props.baseUrl + props.sizes[2] + movie.backdrop_path
                 : "";
             return (
-              <SwiperSlide>
+              <SwiperSlide key={movie.id}>
                 <div
                   className="swiper-slide-background"
                   style={{

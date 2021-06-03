@@ -10,7 +10,7 @@ const Review: React.FC<ReviewProps> = ({ reviews }) => {
     <div className="review">
       {reviews.length > 0 ? (
         reviews.map(review => (
-          <div className="review-container">
+          <div key={review.id} className="review-container">
             <div className="review-content">"{review.content}"</div>
             <div className="review-author">
               <i>{review.author}</i>
