@@ -10,6 +10,11 @@ export interface GetPeopleCombinedCreditsAction {
   payload: any;
 }
 
+export interface ClearPeopleAction {
+  type: ActionTypes.CLEAR_PEOPLE;
+}
+
 export type PeopleAction =
   | GetPeopleDetailsAction
-  | GetPeopleCombinedCreditsAction;
+  | GetPeopleCombinedCreditsAction
+  | ClearPeopleAction;

@@ -1,5 +1,5 @@
 import { useEffect, Fragment } from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { Link, RouteComponentProps, useLocation } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 
 import { useActions } from "../../hooks/useActions";
@@ -14,28 +14,42 @@ interface Params {
   id: string;
 }
 
-const People: React.FC<RouteComponentProps<Params>> = ({ match }) => {
-  const { getPeopleDetails, getPeopleCombinedCredits } = useActions();
+interface LocationState {
+  backdropURL: string;
+}
+
+const People: React.FC<RouteComponentProps<Params>> = ({ match, location }) => {
+  const {
+    getPeopleDetails,
+    getPeopleCombinedCredits,
+    clearPeople
+  } = useActions();
 
   useEffect(() => {
     const id = match.params.id;
     getPeopleDetails(id);
     getPeopleCombinedCredits(id);
+
+    return () => {
+      clearPeople();
+      console.log("cleared");
+    };
   }, []);
 
-  const removeDuplicates = (creditsArray: CombinedCredits['cast']) => {
-    let uniqueArray:CombinedCredits['cast']  = []
-    creditsArray.forEach((credit) => {
-      const res = uniqueArray.filter(c => c.id === credit.id)
-      if(res.length === 0) {
-        uniqueArray.push(credit)
+  const removeDuplicates = (creditsArray: CombinedCredits["cast"]) => {
+    let uniqueArray: CombinedCredits["cast"] = [];
+    creditsArray.forEach(credit => {
+      const res = uniqueArray.filter(c => c.id === credit.id);
+      if (res.length === 0) {
+        uniqueArray.push(credit);
       }
-    })
+    });
 
-    return uniqueArray
-  }
+    return uniqueArray;
+  };
 
   const state = useTypedSelector(state => state);
+  const { state: locationState } = useLocation<LocationState>();
 
   const { secure_base_url, poster_sizes } = state.config.images.images;
   const person = state.people.details;
@@ -44,7 +58,7 @@ const People: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   return (
     <div className="people">
       <Header />
-      {person ? (
+      {person.name.length > 0 ? (
         <Fragment>
           <div
             className="people-poster"
@@ -53,6 +67,8 @@ const People: React.FC<RouteComponentProps<Params>> = ({ match }) => {
               url(${secure_base_url}original${
                 combinedCredits.cast.length > 0
                   ? combinedCredits.cast[0].backdrop_path
+                  : locationState.backdropURL
+                  ? locationState.backdropURL
                   : ""
               })
               center top no-repeat`

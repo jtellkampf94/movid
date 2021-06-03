@@ -16,12 +16,14 @@ interface CastCarouselProps {
   cast: Credits["cast"];
   secureBaseURL: string;
   profileSize: string;
+  backdropURL: string;
 }
 
 const CastCarousel: React.FC<CastCarouselProps> = ({
   cast,
   secureBaseURL,
-  profileSize
+  profileSize,
+  backdropURL
 }) => {
   const history = useHistory();
   const isMediumScreen = useMediaQuery({ query: "(max-width: 1000px)" });
@@ -72,7 +74,12 @@ const CastCarousel: React.FC<CastCarouselProps> = ({
                 src={secureBaseURL + profileSize + person.profile_path}
                 alt=""
                 className="swiper-slide-img"
-                onClick={() => history.push(`/people/${person.id}`)}
+                onClick={() =>
+                  history.push({
+                    pathname: `/people/${person.id}`,
+                    state: { backdropURL }
+                  })
+                }
               />
             ) : (
               <div

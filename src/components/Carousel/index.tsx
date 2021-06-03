@@ -43,7 +43,7 @@ const Carousel: React.FC<CarouselProps> = props => {
 
   return (
     <Swiper
-      spaceBetween={30}
+      spaceBetween={0}
       centeredSlides={true}
       autoplay={{
         delay: 4000,
@@ -61,9 +61,9 @@ const Carousel: React.FC<CarouselProps> = props => {
             return (
               <SwiperSlide key={tvItem.id}>
                 <div
-                  className="swiper-slide-background"
+                  className="swiper-slide-background-main"
                   style={{
-                    backgroundImage: `url(${srcUrl})`
+                    background: `linear-gradient(0deg, rgba(0,0,0,1) 5%, rgba(0,0,0,0.45) 92%) center center no-repeat, url(${srcUrl})`
                   }}
                 >
                   <div
@@ -96,9 +96,9 @@ const Carousel: React.FC<CarouselProps> = props => {
             return (
               <SwiperSlide key={movie.id}>
                 <div
-                  className="swiper-slide-background"
+                  className="swiper-slide-background-main"
                   style={{
-                    backgroundImage: `url(${srcUrl})`
+                    background: `linear-gradient(0deg, rgba(0,0,0,1) 1%, rgba(0,0,0,0) 97%) center center no-repeat, url(${srcUrl})`
                   }}
                 >
                   <div

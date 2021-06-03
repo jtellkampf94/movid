@@ -91,11 +91,12 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
       )}
       <div className="details-cast">
         <h2 className="details-heading">Cast</h2>
-        {credits && (
+        {credits && details && (
           <CastCarousel
             secureBaseURL={images.secure_base_url}
             profileSize={images.profile_sizes[1]}
             cast={credits.cast}
+            backdropURL={details.backdrop_path ? details.backdrop_path : ""}
           />
         )}
       </div>

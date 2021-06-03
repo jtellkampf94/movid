@@ -1,5 +1,7 @@
 import { Fragment } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useMediaQuery } from "react-responsive";
+
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 
@@ -30,10 +32,33 @@ type MovieCarouselProps =
     };
 
 const MovieCarousel: React.FC<MovieCarouselProps> = props => {
+  const firstBP = useMediaQuery({ query: "(max-width: 1220px)" });
+  const secondBP = useMediaQuery({ query: "(max-width: 1025px)" });
+  const thirdBP = useMediaQuery({ query: "(max-width: 820px)" });
+  const fourthBP = useMediaQuery({ query: "(max-width: 615px)" });
+  const fifthBP = useMediaQuery({ query: "(max-width: 420px)" });
+
+  let slidesPerView = 6;
+  if (firstBP) {
+    slidesPerView = 5;
+  }
+  if (firstBP && secondBP) {
+    slidesPerView = 4;
+  }
+  if (firstBP && secondBP && thirdBP) {
+    slidesPerView = 3;
+  }
+  if (firstBP && secondBP && thirdBP && fourthBP) {
+    slidesPerView = 2;
+  }
+  if (firstBP && secondBP && thirdBP && fourthBP && fifthBP) {
+    slidesPerView = 1;
+  }
+
   return (
     <Fragment>
       <Swiper
-        slidesPerView={6}
+        slidesPerView={slidesPerView}
         spaceBetween={0}
         slidesPerGroup={1}
         loop={true}

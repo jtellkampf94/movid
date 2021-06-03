@@ -109,6 +109,8 @@ const peopleReducer = (
       return { ...state, details: action.payload };
     case ActionTypes.GET_PEOPLE_COMBINDED_CREDITS:
       return { ...state, combinedCredits: action.payload };
+    case ActionTypes.CLEAR_PEOPLE:
+      return { ...initialState };
     default:
       return state;
   }

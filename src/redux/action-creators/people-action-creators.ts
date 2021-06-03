@@ -3,7 +3,8 @@ import { Dispatch } from "redux";
 import { ActionTypes } from "../action-types";
 import {
   GetPeopleDetailsAction,
-  GetPeopleCombinedCreditsAction
+  GetPeopleCombinedCreditsAction,
+  ClearPeopleAction
 } from "../actions";
 
 const key = process.env.REACT_APP_API_KEY;
@@ -40,4 +41,11 @@ export const getPeopleCombinedCredits = (id: string) => async (
   } catch (error) {
     console.log(error);
   }
+};
+
+export const clearPeople = () => (dispatch: Dispatch): ClearPeopleAction => {
+  const action: ClearPeopleAction = {
+    type: ActionTypes.CLEAR_PEOPLE
+  };
+  return dispatch(action);
 };
