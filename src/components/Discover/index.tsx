@@ -1,16 +1,20 @@
 import { useState, Fragment } from "react";
+
 import Header from "../Header";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
 import DiscoverForm from "../DiscoverForm";
 import MovieCard from "../MovieCard";
+import Pagination from "../Pagination";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { usePagination } from "../../hooks/usePagination";
 
 import "./discover.scss";
 
 const Discover: React.FC = () => {
-  const [page, setPage] = useState(1);
   const state = useTypedSelector(state => state);
   const discover = state.movies.discover;
   const config = state.config;
+
+  const { page, previousPage, nextPage } = usePagination();
 
   return (
     <div className="discover">
@@ -36,23 +40,12 @@ const Discover: React.FC = () => {
       </div>
       <div className="discover-pagination">
         {discover.total_pages > 1 && (
-          <Fragment>
-            <button
-              className="discover-pagination-button"
-              onClick={() => setPage(prevStatePage => prevStatePage - 1)}
-            >
-              Previous
-            </button>
-            <div className="discover-pagination-page-info">
-              {discover.page}/{discover.total_pages}
-            </div>
-            <button
-              className="discover-pagination-button"
-              onClick={() => setPage(prevStatePage => prevStatePage + 1)}
-            >
-              Next
-            </button>
-          </Fragment>
+          <Pagination
+            currentPage={discover.page}
+            totalPages={discover.total_pages}
+            previousPage={previousPage}
+            nextPage={nextPage}
+          />
         )}
       </div>
     </div>

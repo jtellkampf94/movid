@@ -1,4 +1,36 @@
 @import "../../styles/variables";
 
 .search-page {
+  margin-top: 100px;
+  color: $white;
+  padding: 0 4%;
+
+  &-heading {
+    font-family: $brand-font;
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  &-subheading {
+    font-family: $brand-font;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  &-results {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    row-gap: 25px;
+    margin-bottom: 40px;
+  }
+
+  &-card-container {
+    display: flex;
+    justify-content: flex-start;
+  }
 }

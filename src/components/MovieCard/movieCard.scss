@@ -22,6 +22,27 @@
     background-color: $charcoal;
     -webkit-box-shadow: inset 5px 4px 15px -12px $black;
     box-shadow: inset 5px 4px 15px -12px $black;
+
+    &-placeholder {
+      width: 185px;
+      height: 278px;
+      background-color: $secondary-grey;
+      color: $white;
+      -webkit-box-shadow: inset 5px 4px 15px -12px $black;
+      box-shadow: inset 5px 4px 15px -12px $black;
+      position: relative;
+      z-index: -1;
+
+      &-image {
+        font-size: 100px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        color: $dark-grey;
+        z-index: -1;
+        transform: translate(-50%, -50%);
+      }
+    }
   }
 
   &-body {

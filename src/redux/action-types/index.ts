@@ -18,5 +18,6 @@ export enum ActionTypes {
   GET_PEOPLE_COMBINDED_CREDITS = "get_people_combined_credits",
   CLEAR_DETAILS = "clear_details",
   CLEAR_DISCOVER_MOVIES = "clear_discover_movies",
-  CLEAR_PEOPLE = "clear_people"
+  CLEAR_PEOPLE = "clear_people",
+  SEARCH = "search"
 }
