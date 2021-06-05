@@ -24,7 +24,7 @@ const Search: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const { search } = useActions();
   const state = useTypedSelector(state => state);
   const config = state.config;
-  const { secure_base_url, poster_sizes } = config.images.images;
+  const { secure_base_url, poster_sizes, profile_sizes } = config.images.images;
   const {
     total_pages,
     total_results,
@@ -96,6 +96,21 @@ const Search: React.FC<RouteComponentProps<Params>> = ({ match }) => {
       </div>
 
       <h3 className="search-page-subheading">People Results</h3>
+      <div className="search-page-results">
+        {peopleArray.length > 0 &&
+          peopleArray.map(person => (
+            <div key={person.id} className="search-page-card-container">
+              <div
+                className="search-page-person-card"
+                style={{
+                  background: `url(${secure_base_url +
+                    profile_sizes[1] +
+                    person.profile_path})`
+                }}
+              ></div>
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

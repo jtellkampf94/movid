@@ -55,21 +55,32 @@ const People: React.FC<RouteComponentProps<Params>> = ({ match, location }) => {
   const person = state.people.details;
   const combinedCredits = state.people.combinedCredits;
 
+  let backgroundImage;
+  if (combinedCredits.cast.length > 0) {
+    backgroundImage = combinedCredits.cast[0].backdrop_path
+      ? combinedCredits.cast[0].backdrop_path
+      : combinedCredits.cast[1].backdrop_path
+      ? combinedCredits.cast[1].backdrop_path
+      : null;
+  }
+
+  const fallbackImage = locationState.backdropURL
+    ? locationState.backdropURL
+    : "";
+
   return (
     <div className="people">
       <Header />
-      {person.name.length > 0 ? (
+      {person.name.length > 0 && combinedCredits.cast.length > 0 ? (
         <Fragment>
           <div
             className="people-poster"
             style={{
               background: `linear-gradient(0deg, rgba(0,0,0,1) 5%, rgba(0,0,0,0.45) 92%) center center no-repeat, #fff
               url(${secure_base_url}original${
-                combinedCredits.cast.length > 0
-                  ? combinedCredits.cast[0].backdrop_path
-                  : locationState.backdropURL
-                  ? locationState.backdropURL
-                  : ""
+                combinedCredits.cast[0].backdrop_path
+                  ? backgroundImage
+                  : fallbackImage
               })
               center top no-repeat`
             }}

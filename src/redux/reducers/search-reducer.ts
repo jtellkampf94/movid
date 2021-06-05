@@ -1,5 +1,3 @@
-import { TVDetails } from "./tv-reducer";
-import { MovieDetails } from "./movies-reducer";
 import { ActionTypes } from "../action-types";
 import { SearchActions } from "../actions";
 
