@@ -9,11 +9,16 @@
   align-items: center;
   text-align: center;
 
-  &-heading {
+  &-details {
     font-family: $brand-font;
-    font-size: 2rem;
     text-transform: uppercase;
-    margin-bottom: 40px;
+    &-heading {
+      font-size: 2rem;
+      margin-bottom: 40px;
+    }
+    &-info {
+      margin-bottom: 40px;
+    }
   }
 
   &-subheading {
@@ -47,6 +52,11 @@
     text-transform: uppercase;
     font-family: $brand-font;
     margin-bottom: 40px;
+    font-size: 0.75rem;
+  }
+
+  &-pagination-container {
+    display: flex;
   }
 }
 

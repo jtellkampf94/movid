@@ -35,7 +35,7 @@ const Search: React.FC<RouteComponentProps<Params>> = ({ match }) => {
 
   useEffect(() => {
     search(match.params.id, page);
-  }, []);
+  }, [page]);
 
   let moviesArray: MovieResults[] = [];
   let tvArray: TVResults[] = [];
@@ -60,9 +60,19 @@ const Search: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   return (
     <div className="search-page">
       <Header />
-      <h2 className="search-page-heading">
-        Search Results For "{match.params.id}"
-      </h2>
+      <div className="search-page-details">
+        <h2 className="search-page-details-heading">
+          Search Results For "{match.params.id}"
+        </h2>
+        <p className="search-page-details-info">
+          {total_results} results matching your search
+          {total_pages > 1 && (
+            <Fragment>
+              , page {page} of {total_pages}
+            </Fragment>
+          )}
+        </p>
+      </div>
 
       {moviesArray.length > 0 ? (
         <Fragment>
@@ -83,7 +93,8 @@ const Search: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         </Fragment>
       ) : (
         <div className="search-page-no-results">
-          No Movies matched your search term
+          No Movies matched your search term{" "}
+          {total_pages > 1 && <Fragment>on current page</Fragment>}
         </div>
       )}
 
@@ -106,7 +117,8 @@ const Search: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         </Fragment>
       ) : (
         <div className="search-page-no-results">
-          No TV shows matched your search term
+          No TV shows matched your search term{" "}
+          {total_pages > 1 && <Fragment>on current page</Fragment>}
         </div>
       )}
 
@@ -128,7 +140,19 @@ const Search: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         </Fragment>
       ) : (
         <div className="search-page-no-results">
-          No people matched your search term
+          No people matched your search term{" "}
+          {total_pages > 1 && <Fragment>on current page</Fragment>}
+        </div>
+      )}
+
+      {total_pages > 1 && (
+        <div className="search-page-pagination-container">
+          <Pagination
+            previousPage={previousPage}
+            nextPage={nextPage}
+            currentPage={page}
+            totalPages={total_pages}
+          />
         </div>
       )}
     </div>
