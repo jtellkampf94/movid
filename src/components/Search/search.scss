@@ -42,4 +42,18 @@
     width: 185px;
     height: 278px;
   }
+
+  &-no-results {
+    text-transform: uppercase;
+    font-family: $brand-font;
+    margin-bottom: 40px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .search-page {
+    &-heading {
+      font-size: 1.5rem;
+    }
+  }
 }

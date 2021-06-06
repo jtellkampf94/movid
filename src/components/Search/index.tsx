@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 import MovieCard from "../MovieCard";
@@ -14,6 +14,7 @@ import {
 } from "../../redux/reducers/search-reducer";
 
 import "./search.scss";
+import PeopleCard from "../PeopleCard";
 
 interface Params {
   id: string;
@@ -63,54 +64,73 @@ const Search: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         Search Results For "{match.params.id}"
       </h2>
 
-      <h3 className="search-page-subheading">Movies Results</h3>
-      <div className="search-page-results">
-        {moviesArray.length > 0 &&
-          moviesArray.map(movie => (
-            <div key={movie.id} className="search-page-card-container">
-              <MovieCard
-                isTV={false}
-                movie={movie}
-                movieGenres={config.movieGenres}
-                secureBaseUrl={secure_base_url}
-                posterSize={poster_sizes[2]}
-              />
-            </div>
-          ))}
-      </div>
+      {moviesArray.length > 0 ? (
+        <Fragment>
+          <h3 className="search-page-subheading">Movies Results</h3>
+          <div className="search-page-results">
+            {moviesArray.map(movie => (
+              <div key={movie.id} className="search-page-card-container">
+                <MovieCard
+                  isTV={false}
+                  movie={movie}
+                  movieGenres={config.movieGenres}
+                  secureBaseUrl={secure_base_url}
+                  posterSize={poster_sizes[2]}
+                />
+              </div>
+            ))}
+          </div>
+        </Fragment>
+      ) : (
+        <div className="search-page-no-results">
+          No Movies matched your search term
+        </div>
+      )}
 
-      <h3 className="search-page-subheading">TV Results</h3>
-      <div className="search-page-results">
-        {tvArray.length > 0 &&
-          tvArray.map(tv => (
-            <div key={tv.id} className="search-page-card-container">
-              <MovieCard
-                isTV={true}
-                tv={tv}
-                movieGenres={config.movieGenres}
-                secureBaseUrl={secure_base_url}
-                posterSize={poster_sizes[2]}
-              />
-            </div>
-          ))}
-      </div>
+      {tvArray.length > 0 ? (
+        <Fragment>
+          <h3 className="search-page-subheading">TV Results</h3>
+          <div className="search-page-results">
+            {tvArray.map(tv => (
+              <div key={tv.id} className="search-page-card-container">
+                <MovieCard
+                  isTV={true}
+                  tv={tv}
+                  movieGenres={config.movieGenres}
+                  secureBaseUrl={secure_base_url}
+                  posterSize={poster_sizes[2]}
+                />
+              </div>
+            ))}
+          </div>
+        </Fragment>
+      ) : (
+        <div className="search-page-no-results">
+          No TV shows matched your search term
+        </div>
+      )}
 
-      <h3 className="search-page-subheading">People Results</h3>
-      <div className="search-page-results">
-        {peopleArray.length > 0 &&
-          peopleArray.map(person => (
-            <div key={person.id} className="search-page-card-container">
-              <div
-                className="search-page-person-card"
-                style={{
-                  background: `url(${secure_base_url +
-                    profile_sizes[1] +
-                    person.profile_path})`
-                }}
-              ></div>
-            </div>
-          ))}
-      </div>
+      {peopleArray.length > 0 ? (
+        <Fragment>
+          <h3 className="search-page-subheading">People Results</h3>
+          <div className="search-page-results">
+            {peopleArray.map(person => {
+              const backgroundURL = person.profile_path
+                ? secure_base_url + profile_sizes[1] + person.profile_path
+                : null;
+              return (
+                <div key={person.id} className="search-page-card-container">
+                  <PeopleCard person={person} backgroundURL={backgroundURL} />
+                </div>
+              );
+            })}
+          </div>
+        </Fragment>
+      ) : (
+        <div className="search-page-no-results">
+          No people matched your search term
+        </div>
+      )}
     </div>
   );
 };

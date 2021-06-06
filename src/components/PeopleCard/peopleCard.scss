@@ -1,6 +1,6 @@
 @import "../../styles/variables";
 
-.movie-card {
+.people-card {
   width: 185px;
   display: inline-block;
   transition: 0.4s ease-in;
@@ -104,10 +104,6 @@
       font-size: 0.75rem;
       font-family: $brand-font;
       text-transform: uppercase;
-    }
-
-    &-genres {
-      font-size: 0.7rem;
     }
   }
 }
