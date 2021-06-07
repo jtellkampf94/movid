@@ -5,6 +5,7 @@ import moviesReducer from "./movies-reducer";
 import tvReducer from "./tv-reducer";
 import peopleReducer from "./people-reducer";
 import searchReducer from "./search-reducer";
+import authReducer from "./auth-reducer";
 
 const reducers = combineReducers({
   config: configReducer,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
   details: detailsReducer,
   tv: tvReducer,
   people: peopleReducer,
-  search: searchReducer
+  search: searchReducer,
+  auth: authReducer
 });
 
 export default reducers;

@@ -19,5 +19,8 @@ export enum ActionTypes {
   CLEAR_DETAILS = "clear_details",
   CLEAR_DISCOVER_MOVIES = "clear_discover_movies",
   CLEAR_PEOPLE = "clear_people",
-  SEARCH = "search"
+  SEARCH = "search",
+  REQUEST_TOKEN = "request_token",
+  CREATE_SESSION = "create_session",
+  DELETE_SESSION = "delete_session"
 }

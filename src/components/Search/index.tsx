@@ -26,12 +26,7 @@ const Search: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const state = useTypedSelector(state => state);
   const config = state.config;
   const { secure_base_url, poster_sizes, profile_sizes } = config.images.images;
-  const {
-    total_pages,
-    total_results,
-    results,
-    page: pageOfResults
-  } = state.search;
+  const { total_pages, total_results, results } = state.search;
 
   useEffect(() => {
     search(match.params.id, page);

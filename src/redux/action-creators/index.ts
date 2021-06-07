@@ -4,3 +4,4 @@ export * from "./details-action-creators";
 export * from "./tv-action-creators";
 export * from "./people-action-creators";
 export * from "./search-action-creators";
+export * from "./auth-action-creators";

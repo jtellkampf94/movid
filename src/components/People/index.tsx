@@ -64,9 +64,7 @@ const People: React.FC<RouteComponentProps<Params>> = ({ match, location }) => {
       : null;
   }
 
-  const fallbackImage = locationState.backdropURL
-    ? locationState.backdropURL
-    : "";
+  const fallbackImage = locationState ? locationState.backdropURL : "";
 
   return (
     <div className="people">

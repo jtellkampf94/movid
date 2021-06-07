@@ -31,8 +31,10 @@
       height: 100%;
       object-fit: cover;
       position: relative;
+      border-radius: 5px;
     }
     &-placeholder {
+      border-radius: 5px;
       height: 211px;
       width: 100%;
       display: flex;
