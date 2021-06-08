@@ -28,7 +28,7 @@ const App: React.FC = () => {
         <Route path="/details/:type/:id" exact component={Details} />
         <Route path="/people/:id" exact component={People} />
         <Route path="/search/:id" exact component={Search} />
-        {loggedIn ? (
+        {loggedIn || requestToken.request_token.length > 0 ? (
           <Redirect from="/login" to="/profile" />
         ) : (
           <Redirect from="/profile" to="/login" />
