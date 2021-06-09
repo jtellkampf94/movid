@@ -22,5 +22,6 @@ export enum ActionTypes {
   SEARCH = "search",
   REQUEST_TOKEN = "request_token",
   CREATE_SESSION = "create_session",
-  DELETE_SESSION = "delete_session"
+  DELETE_SESSION = "delete_session",
+  CLEAR_REQUEST_TOKEN = "clear_request_token"
 }

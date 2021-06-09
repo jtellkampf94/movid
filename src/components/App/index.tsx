@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, useLocation } from "react-router-dom";
+import queryString from "query-string";
 
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -20,6 +21,9 @@ const App: React.FC = () => {
     getMovieGenreConfig();
   }, []);
 
+  const { search } = useLocation();
+  const params = queryString.parse(search);
+
   return (
     <div className="App">
       <Switch>
@@ -28,7 +32,7 @@ const App: React.FC = () => {
         <Route path="/details/:type/:id" exact component={Details} />
         <Route path="/people/:id" exact component={People} />
         <Route path="/search/:id" exact component={Search} />
-        {loggedIn || requestToken.request_token.length > 0 ? (
+        {loggedIn || (params.request_token && params.approved) ? (
           <Redirect from="/login" to="/profile" />
         ) : (
           <Redirect from="/profile" to="/login" />

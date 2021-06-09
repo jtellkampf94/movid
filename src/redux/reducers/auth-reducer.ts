@@ -46,6 +46,8 @@ const authReducer = (
       return { ...state, session: action.payload, loggedIn: true };
     case ActionTypes.DELETE_SESSION:
       return action.payload.success ? initialState : state;
+    case ActionTypes.CLEAR_REQUEST_TOKEN:
+      return { ...state, requestToken: { ...initialState.requestToken } };
     default:
       return state;
   }

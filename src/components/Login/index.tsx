@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import "./login.scss";
@@ -16,17 +15,13 @@ const Login: React.FC = () => {
     }
   }, []);
 
-  const history = useHistory();
-
-  console.log(reqTokenExpAt);
+  console.log(reqToken);
   return (
     <div className="login">
       <h1>Login</h1>
       <button
         onClick={() =>
-          history.push(
-            `https://www.themoviedb.org/authenticate/${reqToken.request_token}?redirect_to=${process.env.REACT_APP_DOMAIN}/profile`
-          )
+          (window.location.href = `https://www.themoviedb.org/authenticate/${reqToken.request_token}?redirect_to=${process.env.REACT_APP_DOMAIN}/profile`)
         }
       >
         LOG IN

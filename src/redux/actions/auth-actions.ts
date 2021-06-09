@@ -20,7 +20,12 @@ export interface DeleteSessionAction {
   payload: DeletedSession;
 }
 
+export interface ClearRequestTokenAction {
+  type: ActionTypes.CLEAR_REQUEST_TOKEN;
+}
+
 export type AuthAction =
   | RequestTokenAction
   | CreateSessionAction
-  | DeleteSessionAction;
+  | DeleteSessionAction
+  | ClearRequestTokenAction;

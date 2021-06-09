@@ -5,7 +5,8 @@ import { ActionTypes } from "../action-types";
 import {
   RequestTokenAction,
   CreateSessionAction,
-  DeleteSessionAction
+  DeleteSessionAction,
+  ClearRequestTokenAction
 } from "../actions";
 
 const key = process.env.REACT_APP_API_KEY;
@@ -65,4 +66,13 @@ export const deleteSession = (sessionId: string) => async (
   } catch (error) {
     console.log(error);
   }
+};
+
+export const clearRequestToken = () => (
+  dispatch: Dispatch
+): ClearRequestTokenAction => {
+  const action: ClearRequestTokenAction = {
+    type: ActionTypes.CLEAR_REQUEST_TOKEN
+  };
+  return dispatch(action);
 };

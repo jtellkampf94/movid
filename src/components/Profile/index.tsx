@@ -1,17 +1,24 @@
-import { RouteComponentProps, Link } from "react-router-dom";
+import { RouteComponentProps, useHistory } from "react-router-dom";
 import { useState, useEffect, Fragment } from "react";
 import queryString from "query-string";
 
 import Header from "../Header";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useActions } from "../../hooks/useActions";
 
 import "./profile.scss";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const Profile: React.FC<RouteComponentProps> = ({ location }) => {
-  const { requestToken } = useTypedSelector(state => state.auth);
+  const { requestToken, loggedIn } = useTypedSelector(state => state.auth);
   const params = queryString.parse(location.search);
   const isApproved =
-    params.approved && params.request_token === requestToken.request_token;
+    loggedIn ||
+    (params.approved && params.request_token === requestToken.request_token);
+
+  const history = useHistory();
+  const { clearRequestToken } = useActions();
+  const state = useTypedSelector(state => state.auth);
+  console.log(state);
   return (
     <Fragment>
       <Header />
@@ -21,9 +28,14 @@ const Profile: React.FC<RouteComponentProps> = ({ location }) => {
         ) : (
           <div>
             <h1>Something went wrong. Please try logging in again...</h1>{" "}
-            <Link to="/login">
-              <button>Log in</button>
-            </Link>
+            <button
+              onClick={() => {
+                clearRequestToken();
+                history.push("/login");
+              }}
+            >
+              Log in
+            </button>
           </div>
         )}
       </div>
