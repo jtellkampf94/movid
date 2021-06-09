@@ -1,5 +1,5 @@
 import { RouteComponentProps, useHistory } from "react-router-dom";
-import { useState, useEffect, Fragment } from "react";
+import { useEffect, Fragment } from "react";
 import queryString from "query-string";
 
 import Header from "../Header";
@@ -9,16 +9,30 @@ import { useActions } from "../../hooks/useActions";
 import "./profile.scss";
 
 const Profile: React.FC<RouteComponentProps> = ({ location }) => {
-  const { requestToken, loggedIn } = useTypedSelector(state => state.auth);
-  const params = queryString.parse(location.search);
-  const isApproved =
-    loggedIn ||
-    (params.approved && params.request_token === requestToken.request_token);
-
+  const { requestToken, loggedIn, session } = useTypedSelector(
+    state => state.auth
+  );
+  const { clearRequestToken, createSession, deleteSession } = useActions();
   const history = useHistory();
-  const { clearRequestToken } = useActions();
-  const state = useTypedSelector(state => state.auth);
-  console.log(state);
+
+  const params = queryString.parse(location.search);
+
+  const isTokenExp =
+    requestToken.expires_at.length > 0
+      ? new Date() > new Date(requestToken.expires_at)
+      : true;
+  const isTokenApproved =
+    params.approved &&
+    params.request_token === requestToken.request_token &&
+    !isTokenExp;
+  const isApproved = loggedIn || isTokenApproved;
+
+  useEffect(() => {
+    if (isTokenApproved && !loggedIn) {
+      createSession(requestToken.request_token);
+    }
+  }, []);
+
   return (
     <Fragment>
       <Header />
@@ -27,7 +41,12 @@ const Profile: React.FC<RouteComponentProps> = ({ location }) => {
           <h1>Profile</h1>
         ) : (
           <div>
-            <h1>Something went wrong. Please try logging in again...</h1>{" "}
+            <h1>
+              {isTokenExp
+                ? "Request token has expired."
+                : "Something went wrong."}{" "}
+              Please try logging in again...
+            </h1>{" "}
             <button
               onClick={() => {
                 clearRequestToken();
