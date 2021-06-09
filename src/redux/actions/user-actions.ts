@@ -40,6 +40,16 @@ export interface GetTVWatchlistAction {
   payload: UserTVResults;
 }
 
+export interface AddToWatchlistAction {
+  type: ActionTypes.ADD_TO_WATCHLIST;
+  payload: any;
+}
+
+export interface MarkAsFavoriteAction {
+  type: ActionTypes.MARK_AS_FAVORITE;
+  payload: any;
+}
+
 export type UserAction =
   | GetUserDetailsAction
   | GetRatedMoviesAction
@@ -47,4 +57,6 @@ export type UserAction =
   | GetFavoriteMoviesAction
   | GetFavoriteTVAction
   | GetMovieWatchlistAction
-  | GetTVWatchlistAction;
+  | GetTVWatchlistAction
+  | AddToWatchlistAction
+  | MarkAsFavoriteAction;

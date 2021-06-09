@@ -30,5 +30,7 @@ export enum ActionTypes {
   GET_RATED_MOVIES = "get_rated_movies",
   GET_RATED_TV = "get_rated_tv",
   GET_MOVIE_WATCHLIST = "get_movie_watchlist",
-  GET_TV_WATCHLIST = "get_tv_watchlist"
+  GET_TV_WATCHLIST = "get_tv_watchlist",
+  ADD_TO_WATCHLIST = "add_to_watchlist",
+  MARK_AS_FAVORITE = "mark_as_favorite"
 }

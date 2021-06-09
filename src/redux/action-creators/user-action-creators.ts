@@ -8,7 +8,9 @@ import {
   GetFavoriteMoviesAction,
   GetFavoriteTVAction,
   GetMovieWatchlistAction,
-  GetTVWatchlistAction
+  GetTVWatchlistAction,
+  AddToWatchlistAction,
+  MarkAsFavoriteAction
 } from "../actions";
 import { ActionTypes } from "./../action-types/index";
 
@@ -127,6 +129,72 @@ export const getTVWatchlist = (sessionId: string, accountId: string) => async (
     );
     const action: GetTVWatchlistAction = {
       type: ActionTypes.GET_TV_WATCHLIST,
+      payload: data
+    };
+    return dispatch(action);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+interface WatchlistParams {
+  sessionId: string;
+  accountId: string;
+  mediaId: number;
+  watchlist: boolean;
+  mediaType: string;
+}
+
+export const addToWatchlist = ({
+  sessionId,
+  accountId,
+  mediaId,
+  watchlist,
+  mediaType
+}: WatchlistParams) => async (
+  dispatch: Dispatch
+): Promise<AddToWatchlistAction | void> => {
+  try {
+    const { data } = await axios.post(
+      `https://api.themoviedb.org/3/account/${accountId}/watchlist/?api_key=${key}&session_id=${sessionId}`,
+      { media_type: mediaType, media_id: mediaId, watchlist },
+      { headers: { "Content-Type": "application/json;charset=utf-8" } }
+    );
+    const action: AddToWatchlistAction = {
+      type: ActionTypes.ADD_TO_WATCHLIST,
+      payload: data
+    };
+    return dispatch(action);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+interface FavoriteParams {
+  sessionId: string;
+  accountId: string;
+  mediaId: number;
+  favorite: boolean;
+  mediaType: string;
+}
+
+export const markAsFavorite = ({
+  sessionId,
+  accountId,
+  mediaId,
+  favorite,
+  mediaType
+}: FavoriteParams) => async (
+  dispatch: Dispatch
+): Promise<MarkAsFavoriteAction | void> => {
+  try {
+    const { data } = await axios.post(
+      `https://api.themoviedb.org/3/account/${accountId}/favorite/?api_key=${key}&session_id=${sessionId}`,
+      { media_type: mediaType, media_id: mediaId, favorite },
+      { headers: { "Content-Type": "application/json;charset=utf-8" } }
+    );
+    const action: MarkAsFavoriteAction = {
+      type: ActionTypes.MARK_AS_FAVORITE,
       payload: data
     };
     return dispatch(action);
