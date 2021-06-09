@@ -5,3 +5,4 @@ export * from "./tv-actions";
 export * from "./people-actions";
 export * from "./search-actions";
 export * from "./auth-actions";
+export * from "./user-actions";

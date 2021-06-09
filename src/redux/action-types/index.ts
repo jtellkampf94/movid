@@ -23,5 +23,12 @@ export enum ActionTypes {
   REQUEST_TOKEN = "request_token",
   CREATE_SESSION = "create_session",
   DELETE_SESSION = "delete_session",
-  CLEAR_REQUEST_TOKEN = "clear_request_token"
+  CLEAR_REQUEST_TOKEN = "clear_request_token",
+  GET_USER_DETAILS = "get_user_details",
+  GET_FAVORITE_MOVIES = "get_favorite_movies",
+  GET_FAVORITE_TV = "get_favorite_tv",
+  GET_RATED_MOVIES = "get_rated_movies",
+  GET_RATED_TV = "get_rated_tv",
+  GET_MOVIE_WATCHLIST = "get_movie_watchlist",
+  GET_TV_WATCHLIST = "get_tv_watchlist"
 }

@@ -33,12 +33,25 @@ const Profile: React.FC<RouteComponentProps> = ({ location }) => {
     }
   }, []);
 
+  const state = useTypedSelector(state => state.auth);
+  console.log(state);
+  console.log(new Date(requestToken.expires_at));
   return (
     <Fragment>
       <Header />
       <div className="profile">
         {isApproved ? (
-          <h1>Profile</h1>
+          <div>
+            <h1>Profile</h1>
+            <button
+              onClick={() => {
+                deleteSession(session.session_id);
+                history.push("/login");
+              }}
+            >
+              Log out
+            </button>
+          </div>
         ) : (
           <div>
             <h1>
