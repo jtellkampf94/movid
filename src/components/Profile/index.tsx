@@ -12,7 +12,7 @@ const Profile: React.FC<RouteComponentProps> = ({ location }) => {
   const { requestToken, loggedIn, session } = useTypedSelector(
     state => state.auth
   );
-  const { clearRequestToken, createSession, deleteSession } = useActions();
+  const { clearRequestToken, createSession, deleteSession, getUserDetails } = useActions();
   const history = useHistory();
 
   const params = queryString.parse(location.search);
@@ -32,6 +32,10 @@ const Profile: React.FC<RouteComponentProps> = ({ location }) => {
       createSession(requestToken.request_token);
     }
   }, []);
+
+  useEffect(() => {
+    getUserDetails(session.session_id)
+  }, [session.session_id.length > 0])
 
   const state = useTypedSelector(state => state.auth);
   console.log(state);
