@@ -9,10 +9,22 @@ import { useActions } from "../../hooks/useActions";
 import "./profile.scss";
 
 const Profile: React.FC<RouteComponentProps> = ({ location }) => {
-  const { requestToken, loggedIn, session } = useTypedSelector(
-    state => state.auth
-  );
-  const { clearRequestToken, createSession, deleteSession, getUserDetails } = useActions();
+  const state = useTypedSelector(state => state);
+  const { requestToken, loggedIn, session } = state.auth;
+  const { details } = state.user;
+
+  const {
+    clearRequestToken,
+    createSession,
+    deleteSession,
+    getUserDetails,
+    getRatedMovies,
+    getRatedTV,
+    getFavoriteMovies,
+    getFavoriteTV,
+    getMovieWatchlist,
+    getTVWatchlist
+  } = useActions();
   const history = useHistory();
 
   const params = queryString.parse(location.search);
@@ -34,10 +46,20 @@ const Profile: React.FC<RouteComponentProps> = ({ location }) => {
   }, []);
 
   useEffect(() => {
-    getUserDetails(session.session_id)
-  }, [session.session_id.length > 0])
+    getUserDetails(session.session_id);
+  }, [session.session_id.length > 0 && details.id === 0]);
 
-  const state = useTypedSelector(state => state.auth);
+  useEffect(() => {
+    const sessionId = session.session_id;
+    const accountId = details.id.toString();
+    getRatedMovies(sessionId, accountId);
+    getRatedTV(sessionId, accountId);
+    getFavoriteMovies(sessionId, accountId);
+    getFavoriteTV(sessionId, accountId);
+    getMovieWatchlist(sessionId, accountId);
+    getTVWatchlist(sessionId, accountId);
+  }, [details.id !== 0]);
+
   console.log(state);
   console.log(new Date(requestToken.expires_at));
   return (
