@@ -23,12 +23,15 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
     getCredits,
     getTrailers,
     getReviews,
-    clearDetails
+    clearDetails,
+    markAsFavorite,
+    addToWatchlist
   } = useActions();
-  const detailsState = useTypedSelector(state => state.details);
-  const images = useTypedSelector(state => state.config.images.images);
-
-  const { details, reviews, trailers, credits } = detailsState;
+  const state = useTypedSelector(state => state);
+  const images = state.config.images.images;
+  const { details, reviews, trailers, credits } = state.details;
+  const { session } = state.auth;
+  const { details: userDetails } = state.user;
 
   useEffect(() => {
     const type = match.params.type;
@@ -77,6 +80,19 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                 <p className="details-header-info-status">
                   {details.status} | {details.original_language.toUpperCase()}
                 </p>
+                <button
+                  onClick={() =>
+                    addToWatchlist({
+                      sessionId: session.session_id,
+                      watchlist: true,
+                      accountId: userDetails.id.toString(),
+                      mediaType: match.params.type,
+                      mediaId: details.id
+                    })
+                  }
+                >
+                  +
+                </button>
               </div>
             </div>
           </div>
