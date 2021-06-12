@@ -31,7 +31,7 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const images = state.config.images.images;
   const { details, reviews, trailers, credits } = state.details;
   const { session } = state.auth;
-  const { details: userDetails } = state.user;
+  const { details: userDetails, moviesWatchlist, TVWatchlist } = state.user;
 
   useEffect(() => {
     const type = match.params.type;
@@ -45,6 +45,26 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
       clearDetails();
     };
   }, []);
+
+  const renderWatchlistButton = () => {
+    return (
+      details && (
+        <button
+          onClick={() =>
+            addToWatchlist({
+              sessionId: session.session_id,
+              watchlist: true,
+              accountId: userDetails.id.toString(),
+              mediaType: match.params.type,
+              mediaId: details.id
+            })
+          }
+        >
+          +
+        </button>
+      )
+    );
+  };
 
   return (
     <div className="details">
@@ -80,19 +100,20 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                 <p className="details-header-info-status">
                   {details.status} | {details.original_language.toUpperCase()}
                 </p>
-                <button
-                  onClick={() =>
-                    addToWatchlist({
-                      sessionId: session.session_id,
-                      watchlist: true,
-                      accountId: userDetails.id.toString(),
-                      mediaType: match.params.type,
-                      mediaId: details.id
-                    })
-                  }
-                >
-                  +
-                </button>
+                {match.params.type === "movie" &&
+                moviesWatchlist.results.find(
+                  movie => movie.id === details.id
+                ) ? (
+                  <h1>'in watchlist'</h1>
+                ) : (
+                  renderWatchlistButton()
+                )}
+                {match.params.type === "tv" &&
+                TVWatchlist.results.find(tv => tv.id === details.id) ? (
+                  <h1>'in watchlist'</h1>
+                ) : (
+                  renderWatchlistButton()
+                )}
               </div>
             </div>
           </div>

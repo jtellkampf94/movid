@@ -18,7 +18,7 @@ interface LocationState {
   backdropURL: string;
 }
 
-const People: React.FC<RouteComponentProps<Params>> = ({ match, location }) => {
+const People: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const {
     getPeopleDetails,
     getPeopleCombinedCredits,

@@ -9,7 +9,6 @@ import {
   GetFavoriteTVAction,
   GetMovieWatchlistAction,
   GetTVWatchlistAction,
-  AddToWatchlistAction,
   MarkAsFavoriteAction
 } from "../actions";
 import { ActionTypes } from "./../action-types/index";
@@ -137,6 +136,10 @@ export const getTVWatchlist = (sessionId: string, accountId: string) => async (
   }
 };
 
+interface MovieDBResponse {
+  data: { status_code: number; status_message: string };
+}
+
 interface WatchlistParams {
   sessionId: string;
   accountId: string;
@@ -151,20 +154,23 @@ export const addToWatchlist = ({
   mediaId,
   watchlist,
   mediaType
-}: WatchlistParams) => async (
-  dispatch: Dispatch
-): Promise<AddToWatchlistAction | void> => {
+}: WatchlistParams) => async (dispatch: Dispatch): Promise<void> => {
   try {
-    const { data } = await axios.post(
+    const { data }: MovieDBResponse = await axios.post(
       `https://api.themoviedb.org/3/account/${accountId}/watchlist/?api_key=${key}&session_id=${sessionId}`,
       { media_type: mediaType, media_id: mediaId, watchlist },
       { headers: { "Content-Type": "application/json;charset=utf-8" } }
     );
-    const action: AddToWatchlistAction = {
-      type: ActionTypes.ADD_TO_WATCHLIST,
-      payload: data
-    };
-    return dispatch(action);
+
+    if (data.status_code === 201 && mediaType === "movie") {
+      getMovieWatchlist(sessionId, accountId);
+    }
+
+    if (data.status_code === 201 && mediaType === "tv") {
+      getTVWatchlist(sessionId, accountId);
+    }
+
+    return;
   } catch (error) {
     console.log(error);
   }
