@@ -1,5 +1,5 @@
-import { useEffect, Fragment } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { useEffect, useState, Fragment } from "react";
+import { RouteComponentProps, Link } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 
 import { useActions } from "../../hooks/useActions";
@@ -32,6 +32,7 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const { details, reviews, trailers, credits } = state.details;
   const { session } = state.auth;
   const { details: userDetails, moviesWatchlist, TVWatchlist } = state.user;
+  const [showPopover, setShowPopover] = useState(false);
 
   useEffect(() => {
     const type = match.params.type;
@@ -46,24 +47,25 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
     };
   }, []);
 
+  console.log(state.auth.session);
+
+  const handleClick = () => {
+    if (details && session.session_id.length > 0) {
+      console.log("hi");
+      addToWatchlist({
+        sessionId: session.session_id,
+        watchlist: true,
+        accountId: userDetails.id.toString(),
+        mediaType: match.params.type,
+        mediaId: details.id
+      });
+    } else {
+      setShowPopover(true);
+    }
+  };
+
   const renderWatchlistButton = () => {
-    return (
-      details && (
-        <button
-          onClick={() =>
-            addToWatchlist({
-              sessionId: session.session_id,
-              watchlist: true,
-              accountId: userDetails.id.toString(),
-              mediaType: match.params.type,
-              mediaId: details.id
-            })
-          }
-        >
-          +
-        </button>
-      )
-    );
+    return <button onClick={handleClick}>+</button>;
   };
 
   return (
@@ -101,19 +103,33 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                   {details.status} | {details.original_language.toUpperCase()}
                 </p>
                 {match.params.type === "movie" &&
-                moviesWatchlist.results.find(
-                  movie => movie.id === details.id
-                ) ? (
-                  <h1>'in watchlist'</h1>
-                ) : (
-                  renderWatchlistButton()
-                )}
+                  (moviesWatchlist.results.find(
+                    movie => movie.id === details.id
+                  ) ? (
+                    <h1>'in watchlist'</h1>
+                  ) : (
+                    <div>
+                      {renderWatchlistButton()}
+                      {showPopover && (
+                        <div>
+                          Please sign in <Link to="/login">here</Link> first
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 {match.params.type === "tv" &&
-                TVWatchlist.results.find(tv => tv.id === details.id) ? (
-                  <h1>'in watchlist'</h1>
-                ) : (
-                  renderWatchlistButton()
-                )}
+                  (TVWatchlist.results.find(tv => tv.id === details.id) ? (
+                    <h1>'in watchlist'</h1>
+                  ) : (
+                    <div>
+                      {renderWatchlistButton()}
+                      {showPopover && (
+                        <div>
+                          Please sign in <Link to="/login">here</Link> first
+                        </div>
+                      )}
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
