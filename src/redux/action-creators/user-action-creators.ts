@@ -106,6 +106,8 @@ export const getMovieWatchlist = (
   accountId: string
 ) => async (dispatch: Dispatch): Promise<GetMovieWatchlistAction | void> => {
   try {
+    console.log("dispatched");
+
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/account/${accountId}/watchlist/movies?api_key=${key}&session_id=${sessionId}&language=en-US&sort_by=created_at.asc&page=1`
     );
@@ -137,7 +139,7 @@ export const getTVWatchlist = (sessionId: string, accountId: string) => async (
 };
 
 interface MovieDBResponse {
-  data: { status_code: number; status_message: string };
+  data: { status_code: number; status_message: string; success: boolean };
 }
 
 interface WatchlistParams {
@@ -157,17 +159,17 @@ export const addToWatchlist = ({
 }: WatchlistParams) => async (dispatch: Dispatch): Promise<void> => {
   try {
     const { data }: MovieDBResponse = await axios.post(
-      `https://api.themoviedb.org/3/account/${accountId}/watchlist/?api_key=${key}&session_id=${sessionId}`,
+      `https://api.themoviedb.org/3/account/${accountId}/watchlist?api_key=${key}&session_id=${sessionId}`,
       { media_type: mediaType, media_id: mediaId, watchlist },
       { headers: { "Content-Type": "application/json;charset=utf-8" } }
     );
 
-    if (data.status_code === 201 && mediaType === "movie") {
-      getMovieWatchlist(sessionId, accountId);
+    if (data.success && mediaType === "movie") {
+      getMovieWatchlist(sessionId, accountId)(dispatch);
     }
 
-    if (data.status_code === 201 && mediaType === "tv") {
-      getTVWatchlist(sessionId, accountId);
+    if (data.success && mediaType === "tv") {
+      getTVWatchlist(sessionId, accountId)(dispatch);
     }
 
     return;
