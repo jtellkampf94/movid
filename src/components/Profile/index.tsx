@@ -16,7 +16,7 @@ const Profile: React.FC<RouteComponentProps> = ({ location }) => {
   const {
     clearRequestToken,
     createSession,
-    deleteSession,
+    logOut,
     getUserDetails,
     getRatedMovies,
     getRatedTV,
@@ -46,22 +46,24 @@ const Profile: React.FC<RouteComponentProps> = ({ location }) => {
   }, []);
 
   useEffect(() => {
-    getUserDetails(session.session_id);
-  }, [session.session_id.length > 0 && details.id === 0]);
+    if (session.session_id.length > 0 && details.id === 0) {
+      getUserDetails(session.session_id);
+    }
+  }, [session.session_id, details.id]);
 
   useEffect(() => {
-    const sessionId = session.session_id;
-    const accountId = details.id.toString();
-    getRatedMovies(sessionId, accountId);
-    getRatedTV(sessionId, accountId);
-    getFavoriteMovies(sessionId, accountId);
-    getFavoriteTV(sessionId, accountId);
-    getMovieWatchlist(sessionId, accountId);
-    getTVWatchlist(sessionId, accountId);
-  }, [details.id !== 0]);
+    if (details.id !== 0) {
+      const sessionId = session.session_id;
+      const accountId = details.id.toString();
+      getRatedMovies(sessionId, accountId);
+      getRatedTV(sessionId, accountId);
+      getFavoriteMovies(sessionId, accountId);
+      getFavoriteTV(sessionId, accountId);
+      getMovieWatchlist(sessionId, accountId);
+      getTVWatchlist(sessionId, accountId);
+    }
+  }, [details.id]);
 
-  console.log(state);
-  console.log(new Date(requestToken.expires_at));
   return (
     <Fragment>
       <Header />
@@ -71,7 +73,7 @@ const Profile: React.FC<RouteComponentProps> = ({ location }) => {
             <h1>Profile</h1>
             <button
               onClick={() => {
-                deleteSession(session.session_id);
+                logOut(session.session_id);
                 history.push("/login");
               }}
             >

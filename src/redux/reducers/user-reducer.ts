@@ -127,6 +127,8 @@ const userReducer = (
       return { ...state, moviesWatchlist: action.payload };
     case ActionTypes.GET_TV_WATCHLIST:
       return { ...state, TVWatchlist: action.payload };
+    case ActionTypes.LOG_OUT:
+      return initialState;
     default:
       return state;
   }

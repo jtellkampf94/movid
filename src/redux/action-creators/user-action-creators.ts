@@ -9,8 +9,10 @@ import {
   GetFavoriteTVAction,
   GetMovieWatchlistAction,
   GetTVWatchlistAction,
-  MarkAsFavoriteAction
+  MarkAsFavoriteAction,
+  LogOutAction
 } from "../actions";
+import { deleteSession } from "./index";
 import { ActionTypes } from "./../action-types/index";
 
 const key = process.env.REACT_APP_API_KEY;
@@ -165,11 +167,11 @@ export const addToWatchlist = ({
     );
 
     if (data.success && mediaType === "movie") {
-      getMovieWatchlist(sessionId, accountId)(dispatch);
+      await getMovieWatchlist(sessionId, accountId)(dispatch);
     }
 
     if (data.success && mediaType === "tv") {
-      getTVWatchlist(sessionId, accountId)(dispatch);
+      await getTVWatchlist(sessionId, accountId)(dispatch);
     }
 
     return;
@@ -206,6 +208,21 @@ export const markAsFavorite = ({
       payload: data
     };
     return dispatch(action);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const logOut = (sessionId: string) => async (
+  dispatch: Dispatch
+): Promise<void> => {
+  try {
+    await deleteSession(sessionId)(dispatch);
+    const action: LogOutAction = {
+      type: ActionTypes.LOG_OUT
+    };
+    dispatch(action);
+    return;
   } catch (error) {
     console.log(error);
   }

@@ -46,7 +46,7 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
     };
   }, []);
 
-  console.log(state.auth.session);
+  console.log(state);
 
   return (
     <div className="details">

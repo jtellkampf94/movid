@@ -15,7 +15,6 @@ const Login: React.FC = () => {
     }
   }, []);
 
-  console.log(reqToken);
   return (
     <div className="login">
       <h1>Login</h1>

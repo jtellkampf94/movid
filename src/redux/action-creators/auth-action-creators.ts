@@ -58,7 +58,6 @@ export const deleteSession = (sessionId: string) => async (
       `https://api.themoviedb.org/3/authentication/session?api_key=${key}`,
       { data: { session_id: sessionId } }
     );
-    console.log(data);
     const action: DeleteSessionAction = {
       type: ActionTypes.DELETE_SESSION,
       payload: data

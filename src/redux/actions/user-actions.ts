@@ -45,6 +45,10 @@ export interface MarkAsFavoriteAction {
   payload: any;
 }
 
+export interface LogOutAction {
+  type: ActionTypes.LOG_OUT;
+}
+
 export type UserAction =
   | GetUserDetailsAction
   | GetRatedMoviesAction
@@ -53,4 +57,5 @@ export type UserAction =
   | GetFavoriteTVAction
   | GetMovieWatchlistAction
   | GetTVWatchlistAction
-  | MarkAsFavoriteAction;
+  | MarkAsFavoriteAction
+  | LogOutAction;
