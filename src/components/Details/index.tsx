@@ -9,6 +9,7 @@ import Header from "../Header";
 import Review from "../Review";
 import StarRating from "../StarRating";
 import TrailersCarousel from "../TrailersCarousel";
+import WatchlistButton from "../WatchlistButton";
 
 import "./details.scss";
 
@@ -24,15 +25,13 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
     getTrailers,
     getReviews,
     clearDetails,
-    markAsFavorite,
-    addToWatchlist
+    markAsFavorite
   } = useActions();
   const state = useTypedSelector(state => state);
   const images = state.config.images.images;
   const { details, reviews, trailers, credits } = state.details;
   const { session } = state.auth;
-  const { details: userDetails, moviesWatchlist, TVWatchlist } = state.user;
-  const [showPopover, setShowPopover] = useState(false);
+  const { moviesWatchlist, TVWatchlist } = state.user;
 
   useEffect(() => {
     const type = match.params.type;
@@ -48,25 +47,6 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   }, []);
 
   console.log(state.auth.session);
-
-  const handleClick = () => {
-    if (details && session.session_id.length > 0) {
-      console.log("hi");
-      addToWatchlist({
-        sessionId: session.session_id,
-        watchlist: true,
-        accountId: userDetails.id.toString(),
-        mediaType: match.params.type,
-        mediaId: details.id
-      });
-    } else {
-      setShowPopover(true);
-    }
-  };
-
-  const renderWatchlistButton = () => {
-    return <button onClick={handleClick}>+</button>;
-  };
 
   return (
     <div className="details">
@@ -108,27 +88,21 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                   ) ? (
                     <h1>'in watchlist'</h1>
                   ) : (
-                    <div>
-                      {renderWatchlistButton()}
-                      {showPopover && (
-                        <div>
-                          Please sign in <Link to="/login">here</Link> first
-                        </div>
-                      )}
-                    </div>
+                    <WatchlistButton
+                      mediaId={details.id}
+                      mediaType={match.params.type}
+                      sessionId={session.session_id}
+                    />
                   ))}
                 {match.params.type === "tv" &&
                   (TVWatchlist.results.find(tv => tv.id === details.id) ? (
                     <h1>'in watchlist'</h1>
                   ) : (
-                    <div>
-                      {renderWatchlistButton()}
-                      {showPopover && (
-                        <div>
-                          Please sign in <Link to="/login">here</Link> first
-                        </div>
-                      )}
-                    </div>
+                    <WatchlistButton
+                      mediaId={details.id}
+                      mediaType={match.params.type}
+                      sessionId={session.session_id}
+                    />
                   ))}
               </div>
             </div>

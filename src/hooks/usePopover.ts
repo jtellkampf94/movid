@@ -1,3 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
-export const usePopover = () => {};
+export const usePopover = () => {
+  const [showPopover, setShowPopover] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowPopover(false);
+    }, 3000);
+  }, [showPopover === true]);
+
+  return { showPopover, setShowPopover };
+};
