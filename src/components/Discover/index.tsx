@@ -38,16 +38,15 @@ const Discover: React.FC = () => {
             />
           ))}
       </div>
-      <div className="discover-pagination">
-        {discover.total_pages > 1 && (
-          <Pagination
-            currentPage={discover.page}
-            totalPages={discover.total_pages}
-            previousPage={previousPage}
-            nextPage={nextPage}
-          />
-        )}
-      </div>
+
+      {discover.total_pages > 1 && (
+        <Pagination
+          currentPage={discover.page}
+          totalPages={discover.total_pages}
+          previousPage={previousPage}
+          nextPage={nextPage}
+        />
+      )}
     </div>
   );
 };

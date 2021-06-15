@@ -141,14 +141,12 @@ const Search: React.FC<RouteComponentProps<Params>> = ({ match }) => {
       )}
 
       {total_pages > 1 && (
-        <div className="search-page-pagination-container">
-          <Pagination
-            previousPage={previousPage}
-            nextPage={nextPage}
-            currentPage={page}
-            totalPages={total_pages}
-          />
-        </div>
+        <Pagination
+          previousPage={previousPage}
+          nextPage={nextPage}
+          currentPage={page}
+          totalPages={total_pages}
+        />
       )}
     </div>
   );

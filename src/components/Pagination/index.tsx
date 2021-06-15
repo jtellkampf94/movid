@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import "./pagination.scss";
 
 interface PaginationProps {
@@ -15,17 +14,17 @@ const Pagination: React.FC<PaginationProps> = ({
   nextPage
 }) => {
   return (
-    <Fragment>
-      <button className="discover-pagination-button" onClick={previousPage}>
+    <div className="pagination">
+      <button className="pagination-button" onClick={previousPage}>
         Previous
       </button>
-      <div className="discover-pagination-page-info">
+      <div className="pagination-page-info">
         {currentPage}/{totalPages}
       </div>
-      <button className="discover-pagination-button" onClick={nextPage}>
+      <button className="pagination-button" onClick={nextPage}>
         Next
       </button>
-    </Fragment>
+    </div>
   );
 };
 
