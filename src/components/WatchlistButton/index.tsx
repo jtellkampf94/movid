@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { Fragment } from "react";
+
 import { useActions } from "../../hooks/useActions";
 import { usePopover } from "../../hooks/usePopover";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -9,12 +11,14 @@ interface WatchlistButtonProps {
   mediaId: number;
   mediaType: string;
   sessionId: string;
+  inWatchlist: boolean;
 }
 
 const WatchlistButton: React.FC<WatchlistButtonProps> = ({
   mediaId,
   mediaType,
-  sessionId
+  sessionId,
+  inWatchlist
 }) => {
   const { addToWatchlist } = useActions();
   const { id } = useTypedSelector(state => state.user.details);
@@ -36,11 +40,17 @@ const WatchlistButton: React.FC<WatchlistButtonProps> = ({
 
   return (
     <div>
-      <button onClick={handleClick}>+</button>
-      {showPopover && (
-        <div>
-          Please sign in <Link to="/login">here</Link> first
-        </div>
+      {inWatchlist ? (
+        <h1>'in watchlist'</h1>
+      ) : (
+        <Fragment>
+          <button onClick={handleClick}>+</button>
+          {showPopover && (
+            <div>
+              Please sign in <Link to="/login">here</Link> first
+            </div>
+          )}
+        </Fragment>
       )}
     </div>
   );

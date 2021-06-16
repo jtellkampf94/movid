@@ -5,6 +5,7 @@ import { ScaleLoader } from "react-spinners";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import CastCarousel from "../CastCarousel";
+import FavoritesButton from "../FavoritesButton";
 import Header from "../Header";
 import Review from "../Review";
 import StarRating from "../StarRating";
@@ -24,14 +25,18 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
     getCredits,
     getTrailers,
     getReviews,
-    clearDetails,
-    markAsFavorite
+    clearDetails
   } = useActions();
   const state = useTypedSelector(state => state);
   const images = state.config.images.images;
   const { details, reviews, trailers, credits } = state.details;
   const { session } = state.auth;
-  const { moviesWatchlist, TVWatchlist } = state.user;
+  const {
+    moviesWatchlist,
+    TVWatchlist,
+    favoriteMovies,
+    favoriteTV
+  } = state.user;
 
   useEffect(() => {
     const type = match.params.type;
@@ -82,28 +87,50 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                 <p className="details-header-info-status">
                   {details.status} | {details.original_language.toUpperCase()}
                 </p>
-                {match.params.type === "movie" &&
-                  (moviesWatchlist.results.find(
-                    movie => movie.id === details.id
-                  ) ? (
-                    <h1>'in watchlist'</h1>
-                  ) : (
+                {match.params.type === "movie" && (
+                  <div>
                     <WatchlistButton
+                      inWatchlist={Boolean(
+                        moviesWatchlist.results.find(
+                          movie => movie.id === details.id
+                        )
+                      )}
                       mediaId={details.id}
                       mediaType={match.params.type}
                       sessionId={session.session_id}
                     />
-                  ))}
-                {match.params.type === "tv" &&
-                  (TVWatchlist.results.find(tv => tv.id === details.id) ? (
-                    <h1>'in watchlist'</h1>
-                  ) : (
-                    <WatchlistButton
+                    <FavoritesButton
+                      favorite={Boolean(
+                        favoriteMovies.results.find(
+                          movie => movie.id === details.id
+                        )
+                      )}
                       mediaId={details.id}
                       mediaType={match.params.type}
                       sessionId={session.session_id}
                     />
-                  ))}
+                  </div>
+                )}
+                {match.params.type === "tv" && (
+                  <div>
+                    <WatchlistButton
+                      inWatchlist={Boolean(
+                        TVWatchlist.results.find(tv => tv.id === details.id)
+                      )}
+                      mediaId={details.id}
+                      mediaType={match.params.type}
+                      sessionId={session.session_id}
+                    />
+                    <FavoritesButton
+                      favorite={Boolean(
+                        favoriteTV.results.find(tv => tv.id === details.id)
+                      )}
+                      mediaId={details.id}
+                      mediaType={match.params.type}
+                      sessionId={session.session_id}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

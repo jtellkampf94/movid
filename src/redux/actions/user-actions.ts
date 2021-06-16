@@ -40,11 +40,6 @@ export interface GetTVWatchlistAction {
   payload: UserTVResults;
 }
 
-export interface MarkAsFavoriteAction {
-  type: ActionTypes.MARK_AS_FAVORITE;
-  payload: any;
-}
-
 export interface LogOutAction {
   type: ActionTypes.LOG_OUT;
 }
@@ -57,5 +52,4 @@ export type UserAction =
   | GetFavoriteTVAction
   | GetMovieWatchlistAction
   | GetTVWatchlistAction
-  | MarkAsFavoriteAction
   | LogOutAction;

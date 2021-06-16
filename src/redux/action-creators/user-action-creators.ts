@@ -9,7 +9,6 @@ import {
   GetFavoriteTVAction,
   GetMovieWatchlistAction,
   GetTVWatchlistAction,
-  MarkAsFavoriteAction,
   LogOutAction
 } from "../actions";
 import { deleteSession } from "./index";
@@ -194,20 +193,23 @@ export const markAsFavorite = ({
   mediaId,
   favorite,
   mediaType
-}: FavoriteParams) => async (
-  dispatch: Dispatch
-): Promise<MarkAsFavoriteAction | void> => {
+}: FavoriteParams) => async (dispatch: Dispatch): Promise<void> => {
   try {
-    const { data } = await axios.post(
-      `https://api.themoviedb.org/3/account/${accountId}/favorite/?api_key=${key}&session_id=${sessionId}`,
+    const { data }: MovieDBResponse = await axios.post(
+      `https://api.themoviedb.org/3/account/${accountId}/favorite?api_key=${key}&session_id=${sessionId}`,
       { media_type: mediaType, media_id: mediaId, favorite },
       { headers: { "Content-Type": "application/json;charset=utf-8" } }
     );
-    const action: MarkAsFavoriteAction = {
-      type: ActionTypes.MARK_AS_FAVORITE,
-      payload: data
-    };
-    return dispatch(action);
+
+    if (data.success && mediaType === "movie") {
+      await getFavoriteMovies(sessionId, accountId)(dispatch);
+    }
+
+    if (data.success && mediaType === "tv") {
+      await getFavoriteTV(sessionId, accountId)(dispatch);
+    }
+
+    return;
   } catch (error) {
     console.log(error);
   }

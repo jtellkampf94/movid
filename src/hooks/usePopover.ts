@@ -4,10 +4,14 @@ export const usePopover = () => {
   const [showPopover, setShowPopover] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setShowPopover(false);
-    }, 3000);
-  }, [showPopover === true]);
+    if (showPopover) {
+      const timer = setTimeout(() => {
+        setShowPopover(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showPopover]);
 
   return { showPopover, setShowPopover };
 };
