@@ -1,3 +1,5 @@
+import { TVDetails } from "./tv-reducer";
+import { MovieDetails } from "./movies-reducer";
 import { UserAction } from "../actions";
 import { ActionTypes } from "../action-types";
 
@@ -17,45 +19,14 @@ export interface UserDetails {
 
 export interface UserMoviesResults {
   page: number;
-  results: {
-    adult: boolean;
-    backdrop_path: string | null;
-    genre_ids: number[];
-    id: number;
-    original_language: string;
-    original_title: string;
-    overview: string;
-    release_date: string;
-    poster_path: string | null;
-    popularity: number;
-    title: string;
-    video: boolean;
-    vote_average: number;
-    vote_count: number;
-    rating: number;
-  }[];
+  results: MovieDetails[];
   total_pages: number;
   total_results: number;
 }
 
 export interface UserTVResults {
   page: number;
-  results: {
-    backdrop_path: string | null;
-    first_air_date: string;
-    genre_ids: number[];
-    id: number;
-    original_language: string;
-    original_name: string;
-    overview: string;
-    origin_country: string[];
-    poster_path: string | null;
-    popularity: number;
-    name: string;
-    vote_average: number;
-    vote_count: number;
-    rating: number;
-  }[];
+  results: TVDetails[];
   total_pages: number;
   total_results: number;
 }

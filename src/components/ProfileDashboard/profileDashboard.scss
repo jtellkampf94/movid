@@ -1,0 +1,24 @@
+@import "../../styles/variables";
+
+.profile-dashboard {
+  &-container {
+    display: flex;
+    padding: 0 4%;
+  }
+
+  &-sidebar {
+    padding-top: 100px;
+    height: 100vh;
+    width: 300px;
+    font-family: $brand-font;
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    background-color: $primary-grey;
+  }
+
+  &-main {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+  }
+}

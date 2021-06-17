@@ -7,6 +7,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 
 import "./profile.scss";
+import ProfileDashboard from "../ProfileDashboard";
 
 const Profile: React.FC<RouteComponentProps> = ({ location }) => {
   const state = useTypedSelector(state => state);
@@ -64,22 +65,19 @@ const Profile: React.FC<RouteComponentProps> = ({ location }) => {
     }
   }, [details.id]);
 
+  console.log(state);
+
+  const handleLogOut = () => {
+    logOut(session.session_id);
+    history.push("/login");
+  };
+
   return (
     <Fragment>
       <Header />
       <div className="profile">
         {isApproved ? (
-          <div>
-            <h1>Profile</h1>
-            <button
-              onClick={() => {
-                logOut(session.session_id);
-                history.push("/login");
-              }}
-            >
-              Log out
-            </button>
-          </div>
+          <ProfileDashboard handleLogOut={handleLogOut} />
         ) : (
           <div>
             <h1>

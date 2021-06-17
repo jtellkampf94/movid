@@ -1,7 +1,6 @@
+@import "../../styles/variables";
+
 .profile {
   display: flex;
-  row-gap: 50px;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding-top: 100px;
+  color: $white;
 }

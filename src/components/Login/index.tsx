@@ -13,8 +13,12 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (reqTokenExpAt && new Date() > reqTokenExpAt) {
       requestToken();
+      console.log("ran");
     }
   }, []);
+
+  const state = useTypedSelector(state => state);
+  console.log(state);
 
   return (
     <div className="login">
