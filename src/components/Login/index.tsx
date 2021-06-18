@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import Header from "../Header";
+import NewStarRating from "../NewStarRating";
+import Star from "../Star";
 import "./login.scss";
 
 const Login: React.FC = () => {
@@ -32,6 +34,7 @@ const Login: React.FC = () => {
         >
           LOG IN
         </button>
+        <NewStarRating rating={2} />
       </div>
     </div>
   );

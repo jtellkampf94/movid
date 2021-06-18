@@ -88,18 +88,33 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
         <h1 className="profile-dashboard-main-title">Profile</h1>
         <h2 className="profile-dashboard-main-subtitle">{title}</h2>
 
-        {items.results.length > 0 &&
-          items.type === "movie" &&
-          items.results.map(item => (
-            <MovieCard
-              key={item.id}
-              movie={item}
-              isTV={false}
-              movieGenres={movieGenres}
-              secureBaseUrl={images.images.secure_base_url}
-              posterSize={images.images.poster_sizes[2]}
-            />
-          ))}
+        <div className="profile-dashboad-main-results-container">
+          {items.results.length > 0 &&
+            items.type === "movie" &&
+            items.results.map(item => (
+              <MovieCard
+                key={item.id}
+                movie={item}
+                isTV={false}
+                movieGenres={movieGenres}
+                secureBaseUrl={images.images.secure_base_url}
+                posterSize={images.images.poster_sizes[2]}
+              />
+            ))}
+
+          {items.results.length > 0 &&
+            items.type === "tv" &&
+            items.results.map(item => (
+              <MovieCard
+                key={item.id}
+                tv={item}
+                isTV={true}
+                movieGenres={movieGenres}
+                secureBaseUrl={images.images.secure_base_url}
+                posterSize={images.images.poster_sizes[2]}
+              />
+            ))}
+        </div>
 
         <button onClick={handleLogOut}>Log out</button>
       </div>
