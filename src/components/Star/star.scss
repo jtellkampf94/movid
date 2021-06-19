@@ -5,6 +5,10 @@
     position: relative;
     display: inline-block;
 
+    &:hover {
+      cursor: pointer;
+    }
+
     &::before {
       content: "\f005";
       font-family: "Font Awesome 5 Free";

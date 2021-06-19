@@ -34,7 +34,7 @@ const Login: React.FC = () => {
         >
           LOG IN
         </button>
-        <NewStarRating rating={2} />
+        <NewStarRating rating={9} />
       </div>
     </div>
   );
