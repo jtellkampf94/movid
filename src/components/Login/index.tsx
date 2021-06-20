@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import Header from "../Header";
-import NewStarRating from "../StarRating";
 import "./login.scss";
 
 const Login: React.FC = () => {
@@ -14,12 +13,10 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (reqTokenExpAt && new Date() > reqTokenExpAt) {
       requestToken();
-      console.log("ran");
     }
   }, []);
 
   const state = useTypedSelector(state => state);
-  console.log(state);
 
   return (
     <div className="login">
@@ -33,7 +30,6 @@ const Login: React.FC = () => {
         >
           LOG IN
         </button>
-        <NewStarRating active={true} rating={9} />
       </div>
     </div>
   );

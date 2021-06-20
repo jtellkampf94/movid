@@ -65,8 +65,6 @@ const Profile: React.FC<RouteComponentProps> = ({ location }) => {
     }
   }, [details.id]);
 
-  console.log(state);
-
   const handleLogOut = () => {
     logOut(session.session_id);
     history.push("/login");

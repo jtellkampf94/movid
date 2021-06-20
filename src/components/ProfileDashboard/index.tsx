@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useActions } from "../../hooks/useActions";
+import { usePagination } from "../../hooks/usePagination";
 
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import {
@@ -6,6 +8,7 @@ import {
   UserTVResults
 } from "../../redux/reducers/user-reducer";
 import MovieCard from "../MovieCard";
+import Pagination from "../Pagination";
 import ProfileLink from "../ProfileLink";
 
 import "./profileDashboard.scss";
@@ -15,13 +18,22 @@ interface ProfileDashboardProps {
 }
 
 type itemType =
-  | { type: "movie"; results: UserMoviesResults["results"] }
-  | { type: "tv"; results: UserTVResults["results"] };
+  | { type: "movie"; results: UserMoviesResults; action: any }
+  | { type: "tv"; results: UserTVResults; action: any };
 
 const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
   handleLogOut
 }) => {
+  const { nextPage, previousPage, page } = usePagination();
   const state = useTypedSelector(state => state);
+  const {
+    getRatedMovies,
+    getRatedTV,
+    getFavoriteMovies,
+    getFavoriteTV,
+    getMovieWatchlist,
+    getTVWatchlist
+  } = useActions();
   const {
     ratedMovies,
     ratedTV,
@@ -31,10 +43,13 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
     TVWatchlist
   } = state.user;
   const { movieGenres, images } = state.config;
+  const { session_id } = state.auth.session;
+  const { id: accountId } = state.user.details;
 
   const [items, setItems] = useState<itemType>({
     type: "movie",
-    results: ratedMovies.results
+    results: ratedMovies,
+    action: getRatedMovies
   });
 
   const [title, setTitle] = useState("");
@@ -42,11 +57,18 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
   useEffect(() => {
     setItems({
       type: "movie",
-      results: ratedMovies.results
+      results: ratedMovies,
+      action: getRatedMovies
     });
 
     setTitle("Rated Movies");
   }, [ratedMovies]);
+
+  useEffect(() => {
+    if (session_id.length > 0 && accountId !== 0) {
+      items.action(session_id, accountId.toString(), page);
+    }
+  }, [page]);
 
   return (
     <div className="profile-dashboard-container">
@@ -54,40 +76,58 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
         <ProfileLink
           title="Rated Movies"
           handleClick={() =>
-            setItems({ type: "movie", results: ratedMovies.results })
+            setItems({
+              type: "movie",
+              results: ratedMovies,
+              action: getRatedMovies
+            })
           }
           setTitle={title => setTitle(title)}
         />
         <ProfileLink
           title="Rated TV Shows"
-          handleClick={() => setItems({ type: "tv", results: ratedTV.results })}
+          handleClick={() =>
+            setItems({ type: "tv", results: ratedTV, action: getRatedTV })
+          }
           setTitle={title => setTitle(title)}
         />
         <ProfileLink
           title="Favorite Movies"
           handleClick={() =>
-            setItems({ type: "movie", results: favoriteMovies.results })
+            setItems({
+              type: "movie",
+              results: favoriteMovies,
+              action: getFavoriteMovies
+            })
           }
           setTitle={title => setTitle(title)}
         />
         <ProfileLink
           title="Favorite TV Shows"
           handleClick={() =>
-            setItems({ type: "tv", results: favoriteTV.results })
+            setItems({ type: "tv", results: favoriteTV, action: getFavoriteTV })
           }
           setTitle={title => setTitle(title)}
         />
         <ProfileLink
           title="Movies Watchlist"
           handleClick={() =>
-            setItems({ type: "movie", results: moviesWatchlist.results })
+            setItems({
+              type: "movie",
+              results: moviesWatchlist,
+              action: getMovieWatchlist
+            })
           }
           setTitle={title => setTitle(title)}
         />
         <ProfileLink
           title="TV Watchlist"
           handleClick={() =>
-            setItems({ type: "tv", results: TVWatchlist.results })
+            setItems({
+              type: "tv",
+              results: TVWatchlist,
+              action: getTVWatchlist
+            })
           }
           setTitle={title => setTitle(title)}
         />
@@ -98,9 +138,9 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
         <h2 className="profile-dashboard-main-subtitle">{title}</h2>
 
         <div className="profile-dashboad-main-results-container">
-          {items.results.length > 0 &&
+          {items.results.total_results > 0 &&
             items.type === "movie" &&
-            items.results.map(item => (
+            items.results.results.map(item => (
               <MovieCard
                 key={item.id}
                 movie={item}
@@ -111,9 +151,9 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
               />
             ))}
 
-          {items.results.length > 0 &&
+          {items.results.total_results > 0 &&
             items.type === "tv" &&
-            items.results.map(item => (
+            items.results.results.map(item => (
               <MovieCard
                 key={item.id}
                 tv={item}
@@ -124,6 +164,15 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
               />
             ))}
         </div>
+
+        {items.results.total_pages > 1 && page !== 0 && (
+          <Pagination
+            nextPage={nextPage}
+            previousPage={previousPage}
+            currentPage={page}
+            totalPages={items.results.total_pages}
+          />
+        )}
 
         <button onClick={handleLogOut}>Log out</button>
       </div>

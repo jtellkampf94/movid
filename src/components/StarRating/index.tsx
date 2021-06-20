@@ -1,7 +1,8 @@
 import { useState, useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
-import { useActions } from "../../hooks/useActions";
+import { v4 as uuidv4 } from "uuid";
 
+import { useActions } from "../../hooks/useActions";
 import { usePopover } from "../../hooks/usePopover";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import Star from "../Star";
@@ -98,6 +99,7 @@ const StarRating: React.FC<StarRatingProps> = ({
             }
             return (
               <Star
+                key={uuidv4()}
                 isHovered={hoverRating ? hoverRating >= starNumber : false}
                 handleMouseLeave={handleMouseLeave}
                 handleClick={() => handleClick(starNumber)}

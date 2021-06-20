@@ -15,13 +15,21 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   return (
     <div className="pagination">
-      <button className="pagination-button" onClick={previousPage}>
+      <button
+        className="pagination-button"
+        disabled={currentPage === 1}
+        onClick={previousPage}
+      >
         Previous
       </button>
       <div className="pagination-page-info">
         {currentPage}/{totalPages}
       </div>
-      <button className="pagination-button" onClick={nextPage}>
+      <button
+        className="pagination-button"
+        disabled={currentPage === totalPages}
+        onClick={nextPage}
+      >
         Next
       </button>
     </div>
