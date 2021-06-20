@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import {
@@ -37,7 +37,16 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
     results: ratedMovies.results
   });
 
-  const [title, setTitle] = useState("Rated Movies");
+  const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    setItems({
+      type: "movie",
+      results: ratedMovies.results
+    });
+
+    setTitle("Rated Movies");
+  }, [ratedMovies]);
 
   return (
     <div className="profile-dashboard-container">

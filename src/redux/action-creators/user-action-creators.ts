@@ -107,8 +107,6 @@ export const getMovieWatchlist = (
   accountId: string
 ) => async (dispatch: Dispatch): Promise<GetMovieWatchlistAction | void> => {
   try {
-    console.log("dispatched");
-
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/account/${accountId}/watchlist/movies?api_key=${key}&session_id=${sessionId}&language=en-US&sort_by=created_at.asc&page=1`
     );
@@ -207,6 +205,42 @@ export const markAsFavorite = ({
 
     if (data.success && mediaType === "tv") {
       await getFavoriteTV(sessionId, accountId)(dispatch);
+    }
+
+    return;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+interface RateItemParams {
+  itemType: "movie" | "tv";
+  id: string;
+  sessionId: string;
+  accountId: string;
+  rating: number;
+}
+
+export const rateItem = ({
+  itemType,
+  id,
+  sessionId,
+  accountId,
+  rating
+}: RateItemParams) => async (dispatch: Dispatch): Promise<void> => {
+  try {
+    const { data }: MovieDBResponse = await axios.post(
+      `https://api.themoviedb.org/3/${itemType}/${id}/rating?api_key=${key}&session_id=${sessionId}`,
+      { value: rating },
+      { headers: { "Content-Type": "application/json;charset=utf-8" } }
+    );
+
+    if (data.success && itemType === "movie") {
+      await getRatedMovies(sessionId, accountId)(dispatch);
+    }
+
+    if (data.success && itemType === "tv") {
+      await getRatedTV(sessionId, accountId)(dispatch);
     }
 
     return;

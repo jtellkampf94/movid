@@ -15,7 +15,7 @@ import WatchlistButton from "../WatchlistButton";
 import "./details.scss";
 
 interface Params {
-  type: string;
+  type: "movie" | "tv";
   id: string;
 }
 
@@ -82,7 +82,12 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                   <span className="details-header-info-rating-number">
                     {details.vote_average}
                   </span>
-                  <StarRating rating={details.vote_average} />
+                  <StarRating
+                    id={details.id}
+                    itemType={match.params.type}
+                    active={true}
+                    rating={details.vote_average}
+                  />
                 </div>
                 <p className="details-header-info-status">
                   {details.status} | {details.original_language.toUpperCase()}

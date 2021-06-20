@@ -96,6 +96,7 @@ const People: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                     {Number((person.popularity / 10).toFixed(1))}
                   </span>
                   <StarRating
+                    active={false}
                     rating={Number((person.popularity / 10).toFixed(1))}
                   />
                 </div>

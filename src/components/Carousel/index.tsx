@@ -80,7 +80,10 @@ const Carousel: React.FC<CarouselProps> = props => {
                         <span className="swiper-slide-rating">
                           {tvItem.vote_average}
                         </span>
-                        <StarRating rating={tvItem.vote_average} />
+                        <StarRating
+                          active={false}
+                          rating={tvItem.vote_average}
+                        />
                       </div>
                     </div>
                   </div>
@@ -114,7 +117,10 @@ const Carousel: React.FC<CarouselProps> = props => {
                         <span className="swiper-slide-rating">
                           {movie.vote_average}
                         </span>
-                        <StarRating rating={movie.vote_average} />
+                        <StarRating
+                          active={false}
+                          rating={movie.vote_average}
+                        />
                       </div>
                     </div>
                   </div>
