@@ -3,22 +3,41 @@
 .profile-dashboard {
   &-container {
     display: flex;
+    width: 100%;
+
     padding: 0 4%;
   }
 
   &-sidebar {
     padding-top: 100px;
-    height: 100vh;
-    width: 300px;
-    font-family: $brand-font;
-    text-transform: uppercase;
-    font-size: 1.25rem;
+    min-height: 100vh;
+    height: 100%;
+    width: 20%;
+    flex-shrink: 0;
     background-color: $primary-grey;
   }
 
   &-main {
-    padding-top: 100px;
     display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    padding-top: 100px;
     flex-direction: column;
+    width: 80%;
+
+    font-family: $brand-font;
+    text-transform: uppercase;
+
+    &-title {
+      margin-bottom: 20px;
+    }
+
+    &-subtitle {
+      margin-bottom: 20px;
+    }
+
+    &-results-container {
+      width: 100%;
+    }
   }
 }

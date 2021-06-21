@@ -165,6 +165,7 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
             ))}
         </div>
 
+        {/* <button onClick={handleLogOut}>Log out</button> */}
         {items.results.total_pages > 1 && page !== 0 && (
           <Pagination
             nextPage={nextPage}
@@ -173,8 +174,6 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
             totalPages={items.results.total_pages}
           />
         )}
-
-        <button onClick={handleLogOut}>Log out</button>
       </div>
     </div>
   );
