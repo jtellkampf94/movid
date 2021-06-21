@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { MovieDetails } from "../../redux/reducers/movies-reducer";
-import { TVDetails } from "../../redux/reducers/tv-reducer";
 import Carousel from "../Carousel";
 import Header from "../Header";
 import MoviesCarousel from "../MoviesCarousel";
@@ -57,16 +55,6 @@ const Home: React.FC = () => {
     topRated: topRatedTV
   } = state.tv;
 
-  let items: TVDetails[] | MovieDetails[];
-  let upcoming: TVDetails[] | MovieDetails[];
-  if (isTV) {
-    items = airingToday.results;
-    upcoming = airingToday.results;
-  } else {
-    items = nowPlayingMovies.results;
-    upcoming = airingToday.results;
-  }
-
   return (
     <div className="home">
       <Header />
@@ -91,10 +79,12 @@ const Home: React.FC = () => {
       <div className="home-main-content">
         <div className="home-buttons-container">
           <button className="home-buttons" onClick={() => setIsTV(false)}>
-            Movie
+            <i className="home-buttons-icon fas fa-film"></i>
+            <span className="home-buttons-text">Movie</span>
           </button>
           <button className="home-buttons" onClick={() => setIsTV(true)}>
-            TV
+            <i className="home-buttons-icon fas fa-tv"></i>
+            <span className="home-buttons-text">TV</span>
           </button>
         </div>
 

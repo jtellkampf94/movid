@@ -14,6 +14,16 @@
     font-family: $brand-font;
     text-transform: uppercase;
   }
+
+  &-item span {
+    font-size: 0.75rem;
+    color: $white;
+    font-family: $brand-font;
+    text-transform: uppercase;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 @media only screen and (max-width: 900px) {
@@ -35,6 +45,18 @@
       transition: all 0.3s ease-in-out;
 
       &:hover {
+        color: $red;
+      }
+    }
+
+    &-item span {
+      font-size: 0.75rem;
+      -webkit-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        cursor: pointer;
         color: $red;
       }
     }
