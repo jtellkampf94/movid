@@ -41,7 +41,7 @@ const FavoritesButton: React.FC<FavoritesButtonProps> = ({
     <div className="favorites-button">
       <i
         className="favorites-button-button far fa-thumbs-up"
-        style={{ color: `${favorite ? "green" : "white"}` }}
+        style={{ color: `${favorite ? "#daa520" : "white"}` }}
         onClick={handleClick}
       />
 

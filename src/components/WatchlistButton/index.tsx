@@ -28,7 +28,7 @@ const WatchlistButton: React.FC<WatchlistButtonProps> = ({
     if (sessionId.length > 0) {
       addToWatchlist({
         sessionId,
-        watchlist: true,
+        watchlist: inWatchlist ? false : true,
         accountId: id.toString(),
         mediaType,
         mediaId,
@@ -40,20 +40,16 @@ const WatchlistButton: React.FC<WatchlistButtonProps> = ({
 
   return (
     <div className="watchlist-button">
-      {inWatchlist ? (
-        <h1>'in watchlist'</h1>
-      ) : (
-        <Fragment>
-          <button className="watchlist-button-button" onClick={handleClick}>
-            +
-          </button>
-          {showPopover && (
-            <div className="popover">
-              Please sign in <Link to="/login">here</Link> first
-            </div>
-          )}
-        </Fragment>
-      )}
+      <Fragment>
+        <button className="watchlist-button-button" onClick={handleClick}>
+          {inWatchlist ? "-" : "+"}
+        </button>
+        {showPopover && (
+          <div className="popover">
+            Please sign in <Link to="/login">here</Link> first
+          </div>
+        )}
+      </Fragment>
     </div>
   );
 };

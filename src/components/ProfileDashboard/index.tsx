@@ -5,7 +5,7 @@ import { usePagination } from "../../hooks/usePagination";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import {
   UserMoviesResults,
-  UserTVResults
+  UserTVResults,
 } from "../../redux/reducers/user-reducer";
 import MovieCard from "../MovieCard";
 import Pagination from "../Pagination";
@@ -22,17 +22,17 @@ type itemType =
   | { type: "tv"; results: UserTVResults; action: any };
 
 const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
-  handleLogOut
+  handleLogOut,
 }) => {
   const { nextPage, previousPage, page } = usePagination();
-  const state = useTypedSelector(state => state);
+  const state = useTypedSelector((state) => state);
   const {
     getRatedMovies,
     getRatedTV,
     getFavoriteMovies,
     getFavoriteTV,
     getMovieWatchlist,
-    getTVWatchlist
+    getTVWatchlist,
   } = useActions();
   const {
     ratedMovies,
@@ -40,7 +40,7 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
     favoriteMovies,
     favoriteTV,
     moviesWatchlist,
-    TVWatchlist
+    TVWatchlist,
   } = state.user;
   const { movieGenres, images } = state.config;
   const { session_id } = state.auth.session;
@@ -49,7 +49,7 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
   const [items, setItems] = useState<itemType>({
     type: "movie",
     results: ratedMovies,
-    action: getRatedMovies
+    action: getRatedMovies,
   });
 
   const [title, setTitle] = useState("");
@@ -58,7 +58,7 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
     setItems({
       type: "movie",
       results: ratedMovies,
-      action: getRatedMovies
+      action: getRatedMovies,
     });
 
     setTitle("Rated Movies");
@@ -79,17 +79,17 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
             setItems({
               type: "movie",
               results: ratedMovies,
-              action: getRatedMovies
+              action: getRatedMovies,
             })
           }
-          setTitle={title => setTitle(title)}
+          setTitle={(title) => setTitle(title)}
         />
         <ProfileLink
           title="Rated TV Shows"
           handleClick={() =>
             setItems({ type: "tv", results: ratedTV, action: getRatedTV })
           }
-          setTitle={title => setTitle(title)}
+          setTitle={(title) => setTitle(title)}
         />
         <ProfileLink
           title="Favorite Movies"
@@ -97,17 +97,17 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
             setItems({
               type: "movie",
               results: favoriteMovies,
-              action: getFavoriteMovies
+              action: getFavoriteMovies,
             })
           }
-          setTitle={title => setTitle(title)}
+          setTitle={(title) => setTitle(title)}
         />
         <ProfileLink
           title="Favorite TV Shows"
           handleClick={() =>
             setItems({ type: "tv", results: favoriteTV, action: getFavoriteTV })
           }
-          setTitle={title => setTitle(title)}
+          setTitle={(title) => setTitle(title)}
         />
         <ProfileLink
           title="Movies Watchlist"
@@ -115,10 +115,10 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
             setItems({
               type: "movie",
               results: moviesWatchlist,
-              action: getMovieWatchlist
+              action: getMovieWatchlist,
             })
           }
-          setTitle={title => setTitle(title)}
+          setTitle={(title) => setTitle(title)}
         />
         <ProfileLink
           title="TV Watchlist"
@@ -126,10 +126,10 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
             setItems({
               type: "tv",
               results: TVWatchlist,
-              action: getTVWatchlist
+              action: getTVWatchlist,
             })
           }
-          setTitle={title => setTitle(title)}
+          setTitle={(title) => setTitle(title)}
         />
       </div>
 
@@ -137,10 +137,10 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
         <h1 className="profile-dashboard-main-title">Profile</h1>
         <h2 className="profile-dashboard-main-subtitle">{title}</h2>
 
-        <div className="profile-dashboad-main-results-container">
+        <div className="profile-dashboard-main-results-container">
           {items.results.total_results > 0 &&
             items.type === "movie" &&
-            items.results.results.map(item => (
+            items.results.results.map((item) => (
               <MovieCard
                 key={item.id}
                 movie={item}
@@ -153,7 +153,7 @@ const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
 
           {items.results.total_results > 0 &&
             items.type === "tv" &&
-            items.results.results.map(item => (
+            items.results.results.map((item) => (
               <MovieCard
                 key={item.id}
                 tv={item}
