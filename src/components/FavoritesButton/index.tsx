@@ -17,20 +17,20 @@ const FavoritesButton: React.FC<FavoritesButtonProps> = ({
   mediaId,
   mediaType,
   sessionId,
-  favorite
+  favorite,
 }) => {
   const { showPopover, setShowPopover } = usePopover();
   const { markAsFavorite } = useActions();
-  const { id } = useTypedSelector(state => state.user.details);
+  const { id } = useTypedSelector((state) => state.user.details);
 
   const handleClick = () => {
     if (sessionId.length > 0) {
       markAsFavorite({
         sessionId,
-        favorite: true,
+        favorite: favorite ? false : true,
         accountId: id.toString(),
         mediaType,
-        mediaId
+        mediaId,
       });
     } else {
       setShowPopover(true);
@@ -38,16 +38,15 @@ const FavoritesButton: React.FC<FavoritesButtonProps> = ({
   };
 
   return (
-    <div>
-      <button
-        disabled={favorite}
-        style={{ backgroundColor: `${favorite ? "red" : "white"}` }}
+    <div className="favorites-button">
+      <i
+        className="favorites-button-button far fa-thumbs-up"
+        style={{ color: `${favorite ? "green" : "white"}` }}
         onClick={handleClick}
-      >
-        like
-      </button>
+      />
+
       {showPopover && (
-        <div>
+        <div className="favorites-button-popup">
           Please sign in <Link to="/login">here</Link> first
         </div>
       )}

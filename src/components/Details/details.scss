@@ -77,6 +77,12 @@
   &-reviews {
     padding: 0px 15%;
   }
+
+  &-buttons-container {
+    // background-color: red;
+    display: flex;
+    align-items: center;
+  }
 }
 
 .header-loader {
@@ -103,6 +109,36 @@
 
     &-reviews {
       padding: 0px 10%;
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .details {
+    &-header {
+      &-info {
+        &-title {
+          font-size: 1rem;
+        }
+
+        &-rating {
+          font-size: 0.75rem;
+        }
+
+        &-status {
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    &-main {
+      &-overview {
+        font-size: 0.9rem;
+      }
+    }
+
+    &-heading {
+      font-size: 1rem;
     }
   }
 }

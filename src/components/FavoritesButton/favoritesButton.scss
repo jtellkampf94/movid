@@ -1,1 +1,10 @@
 @import "../../styles/variables";
+
+.favorites-button {
+  display: inline-block;
+  margin-right: 5px;
+
+  &-button {
+    cursor: pointer;
+  }
+}

@@ -20,23 +20,14 @@ interface Params {
 }
 
 const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
-  const {
-    getDetails,
-    getCredits,
-    getTrailers,
-    getReviews,
-    clearDetails
-  } = useActions();
-  const state = useTypedSelector(state => state);
+  const { getDetails, getCredits, getTrailers, getReviews, clearDetails } =
+    useActions();
+  const state = useTypedSelector((state) => state);
   const images = state.config.images.images;
   const { details, reviews, trailers, credits } = state.details;
   const { session } = state.auth;
-  const {
-    moviesWatchlist,
-    TVWatchlist,
-    favoriteMovies,
-    favoriteTV
-  } = state.user;
+  const { moviesWatchlist, TVWatchlist, favoriteMovies, favoriteTV } =
+    state.user;
 
   useEffect(() => {
     const type = match.params.type;
@@ -61,7 +52,7 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
             style={{
               background: `linear-gradient(0deg, rgba(0,0,0,1) 5%, rgba(0,0,0,0.45) 92%) center center no-repeat, #fff
               url(${images.secure_base_url}original${details.backdrop_path})
-              center top no-repeat`
+              center top no-repeat`,
             }}
           >
             <div className="details-header">
@@ -91,21 +82,21 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                   {details.status} | {details.original_language.toUpperCase()}
                 </p>
                 {match.params.type === "movie" && (
-                  <div>
-                    <WatchlistButton
-                      inWatchlist={Boolean(
-                        moviesWatchlist.results.find(
-                          movie => movie.id === details.id
+                  <div className="details-buttons-container">
+                    <FavoritesButton
+                      favorite={Boolean(
+                        favoriteMovies.results.find(
+                          (movie) => movie.id === details.id
                         )
                       )}
                       mediaId={details.id}
                       mediaType={match.params.type}
                       sessionId={session.session_id}
                     />
-                    <FavoritesButton
-                      favorite={Boolean(
-                        favoriteMovies.results.find(
-                          movie => movie.id === details.id
+                    <WatchlistButton
+                      inWatchlist={Boolean(
+                        moviesWatchlist.results.find(
+                          (movie) => movie.id === details.id
                         )
                       )}
                       mediaId={details.id}
@@ -115,18 +106,18 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                   </div>
                 )}
                 {match.params.type === "tv" && (
-                  <div>
-                    <WatchlistButton
-                      inWatchlist={Boolean(
-                        TVWatchlist.results.find(tv => tv.id === details.id)
+                  <div className="details-buttons-container">
+                    <FavoritesButton
+                      favorite={Boolean(
+                        favoriteTV.results.find((tv) => tv.id === details.id)
                       )}
                       mediaId={details.id}
                       mediaType={match.params.type}
                       sessionId={session.session_id}
                     />
-                    <FavoritesButton
-                      favorite={Boolean(
-                        favoriteTV.results.find(tv => tv.id === details.id)
+                    <WatchlistButton
+                      inWatchlist={Boolean(
+                        TVWatchlist.results.find((tv) => tv.id === details.id)
                       )}
                       mediaId={details.id}
                       mediaType={match.params.type}

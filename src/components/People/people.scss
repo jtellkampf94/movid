@@ -121,3 +121,33 @@
 .header-loader {
   margin-top: 80px;
 }
+
+@media only screen and (max-width: 800px) {
+  .people {
+    &-header {
+      &-info {
+        &-title {
+          font-size: 1rem;
+        }
+
+        &-rating {
+          font-size: 0.75rem;
+        }
+
+        &-status {
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    &-heading {
+      font-size: 1rem;
+    }
+
+    &-main {
+      &-biography {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

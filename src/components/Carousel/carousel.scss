@@ -69,19 +69,6 @@
       &-background-main {
         height: 50vh;
       }
-
-      &-title {
-        font-size: 1.5rem;
-      }
-
-      &-home-details {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      &-rating {
-        margin: 0px;
-      }
     }
   }
 }
@@ -91,6 +78,18 @@
     &-slide {
       &-background-main {
         height: 80vh;
+      }
+
+      &-container {
+        max-width: 100%;
+      }
+
+      &-title {
+        font-size: 1rem;
+      }
+
+      &-home-details {
+        font-size: 0.75rem;
       }
     }
   }

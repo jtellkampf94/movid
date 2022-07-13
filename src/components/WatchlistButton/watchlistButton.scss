@@ -1,1 +1,19 @@
 @import "../../styles/variables";
+
+.watchlist-button {
+  display: inline-block;
+
+  &-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    font-size: 2rem;
+    outline: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+}
