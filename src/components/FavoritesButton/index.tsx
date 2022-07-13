@@ -46,7 +46,7 @@ const FavoritesButton: React.FC<FavoritesButtonProps> = ({
       />
 
       {showPopover && (
-        <div className="favorites-button-popup">
+        <div className="popover">
           Please sign in <Link to="/login">here</Link> first
         </div>
       )}

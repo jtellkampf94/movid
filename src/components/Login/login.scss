@@ -1,5 +1,35 @@
+@import "../../styles/variables";
+
 .login {
   &-contents {
-    padding-top: 60px;
+    padding: 80px 4% 0;
+
+    &-title {
+      font-size: 2rem;
+      color: #fff;
+      font-family: $brand-font;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    & button {
+      font-family: $brand-font;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 0.75rem;
+      border: none;
+      background-color: $red;
+      color: $white;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  &-contents {
+    &-title {
+      font-size: 1rem;
+    }
   }
 }

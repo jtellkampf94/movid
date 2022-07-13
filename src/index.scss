@@ -30,3 +30,18 @@ body {
 a {
   text-decoration: none;
 }
+
+.popover {
+  position: absolute;
+  width: 160px;
+  background: $secondary-grey;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.9rem;
+
+  & a {
+    color: white;
+    text-decoration: underline;
+  }
+}

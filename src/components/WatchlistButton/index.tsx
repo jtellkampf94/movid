@@ -48,7 +48,7 @@ const WatchlistButton: React.FC<WatchlistButtonProps> = ({
             +
           </button>
           {showPopover && (
-            <div>
+            <div className="popover">
               Please sign in <Link to="/login">here</Link> first
             </div>
           )}
