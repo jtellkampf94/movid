@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/movid/static/css/main.4bd1dc14.chunk.css",
-    "main.js": "/movid/static/js/main.e306f413.chunk.js",
-    "main.js.map": "/movid/static/js/main.e306f413.chunk.js.map",
+    "main.js": "/movid/static/js/main.69daac7b.chunk.js",
+    "main.js.map": "/movid/static/js/main.69daac7b.chunk.js.map",
     "runtime-main.js": "/movid/static/js/runtime-main.4137685c.js",
     "runtime-main.js.map": "/movid/static/js/runtime-main.4137685c.js.map",
     "static/css/2.921dbb59.chunk.css": "/movid/static/css/2.921dbb59.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.921dbb59.chunk.css",
     "static/js/2.24792bb0.chunk.js",
     "static/css/main.4bd1dc14.chunk.css",
-    "static/js/main.e306f413.chunk.js"
+    "static/js/main.69daac7b.chunk.js"
   ]
 }
