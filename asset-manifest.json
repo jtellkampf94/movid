@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/movid/static/css/main.4bd1dc14.chunk.css",
+    "main.js": "/movid/static/js/main.e306f413.chunk.js",
+    "main.js.map": "/movid/static/js/main.e306f413.chunk.js.map",
+    "runtime-main.js": "/movid/static/js/runtime-main.4137685c.js",
+    "runtime-main.js.map": "/movid/static/js/runtime-main.4137685c.js.map",
+    "static/css/2.921dbb59.chunk.css": "/movid/static/css/2.921dbb59.chunk.css",
+    "static/js/2.24792bb0.chunk.js": "/movid/static/js/2.24792bb0.chunk.js",
+    "static/js/2.24792bb0.chunk.js.map": "/movid/static/js/2.24792bb0.chunk.js.map",
+    "index.html": "/movid/index.html",
+    "static/css/2.921dbb59.chunk.css.map": "/movid/static/css/2.921dbb59.chunk.css.map",
+    "static/css/main.4bd1dc14.chunk.css.map": "/movid/static/css/main.4bd1dc14.chunk.css.map",
+    "static/js/2.24792bb0.chunk.js.LICENSE.txt": "/movid/static/js/2.24792bb0.chunk.js.LICENSE.txt",
+    "static/media/index.scss": "/movid/static/media/GlacialIndifference-Regular.663a1c12.otf",
+    "static/media/dropdown.scss": "/movid/static/media/arrow-down.68bc9d9a.svg",
+    "static/media/all.min.css": "/movid/static/media/fa-solid-900.eeccf4f6.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4137685c.js",
+    "static/css/2.921dbb59.chunk.css",
+    "static/js/2.24792bb0.chunk.js",
+    "static/css/main.4bd1dc14.chunk.css",
+    "static/js/main.e306f413.chunk.js"
+  ]
+}
