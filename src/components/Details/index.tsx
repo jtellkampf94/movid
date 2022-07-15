@@ -1,5 +1,5 @@
-import { useEffect, useState, Fragment } from "react";
-import { RouteComponentProps, Link } from "react-router-dom";
+import { useEffect, Fragment } from "react";
+import { RouteComponentProps } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 
 import { useActions } from "../../hooks/useActions";
@@ -40,7 +40,10 @@ const Details: React.FC<RouteComponentProps<Params>> = ({ match }) => {
     return () => {
       clearDetails();
     };
-  }, []);
+  }, [
+    match.params.type,
+    match.params.id,
+  ]);
 
   return (
     <div className="details">

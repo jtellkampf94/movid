@@ -13,13 +13,13 @@ import Search from "../Search";
 import Login from "../Login";
 
 const App: React.FC = () => {
-  const { requestToken, loggedIn } = useTypedSelector(state => state.auth);
+  const { loggedIn } = useTypedSelector((state) => state.auth);
   const { getImagesConfig, getMovieGenreConfig } = useActions();
 
   useEffect(() => {
     getImagesConfig();
     getMovieGenreConfig();
-  }, []);
+  }, [getImagesConfig, getMovieGenreConfig]);
 
   const { search } = useLocation();
   const params = queryString.parse(search);
